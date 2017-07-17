@@ -1,0 +1,171 @@
+<%- include header %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12 main">
+
+            <h1 class="page-header"></h1>
+
+            <div class="row">
+
+                <div id="dash-saved" class="col-sm-4">
+
+                    <h4>Saved Games</h4>
+
+                    <% if( typeof saved[0] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-1">
+                            <div class="panel-body text-center">
+                                <h3><%= saved[0].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/update/' + saved[0].id) %>" class="btn btn-warning">Setup</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof saved[1] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-2">
+                            <div class="panel-body text-center">
+                                <h3><%= saved[1].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/update/' + saved[1].id) %>" class="btn btn-warning">Setup</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof saved[2] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-3">
+                            <div class="panel-body text-center">
+                                <h3><%= saved[2].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/update/' + saved[2].id) %>" class="btn btn-warning">Setup</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                </div>
+
+                <div id="dash-launched" class="col-sm-4">
+
+                    <h4>Live Games</h4>
+
+                    <% if( typeof launched[0] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-1">
+                            <div class="panel-body text-center">
+                                <h3><%= launched[0].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + launched[0].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof launched[1] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-2">
+                            <div class="panel-body text-center">
+                                <h3><%= launched[1].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + launched[1].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof launched[2] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-3">
+                            <div class="panel-body text-center">
+                                <h3><%= launched[2].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + launched[2].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                </div>
+
+                <div id="dash-finalized" class="col-sm-4">
+
+                    <h4>Finalized Games</h4>
+
+                    <% if( typeof finalized[0] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-1">
+                            <div class="panel-body text-center">
+                                <h3><%= finalized[0].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + finalized[0].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof finalized[1] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-2">
+                            <div class="panel-body text-center">
+                                <h3><%= finalized[1].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + finalized[1].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <% if( typeof finalized[2] != 'undefined' ){ %>
+                        <div class="panel panel-default slot-3">
+                            <div class="panel-body text-center">
+                                <h3><%= finalized[2].name %></h3>
+                                <hr/>
+                                <a href="<%- makeURL('/admin/games/gameboard/' + finalized[2].id) %>" class="btn btn-info">Gameboard</a>
+                            </div>
+                        </div>
+                    <% }else{ %>
+                        <div class="panel panel-default dotted">
+                            <div class="panel-body text-center">
+                            </div>
+                        </div>
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+<%- include footer %>

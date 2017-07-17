@@ -1,0 +1,185 @@
+<%- include ../header %>
+
+    <div class="container-fluid">
+
+        <!-- Menu Bar -->
+        <div id="menu-bar" class="row">
+            <div class="col-sm-6">
+                <h2 class="page-header">Setup <%- game.name %></h2>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="mt20">
+
+                    <a href="<%- makeURL('/admin/games/launch/' + game._id) %>" id="launch" class="btn btn-mb btn-labeled <% if(game.players.length != 0){ %> btn-success <% } else { %> btn-default <% } %> " >
+                        <span class="btn-label"><i class="fa "></i></span> Launch
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Menu-bar -->
+
+        <%- messages() %>
+
+        <div class="row main">
+
+            <div class="col-xs-12">
+
+                <form method="POST" class="row">
+
+                    <div class="form-group col-sm-6">
+                        <h4>Name</h4>
+                        <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+
+                        <!-- Registration -->
+
+                        <!-- Short URL -->
+                        <div class="jumbotron text-center mt20">
+                            <br/>
+                            <input type="text" id="shortlink" name="short_url" value="<%- game.short_url || '' %>" placeholder="http://sc.io/ax12" />
+                            <p style="margin-bottom:0;">Register Here!</p>
+                        </div>
+
+                        <!-- Long Registration Link -->
+                        <h4>Long Registration Link</h4>
+                        <input id="reg-link" class="" style="padding-right:80px;" value="<%- site_url %>/join/<%- game._id %>" />
+                        <!-- Copy -->
+                        <span id="copy-link" class="btn btn-md btn-default pull-right"
+                                data-clipboard-target="#reg-link"
+                                data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"
+                                style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
+                            <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+                        </span>
+
+                    </div>
+
+                    <div class="form-group col-sm-6">
+
+                        <h4>Registered Players (<span id="rp-count"><%- game.registered.length %></span>)</h4>
+
+                        <ul id="registered-players" class="list-group">
+                            <% game.registered.forEach(function(reg){ %>
+                                <li class="list-group-item">
+                                    <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg %>">Remove</span>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                    </div>
+
+
+                    <div class="col-xs-12">
+                        <button class="btn btn-md btn-success">Update</button>
+                        <a href="<%- makeURL('/admin/games') %>" class="btn btn-md btn-default">Cancel</a>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
+    <script>
+
+
+        // GAME
+        var gameObj = <%- JSON.stringify(game) %>;
+        console.log('Game: ', gameObj);
+
+
+        // SOCKETS
+        var o = <%- JSON.stringify(o) %>;
+        var socket = io.connect(o.io_domain, {path: o.io_path});
+
+
+        // ENTER THE GAME BACKEND ROOM
+        socket.emit('enter-backend', {game_id: '<%- game._id %>'}, function(room){
+            console.log('Connected to this room backend socket... ;)', room);
+            //console.log(room);
+        });
+
+
+        // LOCAL FUNCTIONS
+
+        // Get the registered players list
+        var registeredCount = document.getElementById('rp-count');
+        var registeredList = document.getElementById('registered-players');
+
+        // Remove a registered player
+        function removeRegisteredPlayer(){
+
+            var elem = this;
+            var email = this.dataset.email;
+            if(email.length > 0 && isValidEmailAddress(email)){
+
+                var msg = "<div class='text-center'>By removing " + email + ",<br/>the user won't be able to play in this game.<br/><br/>";
+                msg += "<small><i>To avoid overwriting the players list,<br/>it's a good idea to use this feature after all the players have joined.</i></small></div>";
+
+                bootbox.confirm({
+                    title: "Are you sure?",
+                    message: msg,
+                    callback: function(confirmation){
+
+                        // Confirm
+                        if(confirmation){
+
+                            jQuery.ajax({
+                                method: 'POST',
+                                url: '/admin/instances/' + instance.id + '/rmemail/' + email,
+                                success: function(response){
+                                    if(typeof response != 'undefined' && response.email){
+
+                                        var element = elem.parentElement;
+                                        registeredList.removeChild(element);
+                                        registeredCount.innerHTML--;
+
+                                    }
+                                }
+                            });
+
+                        }
+
+                    }
+                });
+
+            }
+
+        };
+
+        // Add an item to the list
+        function addListItem(p){
+
+            var litem = document.createElement('li');
+            litem.classList.add('list-group-item');
+
+            var litemRem = document.createElement('span');
+            litemRem.classList.add('btn', 'btn-xs', 'btn-danger', 'pull-right', 'remove');
+            litemRem.dataset.email = p.email;
+            litemRem.innerHTML = 'Remove';
+            litemRem.addEventListener('click', removeRegisteredPlayer);
+
+            litem.innerHTML = p.email + ', ' + p.name + ' ' + p.lastname;
+            litem.appendChild(litemRem);
+
+            registeredList.appendChild(litem);
+            registeredCount.innerHTML++;
+
+        };
+
+
+        // JOINPLAYER!
+        socket.on('joinplayer', function(data){
+            console.log('New player!', data);
+            addListItem(data);
+        });
+
+
+        // LAUNCH BTN VALIDATIONS
+        var launchBtn = document.getElementById('launch-btn');
+
+    </script>
+
+<%- include ../slidemenu %>
+<%- include ../footer %>

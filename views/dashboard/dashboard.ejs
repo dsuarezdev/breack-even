@@ -1,0 +1,525 @@
+<%- include header %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12 main">
+
+            <h1 class="page-header"></h1>
+
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center">Results Filter</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div id="chart_filters" class="form">
+<!--
+                                <div class="form-group">
+                                    <select id="filter_simcase" class="form-control input-lg">
+                                        <option value="">Select a Simcase</option>
+                                    </select>
+                                </div>
+-->
+                                <div class="form-group">
+                                    <select id="filter_level" class="form-control input-lg">
+                                        <option value="">Select a Level</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="filter_section" class="form-control input-lg">
+                                        <option value="">Select a Section</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="filter_student" class="form-control input-lg">
+                                        <option value="">Select a Student</option>
+                                    </select>
+                                </div>
+<!--
+                                <div class="form-group">
+                                    <span id="cargar-btn" class="btn btn-xs btn-success pull-right">
+                                        <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Cargar
+                                    </span>
+                                </div>
+-->
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-9">
+
+                    <div class="panel panel-default">
+
+                        <div class="pull-right text-center">
+
+                        </div>
+                        <div class="panel-heading">
+
+                            <h4 class="text-center">Accuracy</h4>
+                            <span id="download_csv" class="btn btn-xs btn-success pull-right" style="margin-top: -40px;">
+                                <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Data CSV
+                            </span>
+                            </div>
+                        <div class="panel-body">
+                            <div id="chart_accuracy"></div>
+
+                            </div>
+                        <div class="panel-heading">
+
+                            <h4 class="text-center">Participation</h4>
+                            </div>
+                        <div class="panel-body">
+                            <div id="chart_participation"></div>
+
+                            </div>
+                        <div class="panel-heading">
+
+                            <h4 class="text-center">Revenue</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chart_revenue"></div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        jQuery(document).ready(function(){
+
+
+            var simCode = "optimization";
+
+            // Define final array and first option
+            var finalLevels = [{value: '', label: 'Select a Level'}];
+
+            // Load chart library
+            google.charts.load('current', {'packages':['corechart', 'bar']});
+            google.charts.setOnLoadCallback( firstChart );
+
+            // Function to fill a select based on the given options
+            function fillSelect( select_id, options ){
+                // Clean the select
+                jQuery(select_id).empty();
+                options.forEach(function(option){
+                    var op = document.createElement('option');
+                    op.value = option.value;
+                    op.innerHTML = option.label;
+                    jQuery(select_id).append(op);
+                });
+            }
+
+            function firstChart(){
+                if( document.getElementById('chart_filters') ){
+
+                    // Filter: Simcase
+                    jQuery.ajax({
+                        url: '/apps/optimization/simcase/' + simCode,
+                        method: 'GET',
+                        success: function(simcase){
+                            simcase[0].data.scenarios[0].levels.forEach(function(level){
+                                finalLevels.push({ value: level.id, label: level.name })
+                            });
+
+                            // Fill the select with the generated options
+                            fillSelect('#filter_level', finalLevels);
+
+//                            var aux = [{value: '', label: 'Select a Section'}];
+//                            fillSelect('#filter_section', aux );
+//                            aux = [{value: '', label: 'Select a Student'}]
+//                            fillSelect('#filter_student', aux );
+
+                            makeChart();
+                        }
+                    });
+
+                };
+
+            }
+
+
+            // ::: FILTERS ACTIONS :::
+            // Filter: Levels
+            jQuery('#filter_level').on('change', function(e){
+//                console.log('Level changed ' + this.value);
+//
+//                var sim_id = jQuery('#filter_simcase').val();
+//                var lv_id = this.value;
+//
+//                // Define final array and first option
+//                var finalSections = [{value: '', label: 'Select a Section'}];
+//
+//                // If simcase ID is not empty
+//                if( lv_id != '' ){
+//
+//                    // Get the simcase levels
+////                    jQuery.ajax({
+////                        url: '/apps/optimization/simcase/sections',
+////                        data: {simcases: sim_id},
+////                        method: 'GET',
+////                        success: function(sections){
+////console.log(sections);
+////                            sections.forEach(function(section){
+////                                finalSections.push({ value: section.id, label: section.name })
+////                            });
+////
+////                            // Fill the select with the generated options
+////                            fillSelect('#filter_section', finalSections);
+////
+////                            var aux = [{value: '', label: 'Select a Student'}]
+////                            fillSelect('#filter_student', aux );
+////
+////                        }
+////                    });
+//
+//                // If simacase ID is empty
+//                }else{
+//
+//                    // Fill the select with the generated options
+//                    fillSelect('#filter_section', finalSections);
+//
+//                    var aux = [{value: '', label: 'Select a Student'}]
+//                    fillSelect('#filter_student', aux );
+//
+//                }
+                makeChart();
+            });
+
+
+            // Filter: Sections
+//            jQuery('#filter_section').on('change', function(e){
+//                console.log('Section changed');
+//                var sim_id = jQuery('#filter_simcase').val();
+//                var lv_id = jQuery('#filter_level').val();
+//                var sec_id = this.value;
+//
+//                // Define final array and first option
+//                var finalStudents = [{value: '', label: 'Select a Student'}];
+//
+//                // If simcase ID is not empty
+//                if( sec_id != '' ){
+//
+//                    // Get the simcase levels
+//                    jQuery.ajax({
+//                        url: 'section/' + sec_id,
+//    //                    data: {simcases: sim_id},
+//                        method: 'GET',
+//                        success: function(section){
+//
+//                            section.students.forEach(function(student){
+//                                var name = student.name + ' ' + student.lastname;
+//                                finalStudents.push({ value: student.id, label: name })
+//                            });
+//
+//                            // Fill the select with the generated options
+//                            fillSelect('#filter_student', finalStudents);
+//
+//                        }
+//                    });
+//
+//                // If simacase ID is empty
+//                }else{
+//
+//                    // Fill the select with the generated options
+//                    fillSelect('#filter_student', finalStudents);
+//
+//                }
+//                makeChart();
+//            });
+//
+//
+            // Filter: Students
+            jQuery('#filter_student').on('change', function(e){
+                console.log('Student changed');
+
+                makeChart();
+            });
+
+            var studentsGlobal = {};
+
+            // Fill the sections filter dropdown
+            var filterSection = document.getElementById('filter_section');
+            var sections = <%- JSON.stringify(sections) %>;
+            sections.forEach(function(section){
+
+                // Create the option
+                var option = document.createElement('option');
+                option.value = section.id;
+                option.innerHTML = section.name;
+                filterSection.appendChild( option );
+
+                studentsGlobal[section.id] = section.students;
+
+            });
+
+            // Fill the students filter dropdown
+            var filterStudent = document.getElementById('filter_student');
+            // Fill users when the section change
+            filterSection.addEventListener('change', function(){
+
+                // Clear the dropdown
+                while( filterStudent.firstChild ){
+                    filterStudent.removeChild(filterStudent.firstChild);
+                }
+
+                // Add the first value
+                var firstOption = document.createElement('option');
+                firstOption.value = '';
+                firstOption.innerHTML = 'Select a Student';
+                filterStudent.appendChild( firstOption );
+
+                // If the user selected the first option of the section dropdown
+                if( filterSection.value == '' )
+                    return true;
+
+                // Add the section students
+                studentsGlobal[filterSection.value].forEach(function(student){
+
+                    var option = document.createElement('option');
+                    option.value = student.id;
+                    option.innerHTML = student.name;
+                    filterStudent.appendChild( option );
+
+                });
+
+                makeChart();
+
+            });
+
+
+//            var cargarBtn = document.getElementById('cargar-btn');
+//            cargarBtn.addEventListener('click', function(){
+//                makeChart();
+//            });
+
+
+            // CHARTS
+
+            // Draw the chart
+            jQuery('#draw_charts').on('click', makeChart );
+
+            var colors = ['#004785','#a90533',
+                        '#262460','#282f85','#026cb5','#06aafc',
+                        '#532a85','#96227d','#a8204e','#c5093b',
+                        '#2d2c41','#d7bc6a','#b2b6a7','#eeedea'];
+            var correctenessColor   = '#004785';
+            var calculationColor    = '#a90533';
+            var selectionColor      = '#96227d';
+            var participationColor  = '#06aafc';
+            var revenueColor        = '#d7bc6a';
+
+            function makeChart(){
+                console.log( 'Make Chart' );
+                var simcaseID   = '56ef12ca1bce016709336bc3';
+                var levelID     = jQuery('#filter_level').val();
+                var sectionID   = jQuery('#filter_section').val();
+                var studentID   = jQuery('#filter_student').val();
+
+                var data = {};
+                if( simcaseID != '' ) data.simcase_id = simcaseID;
+                if( levelID != '' ) data.level_id = levelID;
+                if( sectionID != '' ) data.section_id = sectionID;
+                if( studentID != '' ) data.student_id = studentID;
+//                var data = {};
+//                data.simcase_id = '56ef12ca1bce016709336bc3';
+//                data.level_id = '1';
+//                data.section_id = '57db4475af094bcb0aeeae9d';
+//                data.student_id = '57d759acf00ebb61035e6e65'; //admin
+//                data.student_id = '57e304479286d49a1239b6ec'; //other
+
+//                data.teacher = '57d759acf00ebb61035e6e65';
+                // API data: Request and then start the game
+                jQuery.ajax({
+                    url: '/apps/optimization/dashboard/report',
+                    method: 'GET',
+                    data: data,
+                    success: function(dataset){
+                        console.debug( dataset );
+
+                        // Draw chart with the generated options
+                        drawChart( dataset );
+                        drawChartRevenue( dataset );
+
+                    }
+                });
+
+                jQuery.ajax({
+                    url: '/apps/optimization/dashboard/reportParticipation',
+                    data: data,
+                    method: 'GET',
+                    success: function(dataset){
+
+                        // Draw chart with the generated options
+                        drawChartParticipation( dataset );
+
+                    }
+                });
+            }
+
+
+            // Example: https://jsfiddle.net/api/post/library/pure/
+            function drawChart( dataset ) {
+                //console.log( dataset );
+
+                var newDataset = [];
+                newDataset.push([ '','Correctness', 'Calculation', 'Selection']);
+                var headers = ['Simcase', 'Level', 'Section', 'Student'];
+
+                // Create the data table.
+                dataset.forEach( function( dat, idx){
+                    newDataset.push([
+                        headers[idx],
+                        {v: dat.correctness, f: Math.round(dat.correctness*100.0)+'%'},
+                        {v: dat.correctness_calculation, f: Math.round(dat.correctness_calculation*100.0)+'%'},
+                        {v: dat.correctness_selection, f: Math.round(dat.correctness_selection*100.0)+'%'}
+                    ]);
+                });
+                if( dataset.length < 4 ){
+                    for (i = dataset.length; i < 4; i++) {
+                        newDataset.push([ headers[i], 0, 0, 0]);
+                    }
+                }
+
+                //console.log( newDataset );
+
+                var data = google.visualization.arrayToDataTable( newDataset );
+
+                // Set chart options
+                var options = {
+    //                'title':'How Much Pizza I Ate Last Night',
+                    colors:[correctenessColor,calculationColor,selectionColor],
+                    legend: { position: 'bottom' },
+                    vAxis: {
+                        format: '#.##%',
+                        ticks: [ 0, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00 ]
+                    }
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.ColumnChart( document.getElementById('chart_accuracy') );
+                chart.draw(data, options);
+
+            }
+
+            function drawChartRevenue( dataset ) {
+                //console.log( dataset );
+
+                var newDataset = [];
+                newDataset.push([ '','Revenue']);
+                var headers = ['Simcase', 'Level', 'Section', 'Student'];
+
+                // Create the data table.
+                dataset.forEach( function( dat, idx){
+                    newDataset.push([ headers[idx], { v: dat.final_revenue, f: '$' + dat.final_revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") } ]);
+    //                newDataset.push([ headers[idx], Math.floor((Math.random() * 100000) + 10000)]);
+                });
+                if( dataset.length < 4 ){
+                    for (i = dataset.length; i < 4; i++) {
+                        newDataset.push([ headers[i], 0]);
+                    }
+                }
+
+                //console.log( newDataset );
+
+                var data = google.visualization.arrayToDataTable( newDataset );
+
+                // Set chart options
+                var options = {
+    //                'title':'How Much Pizza I Ate Last Night',
+                    colors:[revenueColor,correctenessColor,calculationColor,selectionColor],
+                    legend: { position: 'bottom' },
+                    hAxis: { format: 'short'}
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.BarChart( document.getElementById('chart_revenue') );
+                chart.draw(data, options);
+
+            }
+
+            function drawChartParticipation( dataset ) {
+                console.log( 'drawChartParticipation' );
+                console.log( dataset );
+
+                var newDataset = [];
+                newDataset.push([ '','Participation']);
+                var headers = ['Simcase', 'Level', 'Section', 'Student'];
+
+                // Create the data table.
+                dataset.forEach( function( dat, idx){
+                    newDataset.push([ headers[idx], {v: dat.porcentage/100, f: (dat.porcentage)+'%'}]);
+                });
+                if( dataset.length < 4 ){
+                    for (i = dataset.length; i < 4; i++) {
+                        newDataset.push([ headers[i], 0]);
+                    }
+                }
+
+                console.log( newDataset );
+
+                var data = google.visualization.arrayToDataTable( newDataset );
+
+                // Set chart options
+                var options = {
+    //                'title':'How Much Pizza I Ate Last Night',
+                    colors:[participationColor,revenueColor,correctenessColor,calculationColor,selectionColor],
+                    legend: { position: 'bottom' },
+                    hAxis: {
+                        format: '#.##%',
+                        ticks: [ 0, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00 ]
+    //                    ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+                        }
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.BarChart( document.getElementById('chart_participation') );
+                chart.draw(data, options);
+
+            }
+
+
+            // Download csv
+            jQuery('#download_csv').on('click', makeCSV );
+
+            function makeCSV(){
+                console.log( 'Make CSV' );
+                var simcaseID   = jQuery('#filter_simcase').val();
+
+                var data = {};
+                if( simcaseID != '' ) data.simcase_id = simcaseID;
+
+    //            jQuery.ajax({
+    //                url: 'admin/results/csv/',
+    //                data: data,
+    //                method: 'GET',
+    //                success: function(dataset){
+    //                    console.log( dataset );
+    //                    console.log('CSV downloaded!!');
+    //
+    //                }
+    //            });
+
+                location.href = "/dashboard/reportCSV?simcase_id="+ data.simcase_id;
+
+            }
+
+
+
+        });
+    </script>
+
+<%- include footer %>

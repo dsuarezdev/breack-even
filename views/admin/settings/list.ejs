@@ -1,0 +1,39 @@
+<%- include ../header %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12 main">
+
+            <h2 class="page-header">
+                Settings <a href="<%- makeURL('/admin/settings/create') %>" class="btn btn-mb btn-primary">Add New Setting</a>
+            </h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <th class="text-left">Name</th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center" style="width:1%; white-space: nowrap;">Actions</th>
+                </thead>
+                <tbody>
+
+                    <% settings.forEach(function(setting){ %>
+                        <tr>
+                            <td><%- setting.name %></td>
+                            <td class="text-center"><%- setting.data.length %> properties</td>
+                            <td style="white-space: nowrap;">
+                                <a href="<%- makeURL('/admin/settings/update/' + setting._id) %>" class="btn btn-info btn-sm">Update</a>
+                                <a href="<%- makeURL('/admin/settings/delete/' + setting._id) %>" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+
+                </tbody>
+            </table>
+
+        </div>
+
+      </div>
+    </div>
+
+<%- include ../footer %>

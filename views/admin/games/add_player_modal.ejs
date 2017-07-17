@@ -1,0 +1,118 @@
+                            <!-- Add Player Modal -->
+                            <div class="modal fade" id="add-new-pair-modal" tabindex="-1" role="dialog">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Add New Player</h4>
+                                  </div>
+
+                                  <div class="modal-body text-center">
+                                      <div class="modal-msg alert alert-success" style="display:none;"></div>
+                                      <p>
+                                          To add a new player to the current game fill the following form:<br/>
+                                      </p>
+                                      <div class="row">
+                                          <div class="col-sm-4 form-group">
+                                              <label>First Name</label>
+                                              <input id="new-player-name" class="form-control input-lg" placeholder="First Name" />
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                              <label>Surname</label>
+                                              <input id="new-player-lastname" class="form-control input-lg" placeholder="Surname" />
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                              <label>Email</label>
+                                              <input id="new-player-email" class="form-control input-lg" placeholder="seller@school.edu" />
+                                          </div>
+                                          <div class="col-sm-12">
+                                                <div id="add-pair-error" style="margin-bottom: 0;"></div>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button id="submit-player-btn" type="button" class="btn btn-primary">Add Player</button>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                            <!-- / Add Player Modal -->
+
+                            <script>
+                                jQuery(document).ready(function(e){
+                                    // Form elements
+                                    var newPlayerNameInput      = document.getElementById('new-player-name');
+                                    var newPlayerLastnameInput  = document.getElementById('new-player-lastname');
+                                    var newPlayerEmailInput     = document.getElementById('new-player-email');
+                                    var newPlayerSubmitBtn      = document.getElementById('submit-player-btn');
+                                    // Add Player Modal show
+                                    jQuery('#add-new-pair-modal').on('show.bs.modal', function (event) {
+                                        setTimeout(function(){ jQuery('#new-player-name').focus(); }, 500);
+                                    });
+                                    // On hide modal, reload the page
+                                    jQuery('#add-new-pair-modal').on('hidden.bs.modal', function () {
+                                        location.reload();
+                                    });
+                                    // Add Player Submit
+                                    newPlayerSubmitBtn.addEventListener('click', function(e){
+
+                                        // Validate Name
+                                        if( newPlayerNameInput.value.length == 0 ){
+                                            newPlayerNameInput.parentElement.classList.add('has-error');
+                                            return newPlayerNameInput.focus();
+                                        }
+                                        // Validate Lastname
+                                        if( newPlayerLastnameInput.value == 0 ){
+                                            newPlayerLastnameInput.parentElement.classList.add('has-error');
+                                            return newPlayerLastnameInput.focus();
+                                        }
+                                        // Validate Email
+                                        if( !isValidEmailAddress(newPlayerEmailInput.value) ){
+                                            newPlayerEmailInput.parentElement.classList.add('has-error');
+                                            return newPlayerEmailInput.focus();
+                                        }
+
+                                        // Add the pair
+                                        jQuery.ajax({
+                                            url: '<%- makeURL('/admin/games/addplayer/' + game._id) %>',
+                                            method: 'POST',
+                                            data: {
+                                                name: newPlayerNameInput.value,
+                                                lastname: newPlayerLastnameInput.value,
+                                                email: newPlayerEmailInput.value
+                                            },
+                                            success: function(res){
+
+                                                console.log(res);
+
+                                                if( typeof res.email != 'undefined' ){
+
+                                                    // Success modal
+                                                    var msg = '<p>The player <strong>' + newPlayerEmailInput.value + '</strong> has been added successfully. ';
+                                                    msg += 'If you have an instance of the game debrief open in another tab or device please remember to <strong>refresh</strong> those screens.</p>'
+                                                    jQuery('#add-new-pair-modal .modal-msg').show().html(msg);
+                                                    //jQuery('#add-pair-error').removeClass('alert alert-danger').html('');
+
+                                                    // Clean the inputs
+                                                    newPlayerNameInput.value = '';
+                                                    newPlayerLastnameInput.value = '';
+                                                    newPlayerEmailInput.value = '';
+
+                                                }else{
+
+                                                    // ***** Show the error on the modal
+                                                    var msg = '<p>' + res.error + '</p>';
+                                                    jQuery('#add-pair-error').addClass('alert alert-danger').html(msg);
+
+                                                }
+
+                                            }
+                                        });
+
+                                    });
+                                });
+                            </script>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+        <!-- ***************************** -->
+        <!-- ******** GAME SCREENS ******* -->
+        <!-- ***************************** -->
+
+        <!-- Screen 1 - Debrief -->
+        <div id="debrief-1" class="screen">
+                <div class="container-fluid mt45">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified mt10" role="tablist">
+                        <li role="presentation" class="active"><a id="breakdown-btn" href="#tab-breakdown"  role="tab" data-toggle="tab">Breakdown</a></li>
+                        <li role="presentation"><a href="#tab-response" id="response-btn" role="tab" data-toggle="tab">Free Response</a></li>
+                        <li role="presentation"><a href="#tab-leaderboard"  role="tab" data-toggle="tab">Leaderboard</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <!-- Breakdown -->
+                        <div role="tabpanel" class="tab-pane active" id="tab-breakdown">
+                            <div class="center mt20">What do these scores mean? <img class="help" id="help-8" src="<%- makeURL('/game_assets/assets/content/help.png') %>"></div>
+                            <div class="col-xs-12 col-md-6">
+                                <div id="revenue-chart" class="mt20"></div>
+                                <img class="chart-help" id="help-5" src="<%- makeURL('/game_assets/assets/content/help.png') %>">
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div id="cost-chart" class="mt20 mb20"></div>
+                                <img class="chart-help" id="help-6" src="<%- makeURL('/game_assets/assets/content/help.png') %>">
+                            </div>
+
+                        </div>
+
+                        <!-- Free Response -->
+                        <div role="tabpanel" class="tab-pane" id="tab-response">
+                            <ul class="nav nav-pills center-pills">
+                                <li role="presentation" class="active"><a id="retail-btn" href="#retail-response-tab"  role="tab" data-toggle="tab">Retail</a></li>
+                                <li role="presentation"><a id="kitchenware-btn" href="#kitchenware-response-tab"  role="tab" data-toggle="tab">Kitchenware</a></li>
+                                <li role="presentation"><a id="electronics-btn" href="#electronics-response-tab"  role="tab" data-toggle="tab">Electronics</a></li>
+                            </ul>
+                            <div class="tab-content mt20">
+                                <!-- Retail Free Response -->
+                                <div role="tabpanel" class="tab-pane active" id="retail-response-tab">
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div class="minipad bg-white">
+                                            <h4>Context:</h4>
+                                            <div id="retail-context">While reviewing competitor sites you see that the item you selected is being offered at a 10% discount to your optimal price! What do you do?</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div id="retail-pie" class="highcharts-container mt20"></div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <table  class="result-table table table-bordered mt20 bg-white">
+                                            <thead>
+                                                <th>Action</th>
+                                                <th>Factors</th>
+                                            </thead>
+                                            <tbody id="retail-factors">
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <!-- Kitchenware Free Response -->
+                                <div role="tabpanel" class="tab-pane" id="kitchenware-response-tab">
+
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div class="minipad bg-white">
+                                            <h4>Context:</h4>
+                                            <div id="kitchenware-context">Recent user reviews for your kitchenware product are less than stellar.  About 25% of reviewers report broken or unusable items and the return shipping is wiping out much of your profit. What do you do?</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div id="kitchenware-pie" class="highcharts-container mt20"></div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <table class="result-table table table-bordered mt20 bg-white">
+                                            <thead>
+                                                <th>Action</th>
+                                                <th>Factors</th>
+                                            </thead>
+                                            <tbody id="kitchenware-factors">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Electronics Free Response -->
+                                <div role="tabpanel" class="tab-pane" id="electronics-response-tab">
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div class="minipad bg-white">
+                                            <h4>Context:</h4>
+                                            <div id="electronics-context">You get a call from your electronics manufacturer and unfortunately they can only deliver on 50% of your order. What do you do?</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <div id="electronics-pie" class="highcharts-container mt20"></div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-8 col-md-offset-2">
+                                        <table class="result-table table table-bordered mt20 bg-white">
+                                            <thead>
+                                                <th>Action</th>
+                                                <th>Factors</th>
+                                            </thead>
+                                            <tbody id="electronics-factors" >
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                        <!-- Breakdown -->
+                        <div role="tabpanel" class="tab-pane" id="tab-leaderboard">
+
+                            <div class="col-xs-12 col-md-8 col-md-offset-2 mt20">
+                                <img class="leaderboard-icon" src="<%- makeURL('/game_assets/assets/content/overall_icon.png') %>">
+                                <h4>Overall Accuracy</h4>
+                                <table class="result-table table table-bordered mt10 bg-white">
+                                    <tbody id="overall-leaders">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                             <div class="col-xs-12 col-md-8 col-md-offset-2 ">
+                                <img class="leaderboard-icon" src="<%- makeURL('/game_assets/assets/content/retail_icon.png') %>">
+                                <h4>Total Profit: Retail</h4>
+                                <table class="result-table table table-bordered mt10 bg-white">
+                                    <tbody id="retail-leaders">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                             <div class="col-xs-12 col-md-8 col-md-offset-2 ">
+                                <img class="leaderboard-icon" src="<%- makeURL('/game_assets/assets/content/kitchenware_icon.png') %>">
+                                <h4>Total Profit: Kitchenware</h4>
+                                <table class="result-table table table-bordered mt10 bg-white">
+                                    <tbody id="kitchenware-leaders">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                             <div class="col-xs-12 col-md-8 col-md-offset-2 ">
+                                <img class="leaderboard-icon" src="<%- makeURL('/game_assets/assets/content/electronics_icon.png') %>">
+                                <h4>Total Profit: Electronics</h4>
+                                <table class="result-table table table-bordered mt10 bg-white">
+                                    <tbody id="electronics-leaders">
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+        </div>

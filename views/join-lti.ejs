@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <meta name="description" content="">
+    <meta name="author" content="SimCase">
+
+    <title>Price Knowledge Quiz - simcase.io</title>
+
+    <link rel="shortcut icon" href="<%- makeURL('/favicon-32x32.png') %>" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400">
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%- makeURL('/game_assets/bootstrap/css/bootstrap.min.css') %>" rel="stylesheet">
+
+    <!-- Animate CSS -->
+    <link href="<%- makeURL('/game_assets/css/animate.css') %>" rel="stylesheet">
+
+    <!-- App base structure -->
+    <link href="<%- makeURL('/game_assets/css/style.css') %>" rel="stylesheet">
+
+    <!-- Icofont -->
+    <link href="<%- makeURL('/game_assets/icofont/css/icofont.css') %>" rel="stylesheet">
+
+    <!-- Custom styles for this app -->
+    <link href="<%- makeURL('/game_assets/css/app.css') %>" rel="stylesheet">
+
+    <!-- Base template styles for this app -->
+    <link href="<%- makeURL('/game_assets/css/template-base.css') %>" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        @media (min-width: 768px){
+            .lead {font-size: 18px;}
+        }
+    </style>
+
+  </head>
+
+  <body style="position:relative;">
+
+      <!-- Gamebox -->
+    <div id="appbox">
+
+
+        <!-- ***************************** -->
+        <!-- ******** GAME SCREENS ******* -->
+        <!-- ***************************** -->
+
+
+        <!-- SPLASH -->
+        <div id="splash" class="screen current initial">
+
+            <div class="container-fluid mt45">
+
+                <h2 class="mt60">Join Pricing Knowledge Quiz</h2>
+
+                <div id="register-form" class="form">
+                    <p id="register-message" class="lead mt20">
+                        Thanks <%= registered.name %>!<br/>
+                        Wait here until the game get's launched.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Alert</h4>
+              </div>
+              <div class="modal-body">
+                  <p id="error-message" class="text-center"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <style>
+        .error{
+            color: #a94442;
+            background-color: #f2dede;
+        }
+    </style>
+
+
+    <!-- Libraries -->
+    <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
+    <script src="<%- makeURL('/game_assets/js/jquery-1.11.0.min.js') %>"></script>
+    <script src="<%- makeURL('/game_assets/bootstrap/js/bootstrap.min.js') %>"></script>
+    <script src="<%- makeURL('/game_assets/js/bootbox.min.js') %>"></script>
+    <script src="<%- makeURL('/game_assets/js/fastclick.js') %>"></script>
+
+    <!-- Objects & Helpers -->
+    <script src="<%- makeURL('/game_assets/js/utils.js') %>"></script>
+
+    <!-- Inline Script -->
+    <script>
+        // Get the local API info
+        jQuery(document).ready(function(){
+
+            // API data: Request and then start the game
+            jQuery.ajax({
+                url: '<%- makeURL('/oauth_provider') %>',
+                method: 'GET',
+                success: function( authdata ){
+
+                    var oauthData = authdata;
+                    console.log( oauthData );
+
+                    var socket = io.connect(oauthData.io_domain, {path: oauthData.io_path});
+
+                    // Join player to socket room
+                    socket.emit('enter-setup', {
+                        game_id: '<%- game_id %>',
+                        registration_token: '<%- registered.registration_token %>'
+                    }, function(res){
+                        console.log(res);
+                    });
+
+                    // Listen socket launch message
+                    socket.on('launch', function(data){
+                        window.location.href = data.link;
+                    });
+
+                }
+            });
+
+        });
+    </script>
+
+  </body>
+</html>

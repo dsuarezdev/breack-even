@@ -1,0 +1,93 @@
+<%- include ../header %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-xs-12 main">
+
+            <h2 class="page-header">
+                Create New Setting
+            </h2>
+
+            <form method="POST" class="row">
+
+                <div class="form-group col-sm-12">
+                    <label>Name</label>
+                    <input type="text" id="name" name="name" class="form-control input-lg" />
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <label>Data</label>
+
+                    <!-- Supereditor -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div id="jsonplain" style="width: auto; height: 400px;"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="jsoneditor" style="width: auto; height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <input type="hidden" class="form-control" id="data" name="data" placeholder="Data" />
+                -->
+
+                <textarea class="form-control" id="data" name="data" placeholder="Data"></textarea>
+
+
+                <div class="col-xs-12">
+                    <button class="btn btn-md btn-success">Create</button>
+                    <a href="<%- makeURL('/admin/settings') %>" class="btn btn-md btn-default">Cancel</a>
+                </div>
+
+            </form>
+
+        </div>
+
+      </div>
+    </div>
+
+    <link href="<%- makeURL('/css/jsoneditor.min.css') %>" rel="stylesheet" type="text/css">
+    <script src="<%- makeURL('/js/jsoneditor.min.js') %>"></script>
+
+    <script>
+
+        // The CODE editor
+        var plaincontainer = document.getElementById("jsonplain");
+        var plainoptions = {
+            mode: 'code',
+            indentation: 4,
+			//modes: [ 'code', 'form', 'text', 'tree', 'view' ], // allowed modes
+			onError: function(err) {
+				alert('E2 ->' + err.toString());
+			},
+            onChange: function( data ){
+                editorjson.set( editorplain.get() );
+                editorjson.expandAll();
+                document.getElementById('data').value = JSON.stringify( editorjson.get() );
+                //document.getElementById('data').value = editorjson.get();
+            }
+        };
+        var editorplain = new JSONEditor(plaincontainer, plainoptions);
+
+        // The TREE editor
+        var jsoncontainer = document.getElementById("jsoneditor");
+        var jsonoptions = {
+            name: 'dataset',
+            mode: 'tree',
+			onError: function(err) {
+				alert('E2 ->' + err.toString());
+			},
+            onChange: function( data ){
+                editorplain.set( editorjson.get() );
+                document.getElementById('data').value = JSON.stringify( editorjson.get() );
+                //document.getElementById('data').value = editorjson.get();
+            }
+        };
+        var editorjson = new JSONEditor(jsoncontainer, jsonoptions);
+
+    </script>
+
+<%- include ../footer %>

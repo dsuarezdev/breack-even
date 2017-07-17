@@ -1,0 +1,56 @@
+/*
+Dark blue: #1A315C
+Mid blue: #0C70B0
+Light blue: #0B99F3
+Lemon green: #91C741
+Hazel: #A4D2E1
+Aqua: #18B18B
+Green: #398A42
+*/
+
+.btn{
+/*    border-radius: 0;*/
+}
+
+.btn-light {
+    color: #18B18B;
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0C70B0;
+    border-color: #0C70B0;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #91C741;
+    border-color: #91C741;
+}
+
+/* MENU */
+.navbar-ds{
+    background: #1A315C;
+}
+
+/* LOGIN */
+#login{
+    color: #FFF;
+    background: #18B18B;
+}
+
+/* SCREEN-1 */
+#items-grid .item-wrap{
+    background: #1A315C;
+}
+
+/* SCREEN-RESULT */
+#price{
+    color:#FFF;
+    background:#18B18B;
+}
+
+.glyphicon-ok{color:#18B18B;}
+.glyphicon-remove{color:#ff3333;}

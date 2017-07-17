@@ -1,0 +1,46 @@
+<div id="slide-menu" class="">
+    <div id="slidemenu-overlay" class="menu-overlay"></div>
+    <ul class="text-left">
+        <li id="slidemenu-close" class="close-menu"><span>Close</span></li>
+        <li>
+            <a href="<%- site_url %>/admin/games/create">New Game</a>
+        </li>
+        <li>
+            <a href="<%- site_url %>/admin/games">Game Sessions</a>
+        </li>
+        <li>
+            <a href="<%- site_url %>/logout" class="clearfix">
+                Logout
+                <span class="profile-btn pull-right text-right">
+                    <%- user.email %><br/>
+                    <small class="capitalize"><%- user.role %></small>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<script>
+    jQuery(document).ready(function(){
+
+        var slidemenuBtn        = document.getElementById('slidemenu-btn');
+        var slidemenuBtnClose   = document.getElementById('slidemenu-close');
+        var slidemenuOverlay    = document.getElementById('slidemenu-overlay');
+        var slidemenu           = document.getElementById('slide-menu');
+
+        slidemenuBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            slidemenu.classList.toggle('active');
+        });
+
+        slidemenuBtnClose.addEventListener('click', function(){
+            slidemenu.classList.toggle('active');
+        });
+
+        slidemenuOverlay.addEventListener('click', function(){
+            slidemenu.classList.toggle('active');
+        });
+
+    });
+</script>

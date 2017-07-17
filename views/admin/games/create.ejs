@@ -1,0 +1,158 @@
+<%- include ../header %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <%- messages() %>
+
+        <div class="col-xs-12 main">
+
+            <form id="create-form" method="POST" class="mt20">
+
+                <div class="row">
+                    <div class="form-group col-sm-4 col-sm-offset-2">
+                        <label>Name</label>
+                        <input type="text" id="name" name="name" class="form-control input-lg" />
+                    </div>
+                    <!-- Teacher -->
+                    <% if(user.role == 'instructor'){ %>
+                    <div class="form-group col-sm-4">
+                        <label>Instructor</label>
+                        <% instructors.forEach( function( instructor, instructor_idx ){ %>
+                            <% if(instructor.id == req.user.api_id){ %>
+                                <input class="form-control input-lg" value="<%- instructor.name + ' ' + instructor.lastname %>" disabled />
+                            <% } %>
+                        <% }); %>
+                    </div>
+                    <% }else{ %>
+                    <div class="form-group col-sm-4">
+                        <label>Instructor</label>
+                        <select id="instructor" name="instructor" class="form-control input-lg">
+                            <option value="-1">Select Instructor</option>
+                            <% instructors.forEach( function( instructor, instructor_idx ){ %>
+                                <option value="<%- instructor.id %>"><%- instructor.name + ' ' + instructor.lastname %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <% } %>
+                </div>
+
+                <!-- Game Launch Types -->
+                <div id="launch-types" class="row mt20">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="row">
+
+                            <div class="form-group text-center">
+                                <label>Select A Game Access Path</label>
+                            </div>
+
+                            <div class="col-sm-4 text-center">
+                                <div class="panel" style="border:1px solid #CCC;">
+                                    <label>
+                                        <div class="panel-body">
+                                            <div class="radio">
+                                                <h4><input name="access_type" type="radio" value="lms" style="margin-top:1px;" checked>LMS/LTI</h4>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body text-left">
+
+                                            <p class="text-center"><u>Instructor/Admin:</u></p>
+                                            <ul>
+                                                <li>Verify LMS setup</li>
+                                            </ul>
+
+                                            <p class="text-center"><u>Student Process:</u></p>
+                                            <ul>
+                                                <li>Login to LMS</li>
+                                                <li>Select Course &amp; Module</li>
+                                                <li>Click on Link</li>
+                                            </ul>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 text-center">
+                                <div class="panel" style="border:1px solid #CCC;">
+                                    <label style="display:block;">
+                                        <div class="panel-body">
+                                            <div class="radio">
+                                                <h4><input name="access_type" type="radio" value="link" style="margin-top:1px;">Link + Email</h4>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body text-left">
+                                            <p class="text-center"><u>Instructor/Admin:</u></p>
+                                            <ul>
+                                                <li>Display registration link</li>
+                                            </ul>
+
+                                            <p class="text-center"><u>Student Process:</u></p>
+                                            <ul>
+                                                <li>Register Via Link</li>
+                                                <li>Check email</li>
+                                                <li>Click on Link</li>
+                                            </ul>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 text-center">
+                                <div class="panel" style="border:1px solid #CCC;">
+                                    <label>
+                                        <div class="panel-body">
+                                            <div class="radio">
+                                                <h4><input name="access_type" type="radio" value="csv" style="margin-top:1px;">CSV Upload</h4>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body text-left">
+                                            <p class="text-center"><u>Instructor/Admin:</u></p>
+                                            <ul>
+                                                <li>Upload participants</li>
+                                            </ul>
+
+                                            <p class="text-center"><u>Student Process:</u></p>
+                                            <ul>
+                                                <li>Check email</li>
+                                                <li>Click on Link</li>
+                                            </ul>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt30">
+                    <!-- Save -->
+                    <div class="form-group col-sm-12 text-center">
+                        <button class="btn btn-labeled btn-mb btn-success" id="create-btn" >
+                            <span class="btn-label"><i class="fa fa-check fa-fw"></i></span>Create Game
+                        </button>
+                        <a href="<%- makeURL('/admin/games') %>" class="btn btn-md btn-default">Cancel</a>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+      </div>
+    </div>
+<script>
+    $( "#create-form" ).submit(function( event ) {
+        console.log("submit");
+      if ($("#name").val() == ''){
+          event.preventDefault();
+          $("#name").focus();
+      } else {
+         return true;
+      }
+
+    });
+</script>
+
+<%- include ../slidemenu %>
+<%- include ../footer %>

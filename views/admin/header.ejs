@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <title><%- app.name %> - Simcase</title>
+
+    <link rel="shortcut icon" href="<%- makeURL('/favicon.png') %>" type="image/png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="<%- makeURL('/bootstrap/css/bootstrap.min.css') %>">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="<%- makeURL('/css/bootstrap-switch.min.css') %>">
+    <link rel="stylesheet" href="<%- makeURL('/css/font-awesome.min.css') %>">
+    <link rel="stylesheet" href="<%- makeURL('/css/admin.css') %>">
+    <link rel="stylesheet" href="<%- makeURL('/css/highcharts.css') %>">
+
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/bootstrap-switch.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/highcharts.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/simple-statistics.min.js') %>"></script>
+
+    <style>
+        body{ padding-top:50px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="<%- makeURL('/dashboard') %>" style="padding:8px;">
+          <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase" />
+          <%- app.name %>
+          <span id="module-name"><% if( typeof headerTitle != 'undefined' ){ %> <%- headerTitle %> <% }%>&nbsp;</span>
+      </a>
+
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+
+        <!--
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="<%- makeURL('/admin/dashboard') %>">Dashboard</a></li>
+            <li><a href="<%- makeURL('/admin/games') %>">Games</a></li>
+            <li><a href="<%- makeURL('/admin/settings') %>">Settings</a></li>
+        </ul>
+        -->
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <% if( typeof controller != 'undefined' && controller == 'games' ){ %>
+            <li class="game-actions">
+                <% if( ['debrief'].indexOf(action) > -1 ){ %>
+                <a href="<%= site_url %>/admin/games/gameboard/<%- game._id %>" class="btn-switcher btn btn-sm btn-primary pull-right" style="margin-top:8px; padding: 6px 12px;">
+                    <i class="fa fa-arrow-left"></i> Game Controls
+                </a>
+                <% } %>
+
+                <% if( action == 'gameboard' && (game.status == 'launched' || game.status == 'finalized') ){ %>
+                <a href="<%= site_url %>/admin/games/debrief/<%- game._id %>" class="btn-switcher btn btn-sm btn-primary pull-right" style="margin-top:8px; padding: 6px 12px;">
+                    <i class="fa fa-signal"></i> Game Debrief
+                </a>
+                <% } %>
+
+            </li>
+            <% } %>
+
+            <!--
+            <li class="profile-btn">
+                <a href="#" style="padding: 8px; text-align: right; line-height: 16px; padding-top: 9px;">
+                    <%- user.email %><br/>
+                    <small class="capitalize"><%- user.role %></small>
+                </a>
+            </li>
+            <li class="logout-btn">
+               <a href="<%- makeURL('/logout') %>" title="Logout">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
+            </li>
+            -->
+
+            <li id="slidemenu-btn">
+                <a href="#">
+                    <i class="fa fa-bars"></i> Menu
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+  </div>
+</nav>

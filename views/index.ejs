@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <title><%- app.name %> by SimCase</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="<%- makeURL('/bootstrap/css/bootstrap.min.css') %>">
+
+    <!-- JS  TEST-->
+    <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
+    <style>
+        body{
+            padding-top: 50px;
+            background: #eee;
+        }
+
+        h3{
+            font-family: 'Open Sans', sans-serif;
+            color: #444;
+        }
+
+        #splash-logo{
+            margin: 30px 0;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function(e){
+
+            jQuery.ajax({
+                url: 'oauth_provider',
+                method: 'GET',
+                success: function(authdata){
+
+                    var oauthData = authdata;
+
+                    console.log( oauthData );
+                    console.log(oauthData.hub_url + '/oauth/authorize?client_id=' + oauthData.client_id + '&response_type=code&redirect_uri=' + oauthData.redirect_uri + '&scope=' + oauthData.scope);
+
+                    // Login button
+                    document.getElementById('login-btn').addEventListener('click', function(){
+                        window.location.replace( oauthData.hub_url + '/oauth/authorize?client_id=' + oauthData.client_id + '&response_type=code&redirect_uri=' + oauthData.redirect_uri + '&scope=' + oauthData.scope );
+                    });
+
+                }
+            });
+
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container">
+
+        <h3 class="text-center">Welcome to <%- app.name %></h3>
+
+        <div class="text-center">
+            <img id="splash-logo" src="<%- makeURL('/game_assets/assets/icon-optimization.png') %>" alt="Functions" />
+        </div>
+
+        <div class="row text-center">
+            <div class="col-xs-4 col-xs-offset-4">
+                <span id="login-btn" class="btn btn-primary btn-lg btn-block">Log In</span>
+            </div>
+            <div class="col-xs-12" style="margin-top:70px;">
+                <p class="lead">
+                    Developed by SimCase <img src="<%- makeURL('/game_assets/assets/icon.png') %>" alt="SimCase" style="width:20px;" />
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

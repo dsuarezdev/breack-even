@@ -1,0 +1,145 @@
+<%- include ../header %>
+
+    <div class="container-fluid">
+
+        <!-- Menu Bar -->
+        <div id="menu-bar" class="row">
+            <div class="col-sm-6">
+                <h3 class="mt5 mb0"><%- game.name %></h3>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="mt0">
+
+                    <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
+                        <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
+                    </span>
+
+                    <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success">
+                        <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Menu-bar -->
+
+        <%- messages() %>
+
+        <div class="row main">
+
+            <div class="col-xs-12">
+
+                <form id="game-form" method="POST" class="row">
+
+                    <div class="col-sm-6">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <h4>Name</h4>
+                                <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-sm-6">
+
+                        <h4>
+                             Registered Players (<span id="rp-count"><%- game.players.length %></span>)
+                             <span id="warning" class="hide pull-right text-danger">
+                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                 <small id="warning-message"></small>
+                             </span>
+                         </h4>
+
+                         <textarea id="importer" name="players_text" class="form-control" rows="15" placeholder="student@email.edu"><%- game.players_text %></textarea>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
+    <script>
+
+        // GAME
+        var gameObj = <%- JSON.stringify(game) %>;
+        console.log('Game: ', gameObj);
+
+
+        // SOCKETS
+        var o = <%- JSON.stringify(o) %>;
+        var socket = io.connect(o.io_domain, {path: o.io_path});
+
+
+        // ENTER THE GAME BACKEND ROOM
+        socket.emit('enter-backend', {game_id: '<%- game._id %>'}, function(room){
+            console.log('Connected to this room backend socket... ;)');
+            //console.log(room);
+        });
+
+
+        // LOCAL FUNCTIONS
+
+        // Get the registered players list
+        var registeredCount = document.getElementById('rp-count');
+        registeredCount.innerHTML = gameObj.players.length;
+        var warningDisplay = document.getElementById('warning');
+        var warningMessage = document.getElementById('warning-message');
+        var importerText = document.getElementById('importer');
+        importerText.addEventListener('keyup', function(){
+
+            var content = (this.value).trim();
+            var lines = (content.length > 0) ? content.split('\n') : [];
+            lines = lines.map(function(l){
+                var parts = l.split(',');
+                return parts[0].trim();
+            });
+            registeredCount.innerHTML = lines.length;
+
+            var duplicatedEmail = hasDuplicates(lines);
+            if(duplicatedEmail){
+                warningDisplay.classList.remove('hide');
+                warningMessage.innerHTML = 'The email address <strong>' + duplicatedEmail + '</strong> is duplicated.';
+            }else{
+                warningDisplay.classList.add('hide');
+                warningMessage.innerHTML = '';
+            }
+
+            launchBtn.classList.add('disabled');
+
+        });
+
+
+        // SAVE BTN VALIDATIONS
+        var gameForm = document.getElementById('game-form');
+        var saveBtn =  document.getElementById('save-btn');
+        saveBtn.addEventListener('click', function(e){
+
+            gameForm.submit();
+
+        });
+
+
+        // LAUNCH BTN VALIDATIONS
+        var launchBtn = document.getElementById('launch-btn');
+        if( gameObj.registered.length == 0 ) {
+            launchBtn.classList.add('disabled');
+        }
+        launchBtn.addEventListener('click', function(e){
+
+            if( this.classList.contains('disabled') ){
+                e.preventDefault();
+                return false;
+            }
+
+        });
+
+    </script>
+
+<%- include ../slidemenu %>
+<%- include ../footer %>
