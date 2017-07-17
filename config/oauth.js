@@ -3,8 +3,8 @@ var envConfig = {
     development: {
         site_url: 'http://localhost:8080',
         hub_url: 'http://localhost:1337',
-        client_id: 'QDO4LZ3CVI',
-        client_secret: 'BXhgnthRQFsiQbPqUm9uTXJ0o7wdxo',
+        client_id: 'WUW7ZSW4IR',
+        client_secret: 'YX6sWKURZDX4lGpnEsKSelvw2H3UMR',
         redirect_uri: 'http://localhost:8080/oauth_callback',
         scope: 'player'
     },
