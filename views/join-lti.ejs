@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="SimCase">
 
-    <title>Price Knowledge Quiz - simcase.io</title>
+    <title><%- app.name %> - simcase.io</title>
 
     <link rel="shortcut icon" href="<%- makeURL('/favicon-32x32.png') %>" type="image/png">
 
@@ -63,12 +63,14 @@
 
             <div class="container-fluid mt45">
 
-                <h2 class="mt60">Join Pricing Knowledge Quiz</h2>
+                <h2 class="mt60">Join <%- app.name %></h2>
 
                 <div id="register-form" class="form">
                     <p id="register-message" class="lead mt20">
-                        Thanks <%= registered.name %>!<br/>
-                        Wait here until the game get's launched.
+                        Thanks <%- registered.name %>!<br/>
+                        You have been successfully registered. <b>Keep this tab open</b> and you will be automatically redirected upon game launch.
+                        <br/><br/>
+                        If you mistakingly close this window, check your email (<%- registered.email %>) for your magic-link which will allow you to rejoin the game.
                     </p>
                 </div>
 

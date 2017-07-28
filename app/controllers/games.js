@@ -75,15 +75,23 @@ var GamesModule = function(io){
                     return ack({ error: 'You can not register for this game at this time.' });
 
                 // Already registered?
-                //if( game.registered.indexOf(data.email) > -1 )
+                var alreadyRegistered = game.registered.find(function(r){ return r.email == data.email; });
+                if( alreadyRegistered ){
                     //return ack({ error: 'You have already been registered for this game.' });
+                    alreadyRegistered.already = true;
+                    return ack(alreadyRegistered);
+                // No, the users is new!
+                }else{
+                    // Register the new player
+                    var registration_token = Utils.uid(20);
+                    game.registered.push({
+                        email: data.email,
+                        name: data.name,
+                        lastname: data.lastname,
+                        registration_token: registration_token
+                    });
+                }
 
-                // Register the new player
-                game.registered.push({
-                    email: data.email,
-                    name: data.name,
-                    lastname: data.lastname
-                });
                 game.save(function(err){
 
                     // Catch the error
@@ -130,6 +138,8 @@ var GamesModule = function(io){
             return res.render('admin/games/list', {
                 games: games,
                 site_url: configOauth.site_url,
+                controller: 'games',
+                action: 'list_games',
             });
 
         });
@@ -147,7 +157,9 @@ var GamesModule = function(io){
             return res.render('admin/games/create', {
                 instructors: instructors,
                 headerTitle: 'New Game',
-                site_url: configOauth.site_url
+                site_url: configOauth.site_url,
+                controller: 'games',
+                action: 'new_game'
             });
 
         });
@@ -254,6 +266,8 @@ var GamesModule = function(io){
                 game: game,
                 o: configApp,
                 site_url: configOauth.site_url,
+                controller: 'games',
+                action: 'setup',
                 headerTitle: game.name
             });
 
@@ -275,6 +289,8 @@ var GamesModule = function(io){
         // Get the current game
         Game.findOne({_id: gameId}).populate('players').exec(function(err, game){
 
+
+
             // Query error
             if(err){
                 req.flash('error', err);
@@ -284,6 +300,8 @@ var GamesModule = function(io){
             // No game found or status is not saved (this means it's launched or finalized)
             if(!game || game.status != 'saved')
                 return res.redirect(configOauth.site_url + '/admin/games');
+
+
 
             // Get the registered players
             var registeredPlayers = game.registered;
@@ -307,7 +325,12 @@ var GamesModule = function(io){
             if( registeredPlayers.length > 0 && typeof registeredPlayers[0] == 'object' ){
                 // Trim emails
                 registeredPlayers = registeredPlayers.map(function(pl){
-                    return {name: pl.name.trim(), lastname: pl.lastname.trim(), email: pl.email.trim() };
+                    return {
+                        name: pl.name.trim(),
+                        lastname: pl.lastname.trim(),
+                        email: pl.email.trim(),
+                        registration_token: pl.registration_token.trim()
+                    };
                 });
                 // Avoid Duplicates: Validate if the email has already been added & not empty (item.length)
                 registeredPlayers = registeredPlayers.filter(function(item, pos, selfArray) {
@@ -315,7 +338,8 @@ var GamesModule = function(io){
                 });
             }
 
-            // Re-create the playertxt
+            // Re-create the playertxt (CSV textarea)
+            // Based on the registered players
             playertxt = registeredPlayers.map(function(p){
                 var newline = p.email;
                 newline += (p.name.length > 0) ? ', ' + p.name : '';
@@ -323,7 +347,7 @@ var GamesModule = function(io){
                 return newline;
             }).join('\n');
 
-            // Create the new players (including token) to saved
+            // Create the new players objects (including token) to saved
             var newPlayers = registeredPlayers.map(function(p){
                 var token = Utils.uid(10);
                 return {email: p.email, name: p.name, lastname: p.lastname, game_id: gameId, token: token};
@@ -420,7 +444,7 @@ var GamesModule = function(io){
             if( game.status != 'saved' )
                 return res.json({ error: 'You can not remove players from this game at this time.' });
 
-            // Legacy
+            // Find the registered player by email
             var index = game.registered.findIndex(function(el, i){ return el.email == email });
 
             // If an elem is found, then remove it
@@ -671,7 +695,7 @@ var GamesModule = function(io){
             }
 
             // Load the form view
-            return res.render('admin/games/report_playerboard', {
+            return res.render('admin/games/report_players', {
                 game: game,
                 site_url: configOauth.site_url,
                 o: configApp,

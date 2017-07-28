@@ -14,6 +14,7 @@ module.exports = function(app, io, appConfig) {
     // Instantiate the modules that has constructors
     PlayController  = new PlayController();
     GamesController = new GamesController(io);
+    AuthController  = new AuthController(io);
 
     // =====================================
     // HOME PAGE
@@ -38,32 +39,13 @@ module.exports = function(app, io, appConfig) {
     app.get('/play/home',
         PlayController.index);
 
-    // =====================================
-    // DASHBOARD
-    // =====================================
-     app.get('/debrief',
-        isLoggedIn,
-        DebriefController.index);
-
 
     // =====================================
-    // DASHBOARD
+    // ADMIN
     // =====================================
-    app.get('/dashboard',
+    app.get('/admin',
         isLoggedIn,
         GamesController.index);
-
-    app.get('/dashboard/report',
-        isLoggedIn,
-        ResultController2.listClassPerSimcase);
-
-    app.get('/dashboard/reportParticipation',
-        isLoggedIn,
-        ResultController2.listParticipation);
-
-    app.get('/dashboard/reportCSV',
-        isLoggedIn,
-        ResultController2.downloadCSV);
 
 
     // =====================================
@@ -180,6 +162,7 @@ module.exports = function(app, io, appConfig) {
     // =====================================
     // AUTHENTICATION
     // =====================================
+    app.post('/lti/:game_id', AuthController.lti)
     app.get('/logout', AuthController.logout);
 
 };

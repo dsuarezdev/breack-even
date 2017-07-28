@@ -1,13 +1,24 @@
 <%- include ../header %>
 
     <div class="container-fluid">
+
+      <!-- .topbar -->
+      <div class="topbar topbar-right">
+        <a href="<%- makeURL('/admin/games/create') %>" id="new-round-btn" class="btn btn-md btn-labeled btn-success">
+            <span class="btn-label"><i class="fa fa-plus"></i></span> New Game
+        </a>
+      </div>
+        <!-- /.topbar -->
+
+    <div class="row secondary-bar">
+        <div class="col-xs-12">
+            <h2 class="mt0 mb0">Games</h2>
+        </div>
+    </div>
+
       <div class="row">
 
         <div class="col-xs-12 main">
-
-            <h2 class="mt0 mb20">
-                Games <a href="<%- makeURL('/admin/games/create') %>" class="btn btn-mb btn-primary">Add New Game</a>
-            </h2>
 
             <table id="crud-list" class="table table-hover table-striped">
                 <thead>
@@ -49,8 +60,9 @@
                                 <% if(game.status == 'launched'){ %> Play <% } %>
                                 <% if(game.status == 'finalized'){ %> Complete <% } %>
                             </td>
-                            <td class="text-center"><%- game.players.length %></td>
+                            <td class="text-center"><%- game.registered.length %></td>
                              <td class="text-right" style="width:1%; white-space: nowrap;">
+
                                 <% if(game.status == 'saved'){ %>
                                     <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-success btn-sm">Select</a>
                                 <% }else{ %>

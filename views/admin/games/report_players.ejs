@@ -2,73 +2,56 @@
 
     <div class="container-fluid">
 
-        <!-- Menu Bar -->
-        <div id="menu-bar" class="row">
+        <!-- .topbar -->
+        <div class="topbar topbar-right">
 
-            <div class="col-sm-6 text-left">
+            <% if( game.status != 'finalized' ){ %>
+                <a id="add-player-btn" href="#" id="addplayer-btn" class="btn btn-mb btn-labeled btn-info"
+                   data-toggle="modal" data-target="#add-new-pair-modal">
+                    <span class="btn-label"><i class="fa fa-plus"></i></span> Add Player
+                </a>
+            <% } %>
 
-                <h3 class="mt5 mb0" style="display:inline-block;">Game Controls</h3>
-
-                <!-- Validate and show only 1 -->
-                <!--
-                <% if( game.started ){ %>
-                    <a href="<%- makeURL('/admin/games/debrief/' + game._id) %>" class="btn btn-md btn-info">
-                        Debrief
+            <!-- Pause/Unpause -->
+            <% if( !game.async_mode ){ %>
+                <% if( game.paused ){ %>
+                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-warning">
+                        <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
                     </a>
                 <% }else{ %>
-                    <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-info">
-                        <span class="btn-label"><i class="fa fa-play"></i></span> Start
+                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-warning">
+                        <span class="btn-label"><i class="fa fa-pause"></i></span> Pause
                     </a>
                 <% } %>
-                -->
+            <% } %>
 
-            </div>
+            <!-- CSV -->
+            <% if( game.status == 'finalized' ){ %>
+                <a href="<%- makeURL('/admin/games/csv/' + game._id) %>" id="csv-btn" class="btn btn-mb btn-labeled btn-primary">
+                    <span class="btn-label"><i class="fa fa-download"></i></span> Download CSV
+                </a>
+            <% } %>
 
-            <div class="col-sm-6 text-right">
-                <div class="mt0">
+            <!-- Start/Finalize -->
+            <% if( game.started ){ %>
+                <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-danger">
+                    <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
+                </a>
+            <% }else{ %>
+                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-info">
+                    <span class="btn-label"><i class="fa fa-play"></i></span> Start
+                </a>
+            <% } %>
 
-                    <% if( game.status == "finalized" || !game.started ){ var btnStatus = 'disabled'} %>
+        </div>
+        <!-- /.topbar -->
 
-                    <% if( game.status == 'finalized' ){ %>
-                        <a href="<%- makeURL('/admin/games/csv/' + game._id) %>" id="csv-btn" class="btn btn-mb btn-labeled btn-primary">
-                            <span class="btn-label"><i class="fa fa-download"></i></span> Download CSV
-                        </a>
-                    <% }else{ %>
-
-                        <% if( game.started ){ %>
-
-                            <% if( !game.async_mode ){ %>
-                                <% if( game.paused ){ %>
-                                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-warning <%- btnStatus %>">
-                                        <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
-                                    </a>
-                                <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-warning <%- btnStatus %>">
-                                        <span class="btn-label"><i class="fa fa-pause"></i></span> Pause
-                                    </a>
-                                <% } %>
-                            <% } %>
-
-                            <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-danger <%- btnStatus %>">
-                                <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
-                            </a>
-
-                        <% }else{ %>
-
-                            <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-labeled btn-success">
-                                <span class="btn-label"><i class="fa fa-play"></i></span> Start
-                            </a>
-
-                        <% } %>
-
-                        <a id="add-player-btn" href="#" id="addplayer-btn" class="btn btn-mb btn-labeled btn-info"
-                           data-toggle="modal" data-target="#add-new-pair-modal">
-                            <span class="btn-label"><i class="fa fa-plus"></i></span> Add Player
-                        </a>
-
-                    <% } %>
-
-                </div>
+        <!-- Menu Bar -->
+        <div class="row secondary-bar">
+            <div class="col-sm-6 text-left">
+                <h3 class="mt0 mb0" style="display:inline-block;">
+                    User Management
+                </h3>
             </div>
         </div>
         <!-- /Menu-bar -->
@@ -84,12 +67,12 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>Players</strong> &nbsp; <small>Total: <%- game.players.length %> &nbsp;|&nbsp; Active: <%- activePlayers.length %> (<%- activePlayersPercent %>%)</small>
+                        <strong>Player Details</strong> &nbsp; <small>Total: <%- game.players.length %> &nbsp;|&nbsp; Active: <%- activePlayers.length %> (<%- activePlayersPercent %>%)</small>
                     </div>
                     <div class="panel-body">
 
                         <div id="table_pair" class="">
-                            <table class="table table-bordered">
+                            <table class="table table-borderedx mb0">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -198,5 +181,5 @@
         });
     </script>
 
-<%- include ../slidemenu %>
+<%- include ../slidemenu-game %>
 <%- include ../footer %>

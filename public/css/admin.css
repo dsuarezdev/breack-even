@@ -48,6 +48,10 @@ body{
     line-height: 34px;
     font-weight: 300;
 }
+.navbar-inverse .navbar-brand a{
+    color: #FFF;
+    text-decoration: none;
+}
 
 #module-name{padding-left: 20px;}
 
@@ -108,7 +112,7 @@ body{
 #slide-menu ul li > a,
 #slide-menu ul li > span{
     display: block;
-    padding: 12px;
+    padding: 15px 12px;
     color: #333;
     background: #EEEDEA;
     text-decoration: none;
@@ -125,17 +129,17 @@ body{
 #slide-menu ul li.close-menu:hover > span{ color: #FFF; }
 
 
-#menu-bar{
+.secondary-bar{
     padding: 10px 0;
     color: #555;
     background: #eee;
 }
-#menu-bar h1,
-#menu-bar h2,
-#menu-bar h3,
-#menu-bar h4,
-#menu-bar h5,
-#menu-bar h6{
+.secondary-bar h1,
+.secondary-bar h2,
+.secondary-bar h3,
+.secondary-bar h4,
+.secondary-bar h5,
+.secondary-bar h6{
     font-weight: 300;
 }
 
@@ -201,8 +205,36 @@ a.disabled {
 }
 
 
+/* GAME CREATION */
+/* Form validations */
+label.error{
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    color: #fff;
+    background: #ee3300;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+.form-group > label.error{margin-left: 15px;}
+
 
 /* GAME SETUP */
+.topbar{
+    position: fixed;
+    top: 8px;
+    z-index: 1030;
+}
+.topbar-center{
+    left: 50%;
+    transform: translateX(-50%);
+}
+.topbar-right{
+    right: 95px;
+}
+
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
@@ -211,26 +243,27 @@ a.disabled {
 .bootstrap-switch-id-magiclink{
     margin-top: -10px;
 }
-#shortlink{
-    display: inline-block;
-    width: 100%;
-    color:#026CB5;
-    font-size: 60px;
-    text-align: center;
-    margin-bottom: 44px;
-    border: none;
-    border-radius: 8px;
-    background: transparent;
+
+
+/* FORMS COLLAPSE */
+.coll-toggle,
+.coll-toggle:hover{
+    text-decoration: none;
+    color: #EEE;
+    background: #004785;
 }
-#shortlink:focus{
-    background: rgba(255,255,255,.4);
-}
-#players_text{
-    font-size: 16px;
-    background: #FFF;
-    color: #333;
+.coll-toggle.collapsed{
+    color: #666;
+    background: #dedede;
 }
 
+.coll-toggle .coll{display: none;}
+.coll-toggle .nocoll{display: inline;}
+
+.coll-toggle.collapsed .coll{display: inline;}
+.coll-toggle.collapsed .nocoll{display: none;}
+
+/* REGISTRATION LINKS & SHORTLINK */
 #reg-link{
     display: block;
     width: 100%;
@@ -248,17 +281,13 @@ a.disabled {
     margin-bottom: 0;
 }
 
-#importer{
-    font-size: 16px;
-}
-
 #shortlink{
     display: inline-block;
     width: 100%;
     color:#026CB5;
     font-size: 60px;
     text-align: center;
-    margin-bottom: 44px;
+    margin-bottom: 0;
     border: none;
     border-radius: 8px;
     background: transparent;
@@ -267,18 +296,31 @@ a.disabled {
     background: rgba(255,255,255,.4);
 }
 
+/* Instructions */
+#instructions .tab-content{
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-top: none;
+    margin-bottom: 20px;
+    background: #FFF;
+}
+#instructions ol li,
+#instructions ul li{margin-bottom: 15px;}
+
 
 #container-carousel.carousel-inner .force-block{
     display: block;
 }
 
-#player-list .input-group input{
-    z-index: -1;
+/* Players list */
+#players_text{
+    font-size: 16px;
+    background: #FFF;
+    color: #333;
 }
-
-#player-list .input-group .input-group-addon{
-    display: none;
-}
+#importer{font-size: 16px;}
+#player-list .input-group input{z-index: -1;}
+#player-list .input-group .input-group-addon{display: none;}
 
 
 

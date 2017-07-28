@@ -48,7 +48,7 @@ var PlayController = function(io){
             // Game lauched and you're already a player? (This means game was launched)
             // Then redirect inmetiately
             var alreadyPlayer = game.players.find(function(p){ return p.email == alreadyRegistered.email });
-            if( alreadyPlayer )
+            if( alreadyPlayer && (game.status == 'launched' || game.status == 'finalized') )
                 return res.redirect(configOauth.site_url + '/play?i=' + gameId + '&e=' + alreadyPlayer.email + '&t=' + alreadyPlayer.token);
 
             return res.render('join-lti', { game_id: gameId, registered: alreadyRegistered });

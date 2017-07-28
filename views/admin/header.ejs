@@ -17,6 +17,7 @@
 
     <!-- JS -->
     <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/jquery.validate.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootstrap-switch.min.js') %>"></script>
@@ -40,11 +41,13 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="<%- makeURL('/dashboard') %>" style="padding:8px;">
-          <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase" />
-          <%- app.name %>
+      <span class="navbar-brand" style="padding:8px;">
+          <a href="<%- makeURL('/admin') %>">
+            <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase" />
+            <%- app.name %>
+          </a>
           <span id="module-name"><% if( typeof headerTitle != 'undefined' ){ %> <%- headerTitle %> <% }%>&nbsp;</span>
-      </a>
+      </span>
 
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -58,23 +61,6 @@
         -->
 
         <ul class="nav navbar-nav navbar-right">
-
-            <% if( typeof controller != 'undefined' && controller == 'games' ){ %>
-            <li class="game-actions">
-                <% if( ['debrief'].indexOf(action) > -1 ){ %>
-                <a href="<%= site_url %>/admin/games/gameboard/<%- game._id %>" class="btn-switcher btn btn-sm btn-primary pull-right" style="margin-top:8px; padding: 6px 12px;">
-                    <i class="fa fa-arrow-left"></i> Game Controls
-                </a>
-                <% } %>
-
-                <% if( action == 'gameboard' && (game.status == 'launched' || game.status == 'finalized') ){ %>
-                <a href="<%= site_url %>/admin/games/debrief/<%- game._id %>" class="btn-switcher btn btn-sm btn-primary pull-right" style="margin-top:8px; padding: 6px 12px;">
-                    <i class="fa fa-signal"></i> Game Debrief
-                </a>
-                <% } %>
-
-            </li>
-            <% } %>
 
             <!--
             <li class="profile-btn">

@@ -1,13 +1,14 @@
 <div id="slide-menu" class="">
     <div id="slidemenu-overlay" class="menu-overlay"></div>
     <ul class="text-left">
-        <li id="slidemenu-close" class="close-menu">
-            <span>Close</span>
+        <li id="slidemenu-close" class="close-menu"><span>Close</span></li>
+        <li class="<% if(action && action == 'gameboard'){ %>active<% } %>">
+            <a href="<%- site_url %>/admin/games/gameboard/<%- game._id %>">User Management</a>
         </li>
-        <li class="<% if(action && action == 'new_game'){ %>active<% } %>">
-            <a href="<%- site_url %>/admin/games/create">New Game</a>
+        <li class="<% if(action && action == 'debrief'){ %>active<% } %>">
+            <a href="<%- site_url %>/admin/games/debrief/<%- game._id %>">Debrief</a>
         </li>
-        <li class="<% if(action && action == 'list_games'){ %>active<% } %>">
+        <li>
             <a href="<%- site_url %>/admin/games">Game Sessions</a>
         </li>
         <li>

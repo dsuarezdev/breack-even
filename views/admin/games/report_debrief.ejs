@@ -2,142 +2,99 @@
 
     <div class="container-fluid">
 
+        <!-- .topbar -->
+        <div class="topbar topbar-right">
+
+            <% if( game.status != 'finalized' ){ %>
+                <a id="add-player-btn" href="#" id="addplayer-btn" class="btn btn-mb btn-labeled btn-info"
+                   data-toggle="modal" data-target="#add-new-pair-modal">
+                    <span class="btn-label"><i class="fa fa-plus"></i></span> Add Player
+                </a>
+            <% } %>
+
+            <!-- Pause/Unpause -->
+            <% if( !game.async_mode ){ %>
+                <% if( game.paused ){ %>
+                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-warning">
+                        <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
+                    </a>
+                <% }else{ %>
+                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-warning">
+                        <span class="btn-label"><i class="fa fa-pause"></i></span> Pause
+                    </a>
+                <% } %>
+            <% } %>
+
+            <!-- CSV -->
+            <% if( game.status == 'finalized' ){ %>
+                <a href="<%- makeURL('/admin/games/csv/' + game._id) %>" id="csv-btn" class="btn btn-mb btn-labeled btn-primary">
+                    <span class="btn-label"><i class="fa fa-download"></i></span> Download CSV
+                </a>
+            <% } %>
+
+            <!-- Start/Finalize -->
+            <% if( game.started ){ %>
+                <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-danger">
+                    <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
+                </a>
+            <% }else{ %>
+                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-info">
+                    <span class="btn-label"><i class="fa fa-play"></i></span> Start
+                </a>
+            <% } %>
+
+        </div>
+        <!-- /.topbar -->
+
         <!-- Menu Bar -->
-        <div id="menu-bar" class="row">
-
+        <div class="row secondary-bar">
             <div class="col-sm-6 text-left">
-
-                <h3 class="mt5 mb0" style="display:inline-block;">Debrief</h3>
-
-                <!--
-                <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn btn-md btn-info">Gameboard</a>
-                -->
-
-            </div>
-
-            <div class="col-sm-6 text-right">
-                <div class="mt0">
-
-                    <% if( game.status == "finalized" || !game.started ){ var btnStatus = 'disabled'} %>
-
-                    <% if( game.status == 'finalized' ){ %>
-                        <a href="<%- makeURL('/admin/games/csv/' + game._id) %>" id="csv-btn" class="btn btn-mb btn-labeled btn-primary">
-                            <span class="btn-label"><i class="fa fa-download"></i></span> Download CSV
-                        </a>
-                    <% }else{ %>
-
-                        <% if( game.started ){ %>
-
-                            <% if( !game.async_mode ){ %>
-                                <% if( game.paused ){ %>
-                                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-warning <%- btnStatus %>">
-                                        <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
-                                    </a>
-                                <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-warning <%- btnStatus %>">
-                                        <span class="btn-label"><i class="fa fa-pause"></i></span> Pause
-                                    </a>
-                                <% } %>
-                            <% } %>
-
-                            <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-danger <%- btnStatus %>">
-                                <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
-                            </a>
-
-                        <% }else{ %>
-
-                            <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-labeled btn-success">
-                                <span class="btn-label"><i class="fa fa-play"></i></span> Start
-                            </a>
-
-                        <% } %>
-
-                    <% } %>
-
-                </div>
+                <h3 class="mt0 mb0" style="display:inline-block;">
+                    Debrief
+                </h3>
             </div>
         </div>
         <!-- /Menu-bar -->
 
-        <!-- main -->
-        <div class="row">
-            <div class="col-xs-12">
-                <%- include ../../main_debrief.ejs %>
-            </div>
-        </div>
+        <div class="row main">
 
-        <!-- Alert Modal -->
-        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="alertModalTitle"></h4>
-              </div>
-              <div id="alertModalBody" class="modal-body">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-              </div>
+            <div class="col-xs-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Title...</strong>
+                    </div>
+                    <div class="panel-body">
+                        Content...
+                    </div>
+                </div>
+
             </div>
-          </div>
+
         </div>
+        <!-- /.main -->
 
     </div>
+
+    <%- include add_player_modal %>
+
 
     <!-- Libraries -->
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
     <script>
-
-        // GAME
-        var gameObj = <%- JSON.stringify(game) %>;
-        console.log('gameObj', gameObj);
-
-        // SOCKETS
-        var o = <%- JSON.stringify(o) %>;
-        // Init & Connect Socket
-        var socket = io.connect(o.io_domain, {path: o.io_path});
-
         jQuery(document).ready(function(){
 
-            // Enter the Game
-            socket.emit('enter-backend', {game_id: gameObj._id}, function(game){
+            // GAME
+            var gameObj = <%- JSON.stringify(game) %>;
 
-                // Any errors?
-                if( game.error )
-                    return console.log(game.error);
+            // SOCKETS
+            var o = <%- JSON.stringify(o) %>;
 
-                // Nice, we've joined to the game!
-                if( game._id ){
-                    return console.log("Backend Joined: "+game._id)
-                }
-
-            });
-
-
-            // ******************************
-            // SOCKET EVENTS
-            // ******************************
-
-            // Capture the player estimates
-            //socket.on('result', function(data){}); // THIS MAY BE USEFUL
+            // Init & Connect Socket
+            var socket = io.connect(o.io_domain, {path: o.io_path});
 
         });
-
-
-
-        /***************/
-        /** FUNCTIONS **/
-        /***************/
-
-        // ...
-
     </script>
 
-    <script type="text/javascript" src="<%- makeURL('/game_assets/js/main_debrief.js') %>"></script>
-    <script type="text/javascript" src="<%- makeURL('/game_assets/js/debrief_utils.js') %>"></script>
-    <script type="text/javascript" src="<%- makeURL('/game_assets/js/game_utils.js') %>"></script>
-    <script type="text/javascript" src="<%- makeURL('/game_assets/js/utils.js') %>"></script>
-
-<%- include ../slidemenu %>
+<%- include ../slidemenu-game %>
 <%- include ../footer %>

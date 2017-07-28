@@ -16,7 +16,7 @@ module.exports = {
 
         // HTML Message
         var html = '<p>Hello ' + user.email + ',</p>';
-        html    += '<p>Click on the following link to enter the preparation phase of the game:</p>';
+        html    += '<p>You’ve been invited to Trading Pit. Click on the following link to enter the game:</p>';
         html    += '<p><a href="' + magiclink + '">' + magiclink + '</a></p>';
         html    += '<p>Engage and Enjoy,</p>';
         html    += '<p>SimCase</p>';
@@ -59,7 +59,7 @@ module.exports = {
 
         // HTML Message
         var html = '<p>Hello ' + email + ',</p>';
-        html    += '<p>Click on the following link to enter the preparation phase of the game:</p>';
+        html    += '<p>You’ve been invited to Trading Pit. Click on the following link to enter the game:</p>';
         html    += '<p><a href="' + link + '">' + link + '</a></p>';
         html    += '<p>Engage and Enjoy,</p>';
         html    += '<p>SimCase</p>';
@@ -67,7 +67,7 @@ module.exports = {
         var data = {
             from: from_who,
             to: email,
-            subject: 'Magic-link to your Hearts negotiation',
+            subject: 'Magic-link to your Trading Pit negotiation',
             html: html
         };
 

@@ -2,22 +2,16 @@
 
     <div class="container-fluid">
 
-        <!-- Menu Bar -->
-        <div id="menu-bar" class="row">
-            <div class="col-sm-6">
-                <h2 class="page-header">Setup <%- game.name %></h2>
-            </div>
-            <div class="col-sm-6 text-right">
-                <div class="mt20">
-
-                    <a href="<%- makeURL('/admin/games/launch/' + game._id) %>" id="launch" class="btn btn-mb btn-labeled <% if(game.players.length != 0){ %> btn-success <% } else { %> btn-default <% } %> " >
-                        <span class="btn-label"><i class="fa "></i></span> Launch
-                    </a>
-
-                </div>
-            </div>
+        <!-- Top Bar -->
+        <div class="topbar topbar-right">
+            <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
+                <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
+            </span>
+            <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
+                <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
+            </a>
         </div>
-        <!-- /Menu-bar -->
+        <!-- /Top-bar -->
 
         <%- messages() %>
 
@@ -25,11 +19,16 @@
 
             <div class="col-xs-12">
 
-                <form method="POST" class="row">
+                <form id="game-form" method="POST" class="row">
 
-                    <div class="form-group col-sm-6">
-                        <h4>Name</h4>
-                        <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                    <div class="col-sm-6">
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <h4>Name</h4>
+                                <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                            </div>
+                        </div>
 
                         <!-- Registration -->
 
@@ -60,17 +59,11 @@
                         <ul id="registered-players" class="list-group">
                             <% game.registered.forEach(function(reg){ %>
                                 <li class="list-group-item">
-                                    <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg %>">Remove</span>
+                                    <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
                                 </li>
                             <% }); %>
                         </ul>
 
-                    </div>
-
-
-                    <div class="col-xs-12">
-                        <button class="btn btn-md btn-success">Update</button>
-                        <a href="<%- makeURL('/admin/games') %>" class="btn btn-md btn-default">Cancel</a>
                     </div>
 
                 </form>
@@ -81,104 +74,167 @@
     </div>
 
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
+    <script src="<%- makeURL('/js/clipboard.min.js') %>"></script>
     <script>
+        jQuery(document).ready(function(){
+
+            // GAME
+            var gameObj = <%- JSON.stringify(game) %>;
+            console.log('Game: ', gameObj);
 
 
-        // GAME
-        var gameObj = <%- JSON.stringify(game) %>;
-        console.log('Game: ', gameObj);
+            // SOCKETS
+            var o = <%- JSON.stringify(o) %>;
+            var socket = io.connect(o.io_domain, {path: o.io_path});
+
+            // ENTER THE GAME BACKEND ROOM
+            socket.emit('enter-backend', {game_id: '<%- game._id %>'}, function(room){
+                console.log('Connected to this room backend socket... ;)', room);
+                //console.log(room);
+            });
+
+            // JOINPLAYER!
+            socket.on('joinplayer', function(data){
+                console.log('New player!', data);
+                var alreadyReg = gameObj.registered.findIndex(function(reg){ return reg.email == data.email; });
+                if( alreadyReg == -1 ){
+                    gameObj.registered.push(data);
+                    addListItem(data);
+                }
+            });
 
 
-        // SOCKETS
-        var o = <%- JSON.stringify(o) %>;
-        var socket = io.connect(o.io_domain, {path: o.io_path});
+            // LOCAL FUNCTIONS
 
+            // Get the registered players list
+            var registeredCount = document.getElementById('rp-count');
+            var registeredList = document.getElementById('registered-players');
 
-        // ENTER THE GAME BACKEND ROOM
-        socket.emit('enter-backend', {game_id: '<%- game._id %>'}, function(room){
-            console.log('Connected to this room backend socket... ;)', room);
-            //console.log(room);
-        });
+            // Remove a registered player
+            function removeRegisteredPlayer(){
 
+                var elem = this;
+                var email = this.dataset.email;
+                if(email.length > 0 && isValidEmailAddress(email)){
 
-        // LOCAL FUNCTIONS
+                    var msg = "<div class='text-center'>By removing " + email + ",<br/>the user won't be able to play in this game.<br/><br/>";
+                    msg += "<small><i>To avoid overwriting the players list,<br/>it's a good idea to use this feature after all the players have joined.</i></small></div>";
 
-        // Get the registered players list
-        var registeredCount = document.getElementById('rp-count');
-        var registeredList = document.getElementById('registered-players');
+                    bootbox.confirm({
+                        title: "Are you sure?",
+                        message: msg,
+                        callback: function(confirmation){
 
-        // Remove a registered player
-        function removeRegisteredPlayer(){
+                            // Confirm
+                            if(confirmation){
 
-            var elem = this;
-            var email = this.dataset.email;
-            if(email.length > 0 && isValidEmailAddress(email)){
+                                jQuery.ajax({
+                                    method: 'POST',
+                                    url: '/admin/games/' + gameObj._id + '/rmemail/' + email,
+                                    success: function(response){
+                                        if(typeof response != 'undefined' && response.email){
 
-                var msg = "<div class='text-center'>By removing " + email + ",<br/>the user won't be able to play in this game.<br/><br/>";
-                msg += "<small><i>To avoid overwriting the players list,<br/>it's a good idea to use this feature after all the players have joined.</i></small></div>";
+                                            var element = elem.parentElement;
+                                            registeredList.removeChild(element);
+                                            registeredCount.innerHTML--;
 
-                bootbox.confirm({
-                    title: "Are you sure?",
-                    message: msg,
-                    callback: function(confirmation){
+                                            // Remove the player from the array
+                                            var removedIndex = gameObj.registered.findIndex(function(el){ return el.email == email; });
+                                            if (removedIndex > -1) {
+                                                gameObj.registered.splice(removedIndex, 1);
+                                            }
 
-                        // Confirm
-                        if(confirmation){
-
-                            jQuery.ajax({
-                                method: 'POST',
-                                url: '/admin/instances/' + instance.id + '/rmemail/' + email,
-                                success: function(response){
-                                    if(typeof response != 'undefined' && response.email){
-
-                                        var element = elem.parentElement;
-                                        registeredList.removeChild(element);
-                                        registeredCount.innerHTML--;
-
+                                        }
                                     }
-                                }
-                            });
+                                });
+
+                            }
 
                         }
+                    });
 
-                    }
-                });
+                }else{
+                    console.log('Email is invalid', email);
+                }
 
+            };
+
+            // Add an item to the list
+            function addListItem(p){
+
+                var litem = document.createElement('li');
+                litem.classList.add('list-group-item');
+
+                var litemRem = document.createElement('span');
+                litemRem.classList.add('btn', 'btn-xs', 'btn-danger', 'pull-right', 'remove');
+                litemRem.dataset.email = p.email;
+                litemRem.innerHTML = 'Remove';
+                litemRem.addEventListener('click', removeRegisteredPlayer);
+
+                var ntext = (p.name.length > 0) ? ', ' + p.name : '';
+                var lntext = (p.lastname.length > 0) ? ', ' + p.lastname : '';
+
+                litem.innerHTML = p.email + ntext + lntext;
+                litem.appendChild(litemRem);
+
+                registeredList.appendChild(litem);
+                registeredCount.innerHTML++;
+
+                // Disable launch
+                launchBtn.classList.add('disabled');
+
+            };
+
+
+            // Add "remove" listener to registered players
+            var currentRegisteredPlayers = document.querySelectorAll('#registered-players .list-group-item .remove');
+            currentRegisteredPlayers = [].slice.call(currentRegisteredPlayers);
+            currentRegisteredPlayers.forEach(function(cp){
+                cp.addEventListener('click', removeRegisteredPlayer);
+            });
+
+
+            // COPY TO CLIPBOARD
+            jQuery('#copy-link').tooltip({trigger: 'manual'});
+            var clipboard = new Clipboard('#copy-link');
+            clipboard.on('success', function(e) {
+                jQuery('#copy-link').attr('title', 'Copied').tooltip('fixTitle').tooltip('show');
+                setTimeout(function(){
+                    jQuery('#copy-link').tooltip('hide');
+                }, 1000);
+            });
+
+            clipboard.on('error', function(e) {
+                jQuery('#copy-link').attr('title', 'Press Ctrl+C or Cmd+C on Mac to copy').tooltip('fixTitle').tooltip('show');
+                setTimeout(function(){
+                    jQuery('#copy-link').tooltip('hide');
+                }, 1000);
+            });
+
+
+            // SAVE BTN VALIDATIONS
+            var gameForm = document.getElementById('game-form');
+            var saveBtn =  document.getElementById('save-btn');
+            saveBtn.addEventListener('click', function(e){
+                gameForm.submit();
+            });
+
+
+            // LAUNCH BTN VALIDATIONS
+            var launchBtn = document.getElementById('launch-btn');
+            if( gameObj.registered.length == 0 ) {
+                launchBtn.classList.add('disabled');
             }
+            launchBtn.addEventListener('click', function(e){
+                //e.preventDefault();
+                if( this.classList.contains('disabled') ){
+                    return false;
+                }else{
+                    return true;
+                }
+            });
 
-        };
-
-        // Add an item to the list
-        function addListItem(p){
-
-            var litem = document.createElement('li');
-            litem.classList.add('list-group-item');
-
-            var litemRem = document.createElement('span');
-            litemRem.classList.add('btn', 'btn-xs', 'btn-danger', 'pull-right', 'remove');
-            litemRem.dataset.email = p.email;
-            litemRem.innerHTML = 'Remove';
-            litemRem.addEventListener('click', removeRegisteredPlayer);
-
-            litem.innerHTML = p.email + ', ' + p.name + ' ' + p.lastname;
-            litem.appendChild(litemRem);
-
-            registeredList.appendChild(litem);
-            registeredCount.innerHTML++;
-
-        };
-
-
-        // JOINPLAYER!
-        socket.on('joinplayer', function(data){
-            console.log('New player!', data);
-            addListItem(data);
         });
-
-
-        // LAUNCH BTN VALIDATIONS
-        var launchBtn = document.getElementById('launch-btn');
-
     </script>
 
 <%- include ../slidemenu %>

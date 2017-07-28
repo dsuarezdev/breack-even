@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="SimCase">
 
-    <title>Optimization - simcase.io</title>
+    <title><%- app.name %> - simcase.io</title>
 
     <link rel="shortcut icon" href="<%- makeURL('/favicon-32x32.png') %>" type="image/png">
 
@@ -60,7 +60,7 @@
 
     <div class="container-fluid mt45">
 
-        <h2 class="mt60 text-center">Join Optimization</h2>
+        <h2 class="mt60 text-center">Join <%- app.name %> </h2>
 
         <div id="register-form" class="form">
 
@@ -96,26 +96,6 @@
 
     </div>
 
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Alert</h4>
-              </div>
-              <div class="modal-body">
-                  <p id="error-message" class="text-center"></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-
-        </div>
-    </div>
-
 
     <!-- Libraries -->
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
@@ -138,7 +118,6 @@
                 success: function( authdata ){
 
                     var oauthData = authdata;
-                    console.log( oauthData );
 
                     var socket = io.connect(oauthData.io_domain, {path: oauthData.io_path});
 
@@ -179,14 +158,16 @@
                                 console.log(res);
 
                                 if( typeof res.error != 'undefined' ){
-                                    document.getElementById('error-message').innerHTML = res.error;
-                                    jQuery('#myModal').modal('show');
+                                    bootbox.alert({
+                                        title: 'Error',
+                                        message: res.error
+                                    });
                                 }
 
                                 if( typeof res.email != 'undefined' ){
                                     document.getElementById('register-form').classList.add('hide');
-                                    document.getElementById('register-message').innerHTML = 'Thanks!<br/> Once the game is launched, an invitation will be sent to your <strong>' + res.email + '</strong> inbox (but also check your spam folder just in case).';
-                                    document.getElementById('register-message').innerHTML += '<br/><br/>Now feel free to close this browser window.';
+                                    document.getElementById('register-message').innerHTML = 'Thanks!<br/>You have been successfully registered. <b>Keep this tab open</b> and you will be automatically redirected upon game launch.<br/><br/>';
+                                    document.getElementById('register-message').innerHTML += 'If you mistakingly close this window, check your email (' + res.email + ') for your magic-link which will allow you to rejoin the game.';
                                     document.getElementById('register-message').classList.remove('hide');
                                 }
 

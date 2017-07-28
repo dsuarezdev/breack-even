@@ -14,13 +14,13 @@
                         <label>Name</label>
                         <input type="text" id="name" name="name" class="form-control input-lg" />
                     </div>
-                    <!-- Teacher -->
-                    <% if(user.role == 'instructor'){ %>
+
+                    <% if( user.role == 'instructor' ){ %>
                     <div class="form-group col-sm-4">
                         <label>Instructor</label>
-                        <% instructors.forEach( function( instructor, instructor_idx ){ %>
-                            <% if(instructor.id == req.user.api_id){ %>
-                                <input class="form-control input-lg" value="<%- instructor.name + ' ' + instructor.lastname %>" disabled />
+                        <% instructors.forEach( function( ins, ins_idx ){ %>
+                            <% if(ins.email == user.email){ %>
+                                <input id="instructor" class="form-control input-lg" value="<%- ins.name + ' ' + ins.lastname %>" disabled />
                             <% } %>
                         <% }); %>
                     </div>
@@ -28,13 +28,14 @@
                     <div class="form-group col-sm-4">
                         <label>Instructor</label>
                         <select id="instructor" name="instructor" class="form-control input-lg">
-                            <option value="-1">Select Instructor</option>
+                            <option value="">Select Instructor</option>
                             <% instructors.forEach( function( instructor, instructor_idx ){ %>
                                 <option value="<%- instructor.id %>"><%- instructor.name + ' ' + instructor.lastname %></option>
                             <% }); %>
                         </select>
                     </div>
                     <% } %>
+
                 </div>
 
                 <!-- Game Launch Types -->
@@ -141,18 +142,36 @@
 
       </div>
     </div>
-<script>
-    $( "#create-form" ).submit(function( event ) {
-        console.log("submit");
-      if ($("#name").val() == ''){
-          event.preventDefault();
-          $("#name").focus();
-      } else {
-         return true;
-      }
 
-    });
-</script>
+    <script>
+        jQuery(document).ready(function(){
+
+            // Cache the highest
+            var highestBox = 0;
+            // Select and loop the elements you want to equalise
+            jQuery('#launch-types .panel').each(function(pi, p){
+                // If this box is higher than the cached highest then store it
+                if(jQuery(p).height() > highestBox) {
+                  highestBox = jQuery(p).height();
+                }
+            });
+            // Set the height of all those children to whichever was highest
+            jQuery('#launch-types .panel').height(highestBox);
+
+
+            // Validate the form
+            var validator = jQuery("#create-form").validate({
+                rules: {
+                    name: {required: true},
+                    instructor: {required: true}
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
 
 <%- include ../slidemenu %>
 <%- include ../footer %>
