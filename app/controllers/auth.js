@@ -63,7 +63,7 @@ var AuthModule = function(io){
                 var refresh_token = body.refresh_token;
 
                 if( !token )
-                    res.error('Token not found');
+                    return res.error('Token not found');
 
                 // Initialize the API Helper and try to get the user data
                 new HubAPI({
@@ -84,22 +84,25 @@ var AuthModule = function(io){
                         schools       : body.schools_refs
                     }, {upsert: true, setDefaultsOnInsert: true}, function(dberr, upserted){
 
+                        if(dberr) return res.error(dberr);
+                        if(!upserted) return res.error(upserted);
+
                         // Login the user and add his token to the session
                         req.session.user = body;
                         req.session.user.token = token;
 
                         // Redirect the user
                         if( req.session.user.role == 'administrator' || req.session.user.role == 'instructor' )
-                            res.redirect(configOauth.site_url + '/admin');
+                            return res.redirect(configOauth.site_url + '/admin');
                         else
-                            res.redirect(configOauth.site_url + '/play');
+                            return res.redirect(configOauth.site_url + '/play');
 
                     });
 
                 });
 
             }else{
-                res.json(response);
+                return res.json(response);
             }
 
         });
