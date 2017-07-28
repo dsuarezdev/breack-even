@@ -2,26 +2,16 @@
 
     <div class="container-fluid">
 
-        <!-- Menu Bar -->
-        <div id="menu-bar" class="row">
-            <div class="col-sm-6">
-                <h3 class="mt5 mb0"><%- game.name %></h3>
-            </div>
-            <div class="col-sm-6 text-right">
-                <div class="mt0">
-
-                    <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
-                        <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
-                    </span>
-
-                    <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
-                        <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
-                    </a>
-
-                </div>
-            </div>
+        <!-- Top Bar -->
+        <div class="topbar topbar-right">
+            <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
+                <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
+            </span>
+            <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
+                <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
+            </a>
         </div>
-        <!-- /Menu-bar -->
+        <!-- /Top-bar -->
 
         <%- messages() %>
 
@@ -33,32 +23,103 @@
 
                     <div class="col-sm-6">
 
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <h4>Name</h4>
-                                <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                        <!-- Advanced Settings -->
+                        <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed mt10" data-toggle="collapse" data-target="#advanced-settings">
+                            <span class="coll">Show Advanced Settings</span>
+                            <span class="nocoll">Hide Advanced Settings</span>
+                        </span>
+
+                        <div id="advanced-settings" class="collapse">
+                            <div class="row mt10">
+                                <div class="form-group col-sm-8">
+                                    <h4>Name</h4>
+                                    <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <h4>
+                                        Access Type
+                                        <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
+                                    </h4>
+                                    <select class="form-control input-lg" id="access_type" name="access_type">
+                                        <option value="lms"  <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
+                                        <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
+                                        <option value="csv"  <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
+                        <!-- /Advanced Settings -->
 
-                        <!-- Registration -->
+                        <hr/>
 
-                        <!-- Short URL -->
-                        <div class="jumbotron text-center mt20">
-                            <br/>
-                            <input type="text" id="shortlink" name="short_url" value="<%- game.short_url || '' %>" placeholder="http://sc.io/ax12" />
-                            <p style="margin-bottom:0;">Register Here!</p>
-                        </div>
-
-                        <!-- Long Registration Link -->
-                        <h4>Long Registration Link</h4>
-                        <input id="reg-link" class="" style="padding-right:80px;" value="<%- site_url %>/join/<%- game._id %>" />
-                        <!-- Copy -->
-                        <span id="copy-link" class="btn btn-md btn-default pull-right"
-                                data-clipboard-target="#reg-link"
-                                data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"
-                                style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
-                            <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+                        <!-- Instructions -->
+                        <span class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#instructions">
+                            <span class="coll">Show LTI Instructions</span>
+                            <span class="nocoll">Hide LTI Instructions</span>
                         </span>
+
+                        <div id="instructions" class="collapse" aria-expanded="true">
+
+                            <!-- Tabs: LMS Instructions -->
+                            <ul class="nav nav-tabs nav-justified mt20" role="tablist">
+                                <li role="presentation" class="active"><a href="#ins-canvas" role="tab" data-toggle="tab">Canvas</a></li>
+                                <li role="presentation"><a href="#ins-moodle" role="tab" data-toggle="tab">Moodle</a></li>
+                                <li role="presentation"><a href="#ins-others" role="tab" data-toggle="tab">Others</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="ins-canvas">
+                                    <p><strong>Create an LTI External app in Canvas LMS:</strong></p>
+                                    <ol>
+                                        <li>Create an External App in Canvas Menu.</li>
+                                        <li>Complete the required External App form details</li>
+                                        <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
+                                    </ol>
+                                    <p>
+                                        <strong>First-time? Review detailed instructions here:</strong><br>
+                                        <a href="https://community.canvaslms.com/docs/DOC-9965-415257103" target="_blank">
+                                            https://community.canvaslms.com/docs/DOC-9965-415257103
+                                        </a>
+                                    </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="ins-moodle">
+                                    <p><strong>Create an LTI External app in Moodle LMS:</strong></p>
+                                    <ol>
+                                        <li>Create an External App in Moodle Menu.</li>
+                                        <li>Complete the required External App form details.</li>
+                                        <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
+                                    </ol>
+                                    <p>
+                                        <strong>First-time? Review detailed instructions here:</strong><br>
+                                        <a href="https://docs.moodle.org/32/en/External_tool_settings" target="_blank">
+                                            https://docs.moodle.org/32/en/External_tool_settings
+                                        </a>
+                                    </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="ins-others">
+                                    <p><strong>Instructions for other LMS platforms:</strong></p>
+                                    <ul>
+                                        <li>
+                                            <a href="https://help.blackboard.com/Learn/Administrator/SaaS/Integrations/Learning_Tools_Interoperability" target="_blank">
+                                                Blackboard Instructions
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://support.schoology.com/hc/en-us/articles/204377963-A-How-to-Guide-for-Schoology-s-LTI-Integration" target="_blank">
+                                                Schoology Instructions
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <strong>Want to use another LMS?</strong><br>
+                                        Let us know at <a href="mailto:tech@simcase.io">tech@simcase.io</a><br>
+                                        We'll get to work on it!
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /Instructions -->
 
                     </div>
 
@@ -84,6 +145,7 @@
     </div>
 
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
+    <script src="<%- makeURL('/js/clipboard.min.js') %>"></script>
     <script>
         jQuery(document).ready(function(){
 
@@ -138,6 +200,12 @@
                                             registeredList.removeChild(element);
                                             registeredCount.innerHTML--;
 
+                                            // Remove the player from the array
+                                            var removedIndex = gameObj.registered.findIndex(function(el){ return el.email == email; });
+                                            if (removedIndex > -1) {
+                                                gameObj.registered.splice(removedIndex, 1);
+                                            }
+
                                         }
                                     }
                                 });
@@ -184,10 +252,32 @@
             });
 
 
+            // COPY TO CLIPBOARD
+            jQuery('#copy-link').tooltip({trigger: 'manual'});
+            var clipboard = new Clipboard('#copy-link');
+            clipboard.on('success', function(e) {
+                jQuery('#copy-link').attr('title', 'Copied').tooltip('fixTitle').tooltip('show');
+                setTimeout(function(){
+                    jQuery('#copy-link').tooltip('hide');
+                }, 1000);
+            });
+
+            clipboard.on('error', function(e) {
+                jQuery('#copy-link').attr('title', 'Press Ctrl+C or Cmd+C on Mac to copy').tooltip('fixTitle').tooltip('show');
+                setTimeout(function(){
+                    jQuery('#copy-link').tooltip('hide');
+                }, 1000);
+            });
+
+
             // JOINPLAYER!
             socket.on('joinplayer', function(data){
                 console.log('New player!', data);
-                addListItem(data);
+                var alreadyReg = gameObj.registered.findIndex(function(reg){ return reg.email == data.email; });
+                if( alreadyReg == -1 ){
+                    gameObj.registered.push(data);
+                    addListItem(data);
+                }
             });
 
 
@@ -195,9 +285,7 @@
             var gameForm = document.getElementById('game-form');
             var saveBtn =  document.getElementById('save-btn');
             saveBtn.addEventListener('click', function(e){
-
                 gameForm.submit();
-
             });
 
 
@@ -207,15 +295,29 @@
                 launchBtn.classList.add('disabled');
             }
             launchBtn.addEventListener('click', function(e){
-
+                //e.preventDefault();
                 if( this.classList.contains('disabled') ){
-                    alert('disabled!');
-                    e.preventDefault();
                     return false;
                 }else{
                     return true;
                 }
+            });
 
+            // Validate the form fields
+            var toggleSettings = document.getElementById('toggle-settings');
+            var validator = jQuery("#game-form").validate({
+                ignore: [],
+                rules: {
+                    name: {required: true}
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                invalidHandler: function(event, validator) {
+                    if( toggleSettings.classList.contains('collapsed') ) {
+                        toggleSettings.click();
+                    }
+                }
             });
 
         });

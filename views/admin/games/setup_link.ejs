@@ -2,26 +2,16 @@
 
     <div class="container-fluid">
 
-        <!-- Menu Bar -->
-        <div id="menu-bar" class="row">
-            <div class="col-sm-6">
-                <h3 class="mt5 mb0"><%- game.name %></h3>
-            </div>
-            <div class="col-sm-6 text-right">
-                <div class="mt0">
-
-                    <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
-                        <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
-                    </span>
-
-                    <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
-                        <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
-                    </a>
-
-                </div>
-            </div>
+        <!-- Top Bar -->
+        <div class="topbar topbar-right">
+            <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
+                <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
+            </span>
+            <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
+                <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
+            </a>
         </div>
-        <!-- /Menu-bar -->
+        <!-- /Top-bar -->
 
         <%- messages() %>
 
@@ -33,32 +23,48 @@
 
                     <div class="col-sm-6">
 
-                        <div class="row">
-                            <div class="form-group col-sm-12">
-                                <h4>Name</h4>
-                                <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
-                            </div>
-                        </div>
-
-                        <!-- Registration -->
-
                         <!-- Short URL -->
-                        <div class="jumbotron text-center mt20">
+                        <div class="jumbotron text-center mt10">
                             <br/>
                             <input type="text" id="shortlink" name="short_url" value="<%- game.short_url || '' %>" placeholder="http://sc.io/ax12" />
                             <p style="margin-bottom:0;">Register Here!</p>
                         </div>
 
-                        <!-- Long Registration Link -->
-                        <h4>Long Registration Link</h4>
-                        <input id="reg-link" class="" style="padding-right:80px;" value="<%- site_url %>/join/<%- game._id %>" />
-                        <!-- Copy -->
-                        <span id="copy-link" class="btn btn-md btn-default pull-right"
-                                data-clipboard-target="#reg-link"
-                                data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"
-                                style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
-                            <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+                        <!-- Settings -->
+                        <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
+                            <span class="coll">Show Advanced Settings</span>
+                            <span class="nocoll">Hide Advanced Settings</span>
                         </span>
+
+                        <div id="advanced-settings" class="collapse">
+                            <div class="row mt10">
+                                <div class="form-group col-sm-8">
+                                    <h4>Name</h4>
+                                    <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <h4>
+                                        Access Type
+                                        <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
+                                    </h4>
+                                    <select class="form-control input-lg" id="access_type" name="access_type">
+                                        <option value="lms" <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
+                                        <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
+                                        <option value="csv" <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Long Registration Link -->
+                            <h4>Long Registration Link</h4>
+                            <pre id="reg-link" class="" style="padding-right:80px;"><%- site_url %>/join/<%- game._id %></pre>
+                            <!-- Copy -->
+                            <span id="copy-link" class="btn btn-md btn-default pull-right"
+                                    data-clipboard-target="#reg-link"
+                                    data-toggle="tooltip" data-placement="bottom" title="..."
+                                    style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
+                                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+                            </span>
+                        </div>
 
                     </div>
 
@@ -106,7 +112,11 @@
             // JOINPLAYER!
             socket.on('joinplayer', function(data){
                 console.log('New player!', data);
-                addListItem(data);
+                var alreadyReg = gameObj.registered.findIndex(function(reg){ return reg.email == data.email; });
+                if( alreadyReg == -1 ){
+                    gameObj.registered.push(data);
+                    addListItem(data);
+                }
             });
 
 
@@ -143,6 +153,12 @@
                                             var element = elem.parentElement;
                                             registeredList.removeChild(element);
                                             registeredCount.innerHTML--;
+
+                                            // Remove the player from the array
+                                            var removedIndex = gameObj.registered.findIndex(function(el){ return el.email == email; });
+                                            if (removedIndex > -1) {
+                                                gameObj.registered.splice(removedIndex, 1);
+                                            }
 
                                         }
                                     }
@@ -226,15 +242,29 @@
                 launchBtn.classList.add('disabled');
             }
             launchBtn.addEventListener('click', function(e){
-
                 //e.preventDefault();
-
                 if( this.classList.contains('disabled') ){
                     return false;
                 }else{
                     return true;
                 }
+            });
 
+            // Validate the form fields
+            var toggleSettings = document.getElementById('toggle-settings');
+            var validator = jQuery("#game-form").validate({
+                ignore: [],
+                rules: {
+                    name: {required: true}
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                },
+                invalidHandler: function(event, validator) {
+                    if( toggleSettings.classList.contains('collapsed') ) {
+                        toggleSettings.click();
+                    }
+                }
             });
 
         });
