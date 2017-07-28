@@ -7,16 +7,17 @@ var from_who = 'SimCase <hello@simcase.io>';
 
 module.exports = {
 
-    inviteToGame: function( user, magiclink, subject ){
+    inviteToGame: function( user, magiclink, subject, appname ){
 
         //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
         var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
         user.token = ( typeof user.token == 'undefined' ) ? '' : user.token;
+        appname = (typeof appname == 'undefined' || appname.length == 0) ? '' : appname;
 
         // HTML Message
         var html = '<p>Hello ' + user.email + ',</p>';
-        html    += '<p>You’ve been invited to Trading Pit. Click on the following link to enter the game:</p>';
+        html    += '<p>You’ve been invited to ' + appname + '. Click on the following link to enter the game:</p>';
         html    += '<p><a href="' + magiclink + '">' + magiclink + '</a></p>';
         html    += '<p>Engage and Enjoy,</p>';
         html    += '<p>SimCase</p>';
@@ -50,6 +51,8 @@ module.exports = {
 
         var email = data.email;
         var link  = data.link;
+        var subject  = (typeof data.subject == 'undefined') ? 'Your SimCase Invitation' : data.subject;
+        var appname  = (typeof data.appname == 'undefined' || data.appname.length == 0) ? '' : data.appname;
 
         if( !email || email.length == 0)
             return false;
@@ -59,7 +62,7 @@ module.exports = {
 
         // HTML Message
         var html = '<p>Hello ' + email + ',</p>';
-        html    += '<p>You’ve been invited to Trading Pit. Click on the following link to enter the game:</p>';
+        html    += '<p>You’ve been invited to ' + appname +  '. Click on the following link to enter the game:</p>';
         html    += '<p><a href="' + link + '">' + link + '</a></p>';
         html    += '<p>Engage and Enjoy,</p>';
         html    += '<p>SimCase</p>';
@@ -67,7 +70,7 @@ module.exports = {
         var data = {
             from: from_who,
             to: email,
-            subject: 'Magic-link to your Trading Pit negotiation',
+            subject: subject,
             html: html
         };
 

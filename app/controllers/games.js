@@ -512,7 +512,7 @@ var GamesModule = function(io){
                     if(err) return res.json(err);
 
                     var magiclink = configOauth.site_url + '/play?i=' + insertedPlayer.game_id + '&e=' + insertedPlayer.email + '&t=' + insertedPlayer.token;
-                    EmailHelper.inviteToGame(insertedPlayer, magiclink, 'Your SimCase Invitation');
+                    EmailHelper.inviteToGame(insertedPlayer, magiclink, 'Your SimCase Invitation', configApp.name);
 
                     if( game.status == 'launched' ){
                         // IMPORTANT: This method MUST always be sent
@@ -572,7 +572,7 @@ var GamesModule = function(io){
                 game.players.forEach(function(p){
 
                     var magiclink = configOauth.site_url + '/play?i=' + p.game_id + '&e=' + p.email + '&t=' + p.token;
-                    EmailHelper.inviteToGame(p, magiclink, 'Your SimCase Invitation');
+                    EmailHelper.inviteToGame(p, magiclink, 'Your SimCase Invitation', configApp.name);
 
                     // Send socket launch message to each player
                     var playerRoom = 'game-' + gameId + '-' + p.email;
@@ -679,6 +679,27 @@ var GamesModule = function(io){
         });
     };
 
+
+    // SHARE MAGIC LINK
+    this.shareByEmail = function (req, res, next) {
+
+        var email = req.body.email;
+        var link  = req.body.link;
+
+        if( !email && !link )
+            return res.json(false);
+
+        var sent = EmailHelper.shareEmail({
+            email: email,
+            link: link,
+            appname: configApp.name,
+            subject: 'Your SimCase Invitation'
+        });
+        console.log('Sharing magiclink by email.', sent);
+
+        return res.json(sent);
+
+    };
 
 
     // GAMEBOARD

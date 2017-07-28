@@ -178,6 +178,36 @@
                 setTimeout(function(){ jQuery('#email-to').focus(); }, 500);
             });
 
+            // Send the email
+            jQuery('#share-send').click(function(){
+
+                var link = jQuery('#magiclink-url').val();
+                var email = jQuery('#email-to').val();
+
+                if( !isValidEmailAddress(email) )
+                    return jQuery('#email-to').focus().select();
+
+                if( email.length > 0 && link.length > 0 ){
+
+                    jQuery.ajax({
+                        url: '<%- makeURL('/admin/games/sharelink') %>',
+                        method: 'POST',
+                        data: { email: email, link: link },
+                        xhrFields: {withCredentials: true},
+                        success: function(res){
+
+                            if( res ){
+                                jQuery('#magiclink-url').val('');
+                                jQuery('#email-to').val('');
+                                jQuery('#shareModal').modal('hide');
+                            }
+
+                        }
+                    });
+
+                }
+            });
+
         });
     </script>
 

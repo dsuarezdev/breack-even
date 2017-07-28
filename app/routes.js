@@ -99,6 +99,10 @@ module.exports = function(app, io, appConfig) {
         isLoggedIn,
         GamesController.finalize);
 
+    app.post('/admin/games/sharelink',
+        isLoggedIn,
+        GamesController.shareByEmail);
+
     app.get('/admin/games/gameboard/:id',
         isLoggedIn,
         GamesController.gameboard);
