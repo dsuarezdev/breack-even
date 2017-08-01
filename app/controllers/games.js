@@ -315,7 +315,7 @@ var GamesModule = function(io){
                 var linesObjs = [];
                 lines.forEach(function(l){
                     var tempArr = l.split(',');
-                    linesObjs.push({ email: tempArr[0] || '', name: tempArr[1] || '', lastname: tempArr[2] || '' });
+                    linesObjs.push({ email: tempArr[0] || '', name: tempArr[1] || '', lastname: tempArr[2] || '', registration_token: '' });
                 });
                 registeredPlayers = (linesObjs.length > 0) ? linesObjs : [];
                 console.log(registeredPlayers);
