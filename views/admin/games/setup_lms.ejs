@@ -167,6 +167,17 @@
 
 
             // LOCAL FUNCTIONS
+            document.getElementById('access_type').addEventListener('change', function(){
+                bootbox.confirm({
+                    title: 'Access Type Change',
+                    message: 'You are about to change the game Access Type. This will change the game setup form and options.',
+                    callback: function(result){
+                        if( result ){
+                            saveBtn.click();
+                        }
+                    }
+                });
+            });
 
             // Get the registered players list
             var registeredCount = document.getElementById('rp-count');
