@@ -7,7 +7,7 @@
             <span id="save-btn" class="btn btn-mb btn-labeled btn-primary">
                 <span class="btn-label"><i class="fa fa-floppy-o fa-fw"></i></span> Save
             </span>
-            <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" >
+            <a id="launch-btn" href="<%- makeURL('/admin/games/launch/' + game._id) %>" class="btn btn-mb btn-labeled btn-success" style="pointer-events:auto;">
                 <span class="btn-label"><i class="fa fa-paper-plane"></i></span> Launch
             </a>
         </div>
@@ -100,6 +100,8 @@
         </div>
     </div>
 
+    <%- include modal_access_types %>
+
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
     <script>
 
@@ -121,6 +123,38 @@
 
 
         // LOCAL FUNCTIONS
+        function disableLaunch(){
+            if(launchBtn){
+                // Disable the launch btn
+                launchBtn.href = '#';
+                launchBtn.classList.add('disabled');
+                // Enable the button tooltip
+                jQuery(launchBtn).tooltip({
+                    placement: 'bottom',
+                    title: 'Save before launching'
+                });
+            }
+        }
+
+        // Access Type change
+        var current_at = document.getElementById('access_type').value;
+        document.getElementById('access_type').addEventListener('change', function(){
+
+            bootbox.confirm({
+                title: 'Access Type Change',
+                message: 'You are about to change the game Access Type',
+                callback: function(result){
+                    if( result ){
+                        saveBtn.click();
+                    }else{
+                        document.getElementById('access_type').value = current_at;
+                    }
+                }
+            });
+
+            disableLaunch();
+
+        });
 
         // Get the registered players list
         var registeredCount = document.getElementById('rp-count');

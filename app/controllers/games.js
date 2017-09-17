@@ -374,7 +374,7 @@ var GamesModule = function(io){
 
                     var gameParams = {
                         name: req.body.name,
-                        async_mode: req.body.async_mode,
+                        access_type: req.body.access_type,
                         registered: registeredPlayers,
                         players_text: playertxt.trim(),
                         players: newPlayers // Set the new player IDs
