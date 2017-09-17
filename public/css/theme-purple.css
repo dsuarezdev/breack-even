@@ -5,16 +5,19 @@
 
 body{
     font-family: 'Lato', sans-serif;
-
-    /* can be treated like a fallback */
     background-color: #a853fd;
+}
 
-    /* will be "on top", if browser supports it */
+.bgcolors{
     background-image: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
-
-    /* these will reset other properties, like background-position, but it does know what you mean */
-    background: #a853fd;
     background: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+}
+
+.bgicon{
+    background-image: url('../images/logo-bg.png'),
+        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+    background: url('../images/logo-bg.png'),
+        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
@@ -24,9 +27,14 @@ body{
 a{ color: #3eced7; }
 a:hover{ color: #36b3bb; }
 
+.logobg{
+    background-image: url('../images/s-logo-white.png');
+}
+
 .title-color{
     color: #6c55ff;
 }
+
 
 .panel-sidebar{
     position: absolute;
