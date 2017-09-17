@@ -3,33 +3,6 @@
  * By @davoscript
  */
 
-
-/* FONTS */
-/*
-@font-face {
-  font-family: 'Lato-Thin';
-  src: url('../assets/fonts/lato/Lato-Thin.ttf');
-  src: url('../assets/fonts/lato/Lato-Thin.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Lato-Regular';
-  src: url('../assets/fonts/lato/Lato-Regular.ttf');
-  src: url('../assets/fonts/lato/Lato-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Signika-bold';
-  src: url('../assets/fonts/signika/Signika-Bold.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-*/
-
 html{height: 100%;}
 
 body{
