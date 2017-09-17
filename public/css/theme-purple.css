@@ -1,0 +1,52 @@
+/*
+ * SIMCASE THEME: Purple
+ * By Davoscript for SimCase
+ */
+
+body{
+    font-family: 'Lato', sans-serif;
+
+    /* can be treated like a fallback */
+    background-color: #a853fd;
+
+    /* will be "on top", if browser supports it */
+    background-image: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+
+    /* these will reset other properties, like background-position, but it does know what you mean */
+    background: #a853fd;
+    background: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    font-weight: 300;
+}
+
+a{ color: #3eced7; }
+a:hover{ color: #36b3bb; }
+
+.title-color{
+    color: #6c55ff;
+}
+
+.panel-sidebar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #FFF;
+}
+
+
+/* Bootstrap Buttons */
+.btn-primary{
+    border: 1px solid #36b3bb;
+    background: #3eced7;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:focus:active,
+.btn-primary:active,
+.btn-primary:active:hover{
+    border: 1px solid #36b3bb;
+    background: #36b3bb;
+}
