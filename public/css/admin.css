@@ -172,6 +172,11 @@ a.disabled {
 
 
 /* GAME CREATION */
+#create-form label ul{
+    font-weight: 300;
+}
+
+
 /* Form validations */
 label.error{
     position: absolute;

@@ -2,9 +2,8 @@ body{
     min-height: 100vh;
 }
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
-    font-weight: 400;
-}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{font-weight: 400;}
+label{font-weight: 400;}
 
 /* Margins */
 .mt0{margin-top:0;}
@@ -33,6 +32,19 @@ body{
 .mb80{margin-bottom:80px;}
 .mb90{margin-bottom:90px;}
 .mb100{margin-bottom:100px;}
+
+/* Paddings */
+.pt10{padding-top:10px;}
+.pt20{padding-top:20px;}
+.pt30{padding-top:30px;}
+.pt40{padding-top:40px;}
+.pt50{padding-top:50px;}
+
+.pb10{padding-bottom:10px;}
+.pb20{padding-bottom:20px;}
+.pb30{padding-bottom:30px;}
+.pb40{padding-bottom:40px;}
+.pb50{padding-bottom:50px;}
 
 
 
