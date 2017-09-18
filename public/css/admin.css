@@ -43,12 +43,12 @@ body{
 
 /* NAVBAR */
 .navbar{margin-bottom: 0;}
-.navbar-inverse .navbar-brand{
+.navbar-brand{
     font-size: 30px;
     line-height: 34px;
     font-weight: 300;
 }
-.navbar-inverse .navbar-brand a{
+.navbar-brand a{
     color: #FFF;
     text-decoration: none;
 }
@@ -96,44 +96,8 @@ body{
     height: 100%;
     z-index: -1;
 }
-#slide-menu ul{
-    float: right;
-    width: 250px;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    background: #F8F8F8;
-}
-#slide-menu ul li{
-    margin: 0;
-    margin-bottom: 1px;
-}
-#slide-menu ul li > a,
-#slide-menu ul li > span{
-    display: block;
-    padding: 15px 12px;
-    color: #333;
-    background: #EEEDEA;
-    text-decoration: none;
-    cursor: pointer;
-}
-#slide-menu ul li.active > a,
-#slide-menu ul li.active > span,
-#slide-menu ul li > a:hover,
-#slide-menu ul li > span:hover{
-    color: #FFF;
-    background: #06AAFC;
-}
-#slide-menu ul li.close-menu > span{ color: #A90533; }
-#slide-menu ul li.close-menu:hover > span{ color: #FFF; }
 
 
-.secondary-bar{
-    padding: 10px 0;
-    color: #555;
-    background: #eee;
-}
 .secondary-bar h1,
 .secondary-bar h2,
 .secondary-bar h3,
@@ -155,7 +119,9 @@ footer{
     padding: 10px;
     font-size: 12px;
     font-weight: 300;
+    color: #FFF;
 }
+footer a{color: #FFF;}
 .footer-text{}
 .footer-right, .footer-text{
     margin-top: 4px;
@@ -222,19 +188,6 @@ label.error{
 
 
 /* GAME SETUP */
-.topbar{
-    position: fixed;
-    top: 8px;
-    z-index: 1030;
-}
-.topbar-center{
-    left: 50%;
-    transform: translateX(-50%);
-}
-.topbar-right{
-    right: 95px;
-}
-
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
 .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
@@ -482,33 +435,3 @@ ol, ul {
 .help {
     cursor: pointer;
 }
-/*
-
-a{color:#4f2582;}
-
-.navbar{
-    margin-bottom: 0;
-    background: #4f2683;
-}
-.navbar-inverse .navbar-brand{color: #FFF;}
-.navbar-inverse .navbar-nav > li > a{
-    color: #FFF;
-}
-#module-name{color: #B6ACD1;}
-
-#navbar li.profile-btn a{
-    color: rgba(255,255,255,.8);
-}
-#navbar li.profile-btn:hover a{
-    color: rgba(255,255,255,1);
-}
-
-#crud-list thead th{color: #FFF;}
-#crud-list thead{background:#16c1b7;}
-
-footer{
-    color: #FFF;
-    background: #4f2683;
-}
-
-*/

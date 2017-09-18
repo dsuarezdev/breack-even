@@ -35,7 +35,6 @@ a:hover{ color: #36b3bb; }
     color: #6c55ff;
 }
 
-
 .panel-sidebar{
     position: absolute;
     left: 0;
@@ -43,6 +42,44 @@ a:hover{ color: #36b3bb; }
     height: 100%;
     background: #FFF;
 }
+
+.circle{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    border-radius: 50%;
+    background: #6a52ff;
+}
+
+/* Navigation */
+.secondary-bar{border-left: 3px solid #6c55ff;}
+
+
+/* Slide menu */
+#slide-menu ul{
+
+    background: #FFF;
+}
+#slide-menu ul li > a,
+#slide-menu ul li > span{
+    color: #3eced7;
+    border-left: 3px solid #FFF;
+}
+
+#slide-menu ul li.active > a,
+#slide-menu ul li.active > span,
+#slide-menu ul li > a:hover,
+#slide-menu ul li > span:hover{
+    color: #445360;
+    border-left: 3px solid #6c55ff;
+    background: #e1dcff;
+}
+
+#slide-menu ul .profile-info{ color: #3eced7; }
+#slide-menu ul .close-menu{ color: #FFF; }
 
 
 /* Bootstrap Buttons */

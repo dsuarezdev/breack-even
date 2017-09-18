@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="<%- makeURL('/bootstrap/css/bootstrap.min.css') %>">
     <link rel="stylesheet" href="<%- makeURL('/css/bootstrap-switch.min.css') %>">
     <link rel="stylesheet" href="<%- makeURL('/css/font-awesome.min.css') %>">
+
+    <!-- COMMON -->
+    <link rel="stylesheet" type="text/css" href="<%- makeURL('/css/common.css') %>">
+    <!-- THEME -->
+    <link rel="stylesheet" type="text/css" href="<%- makeURL('/css/theme-purple.css') %>">
+
     <link rel="stylesheet" href="<%- makeURL('/css/admin.css') %>">
     <link rel="stylesheet" href="<%- makeURL('/css/highcharts.css') %>">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet">
@@ -23,13 +29,13 @@
     <script type="text/javascript" src="<%- makeURL('/js/simple-statistics.min.js') %>"></script>
 
     <style>
-        body{ padding-top:50px; }
+        body{ padding-top: 70px; }
     </style>
 </head>
-<body>
+<body class="bgcolors">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
+<nav id="main-menu" class="navbar navbar-fixed-top">
+  <div class="container">
     <div class="navbar-header">
 
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -60,23 +66,9 @@
 
         <ul class="nav navbar-nav navbar-right">
 
-            <!--
-            <li class="profile-btn">
-                <a href="#" style="padding: 8px; text-align: right; line-height: 16px; padding-top: 9px;">
-                    <%- user.email %><br/>
-                    <small class="capitalize"><%- user.role %></small>
-                </a>
-            </li>
-            <li class="logout-btn">
-               <a href="<%- makeURL('/logout') %>" title="Logout">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                </a>
-            </li>
-            -->
-
             <li id="slidemenu-btn">
                 <a href="#">
-                    <i class="fa fa-bars"></i> Menu
+                    Menu &nbsp; <i class="fa fa-bars"></i>
                 </a>
             </li>
 

@@ -1,26 +1,27 @@
 <%- include ../header %>
 
-    <div class="container-fluid">
+    <div class="container panel">
 
       <!-- .topbar -->
       <div class="topbar topbar-right">
-        <a href="<%- makeURL('/admin/games/create') %>" id="new-round-btn" class="btn btn-md btn-labeled btn-success">
-            <span class="btn-label"><i class="fa fa-plus"></i></span> New Game
+        <a href="<%- makeURL('/admin/games/create') %>" id="new-round-btn" class="btn btn-md btn-link">
+            <!--<span class="btn-label"><i class="fa fa-plus"></i></span> New Game-->
+            New Game &nbsp; <span class="circle"><i class="fa fa-plus"></i></span>
         </a>
       </div>
         <!-- /.topbar -->
 
     <div class="row secondary-bar">
         <div class="col-xs-12">
-            <h2 class="mt0 mb0">Games</h2>
+            <h2 class="mt0 mb0"><%- app.name %> <span class="title-color">Games</span></h2>
         </div>
     </div>
 
       <div class="row">
 
-        <div class="col-xs-12 main">
+        <div class="">
 
-            <table id="crud-list" class="table table-hover table-striped">
+            <table id="crud-list" class="table">
                 <thead>
                     <th class="text-left">Name
                     </th>
@@ -38,9 +39,9 @@
                         <tr>
                             <td>
                                 <% if(game.status == 'saved'){ %>
-                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class=""><%- game.name %></a>
+                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn-link"><%- game.name %></a>
                                 <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class=""><%- game.name %></a>
+                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn-link"><%- game.name %></a>
                                 <% } %>
                             </td>
                             <td class="capitalize text-center" data-sort="<%- game.created_at.getTime() %>">
@@ -64,9 +65,9 @@
                              <td class="text-right" style="width:1%; white-space: nowrap;">
 
                                 <% if(game.status == 'saved'){ %>
-                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-success btn-sm">Select</a>
+                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-primary btn-sm">Select</a>
                                 <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn btn-success btn-sm">Select</a>
+                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn btn-primary btn-sm">Select</a>
                                 <% } %>
 
                                 <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-danger btn-sm delete">Delete</a>

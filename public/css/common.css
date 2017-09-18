@@ -1,3 +1,7 @@
+body{
+    min-height: 100vh;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
     font-weight: 400;
 }
@@ -30,8 +34,12 @@
 .mb90{margin-bottom:90px;}
 .mb100{margin-bottom:100px;}
 
+
+
 /* Heights */
 .height100{ height: 100vh; }
+
+
 
 /* Vertical Centering */
 .v-center{
@@ -39,3 +47,131 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+
+
+/* Navigation */
+#main-menu{ padding: 10px 0; }
+#main-menu .nav > li > a,
+.topbar a,
+.topbar .btn-link{
+    font-size:16px;
+    font-weight: 300;
+    color: rgba(255,255,255,.9);
+}
+
+.topbar a:focus,
+.topbar a:hover,
+.topbar .btn-link:hover,
+#main-menu .nav > li > a:hover{
+    text-decoration: none;
+    color: rgba(255,255,255,1);
+    background: transparent;
+}
+
+.topbar{
+    position: fixed;
+    top: 18px;
+    z-index: 1030;
+}
+.topbar-center{
+    left: 50%;
+    transform: translateX(-50%);
+}
+.topbar-right{
+    right: 145px;
+}
+
+
+#slide-menu ul{
+    position: relative;
+    float: right;
+    width: 300px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 20px 20px 0 0;
+    box-shadow: 4px 4px 7px rgba(0,0,0,.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#slide-menu ul li{
+    margin: 0;
+    margin-bottom: 1px;
+}
+
+#slide-menu ul li > a,
+#slide-menu ul li > span{
+    display: block;
+    padding: 15px 12px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#slide-menu ul .close-menu{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #FFF;
+}
+#slide-menu ul .close-menu .circle{
+    width: 25px;
+    height: 25px;
+    line-height: 23px;
+    font-size: 16px;
+}
+#slide-menu ul .close-menu .circle:hover{cursor: pointer;}
+#slide-menu ul li.close-menu > span{ color: #A90533; }
+#slide-menu ul li.close-menu:hover > span{ color: #FFF; }
+
+#slide-menu ul .profile-info{
+    display: inline-block;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+
+
+
+.secondary-bar{
+    color: #555;
+    padding: 15px 15px;
+    border-left: 3px solid #CCC;
+    background: #FFF;
+}
+
+
+
+/* Bootstrap */
+.panel{
+    border: 0;
+    border-radius: 0;
+}
+
+table.table thead{ background: #cbdee9; }
+table.table thead th{ padding: 20px 15px; border: none; color: #333; }
+
+table.table thead th:first-child,
+table.table tbody td:first-child{ padding-left: 40px; }
+
+table.table thead th:last-child,
+table.table tbody td:last-child{ padding-right: 40px; }
+
+table.table>tbody>tr>td,
+table.table>tbody>tr>th,
+table.table>tfoot>tr>td,
+table.table>tfoot>tr>th,
+table.table>thead>tr>td,
+table.table>thead>tr>th{
+    padding: 15px 5px;
+    border-top: none;
+}
+
+table.table>tbody>tr:hover{ background: #e1dcff; }
+table.table>tbody>tr:hover td,
+table.table>tbody>tr:hover td a.btn-link{ color: #333; }
+
+table a.btn-link, table td{ color: #777; }
