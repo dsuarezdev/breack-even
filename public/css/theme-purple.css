@@ -36,6 +36,7 @@ a:hover{ color: #36b3bb; }
     color: #6c55ff;
 }
 
+.panel-heading{ background: #cbdee9; }
 .panel-sidebar{
     position: absolute;
     left: 0;
