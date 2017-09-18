@@ -113,3 +113,48 @@ a:hover{ color: #36b3bb; }
 
 
 .jumbotron{ background: #e1dcff; }
+
+
+
+
+/* Highcharts */
+/* Default colors */
+.highcharts-color-0 {
+  fill: #715aff;
+  stroke: #715aff; }
+
+.highcharts-color-1 {
+  fill: #505f6b;
+  stroke: #505f6b; }
+
+.highcharts-color-2 {
+  fill: #47d0d8;
+  stroke: #47d0d8; }
+
+.highcharts-color-3 {
+  fill: #e1dcff;
+  stroke: #e1dcff; }
+
+.highcharts-color-4 {
+  fill: #8085e9;
+  stroke: #8085e9; }
+
+.highcharts-color-5 {
+  fill: #188b92;
+  stroke: #188b92; }
+
+.highcharts-color-6 {
+  fill: #ffb8ea;
+  stroke: #ffb8ea; }
+
+.highcharts-color-7 {
+  fill: #c55ff0;
+  stroke: #c55ff0; }
+
+.highcharts-color-8 {
+  fill: #bcf4f7;
+  stroke: #bcf4f7; }
+
+.highcharts-color-9 {
+  fill: #27979e;
+  stroke: #27979e; }
