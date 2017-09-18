@@ -115,7 +115,7 @@ footer{
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     font-size: 12px;
     font-weight: 300;
     color: #FFF;
@@ -304,12 +304,14 @@ label.error{
 
 
 /* CRUD LIST */
-#crud-list thead th{
+#crud-list thead th,
+#table_pair thead th{
     cursor: pointer;
     font-size: 16px;
     font-weight: 400;
 }
-#crud-list td{vertical-align: middle;}
+#crud-list td,
+#table_pair td{vertical-align: middle;}
 
 /* TABLE SORT */
 th[role=columnheader]:not(.no-sort) {

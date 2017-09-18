@@ -65,12 +65,19 @@
                              <td class="text-right" style="width:1%; white-space: nowrap;">
 
                                 <% if(game.status == 'saved'){ %>
-                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-primary btn-sm">Select</a>
+                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
+                                        <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> Add Players
+                                    </a>
                                 <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn btn-primary btn-sm">Select</a>
+                                    <a href="<%- makeURL('/admin/games/debrief/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
+                                        <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> In Progress
+                                    </a>
                                 <% } %>
 
-                                <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-danger btn-sm delete">Delete</a>
+                                <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-link delete">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
                             </td>
                         </tr>
                     <% }) %>

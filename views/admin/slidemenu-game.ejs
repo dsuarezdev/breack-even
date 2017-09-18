@@ -1,7 +1,17 @@
 <div id="slide-menu" class="">
     <div id="slidemenu-overlay" class="menu-overlay"></div>
-    <ul class="text-left">
-        <li id="slidemenu-close" class="close-menu"><span>Close</span></li>
+    <ul class="text-center">
+
+        <span id="slidemenu-close" class="close-menu text-center">
+            <span class="circle"><i class="fa fa-times"></i></span>
+        </span>
+
+        <span class="profile-info text-left" style="font-size:16px; font-weight:300;">
+            <span>
+                <i class="fa fa-user"></i> &nbsp; <%- user.name + ' ' + user.lastname %>
+            </span>
+        </span>
+
         <li class="<% if(action && action == 'gameboard'){ %>active<% } %>">
             <a href="<%- site_url %>/admin/games/gameboard/<%- game._id %>">User Management</a>
         </li>
@@ -12,13 +22,7 @@
             <a href="<%- site_url %>/admin/games">Game Sessions</a>
         </li>
         <li>
-            <a href="<%- site_url %>/logout" class="clearfix">
-                Logout
-                <span class="profile-btn pull-right text-right">
-                    <%- user.email %><br/>
-                    <small class="capitalize"><%- user.role %></small>
-                </span>
-            </a>
+            <a href="<%- site_url %>/logout" class="clearfix">Logout</a>
         </li>
     </ul>
 </div>

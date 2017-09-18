@@ -84,6 +84,10 @@ label{font-weight: 400;}
 #main-menu .nav > li > a:hover{
     text-decoration: none;
     color: rgba(255,255,255,1);
+}
+#main-menu .nav > li > a:hover,
+#main-menu .nav > li > a:active,
+#main-menu .nav > li > a:active:hover{
     background: transparent;
 }
 
