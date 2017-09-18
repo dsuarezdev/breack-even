@@ -63,7 +63,13 @@ label{font-weight: 400;}
 
 
 /* Navigation */
+#module-name{
+    padding-left: 20px;
+    font-weight: 300;
+}
 #main-menu{ padding: 10px 0; }
+#main-menu{ background: rgba(68, 83, 96, .5); }
+
 #main-menu .nav > li > a,
 .topbar a,
 .topbar .btn-link{

@@ -10,15 +10,15 @@ body{
 }
 
 .bgcolors{
-    background-image: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
-    background: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+    background-image: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(87, 41, 134, 1));
+    background: linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(87, 41, 134, 1));
 }
 
 .bgicon{
     background-image: url('../images/logo-bg.png'),
-        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(87, 41, 134, 1));
     background: url('../images/logo-bg.png'),
-        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(168, 83, 253, 1));
+        linear-gradient(135deg, rgba(254, 120, 216, 1), rgba(87, 41, 134, 1));
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
@@ -56,12 +56,16 @@ a:hover{ color: #36b3bb; }
 }
 
 /* Navigation */
-.secondary-bar{border-left: 3px solid #6c55ff;}
+#main-menu{ background: rgba(68, 83, 96, .5); }
+#main-menu.affix{ background: rgba(68, 83, 96, .8); }
+
+#module-name{ color: rgba(255,255,255,.9); }
+
+.secondary-bar{ border-left: 3px solid #6c55ff; }
 
 
 /* Slide menu */
 #slide-menu ul{
-
     background: #FFF;
 }
 #slide-menu ul li > a,
@@ -83,6 +87,15 @@ a:hover{ color: #36b3bb; }
 #slide-menu ul .close-menu{ color: #FFF; }
 
 
+/* Game Setup */
+#shortlink{ color: #445360; }
+
+.coll-toggle,
+.coll-toggle:hover{
+    color: #EEE;
+    background: #445360;
+}
+
 /* Bootstrap Buttons */
 .btn-primary{
     border: 1px solid #36b3bb;
@@ -96,3 +109,6 @@ a:hover{ color: #36b3bb; }
     border: 1px solid #36b3bb;
     background: #36b3bb;
 }
+
+
+.jumbotron{ background: #e1dcff; }

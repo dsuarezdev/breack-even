@@ -29,12 +29,12 @@
     <script type="text/javascript" src="<%- makeURL('/js/simple-statistics.min.js') %>"></script>
 
     <style>
-        body{ padding-top: 70px; }
+        body{ padding-top: 90px; }
     </style>
 </head>
-<body class="bgcolors">
+<body class="bgicon">
 
-<nav id="main-menu" class="navbar navbar-fixed-top">
+<nav id="main-menu" class="navbar navbar-fixed-top" data-spy="affix" data-offset-top="1">
   <div class="container">
     <div class="navbar-header">
 
@@ -50,7 +50,7 @@
             <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase" />
             <%- app.name %>
           </a>
-          <span id="module-name" class="title-color"><% if( typeof headerTitle != 'undefined' ){ %> <%- headerTitle %> <% }%>&nbsp;</span>
+          <span id="module-name"><% if( typeof headerTitle != 'undefined' ){ %> <%- headerTitle %> <% }%>&nbsp;</span>
       </span>
 
     </div>
