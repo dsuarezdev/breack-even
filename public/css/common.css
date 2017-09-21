@@ -49,6 +49,8 @@ label{font-weight: 400;}
 
 
 /* Heights */
+.height80{ height: 80vh; }
+.height90{ height: 90vh; }
 .height100{ height: 100vh; }
 
 
@@ -166,21 +168,39 @@ label{font-weight: 400;}
 }
 
 
+/* Debrief Bar */
+#inner-menu.nav-pills>li{ border-right: 1px solid #EEE; }
+#inner-menu.nav-pills>li:last-child{ border-right: none; }
+#inner-menu.nav-pills>li>a:hover{
+    background: transparent;
+}
+#inner-menu.nav-pills>li.active>a,
+#inner-menu.nav-pills>li.active>a:focus,
+#inner-menu.nav-pills>li.active>a:hover{
+    color: #333;
+    font-weight: 600;
+    background: transparent;
+}
+
 
 /* Bootstrap */
-.panel{
+.panel, .modal-content{
     border: 0;
     border-radius: 0;
 }
 
+.modal-content{ background: transparent; box-shadow: none; }
+.modal-header{ color: #FFF; font-size: 20px; font-weight: 300; }
+.modal-body, .modal-footer{ background: #FFF; }
+
 table.table thead{ background: #cbdee9; }
 table.table thead th{ padding: 20px 15px; border: none; color: #333; }
 
-table.table thead th:first-child,
-table.table tbody td:first-child{ padding-left: 40px; }
+table.table-padd thead th:first-child,
+table.table-padd tbody td:first-child{ padding-left: 40px; }
 
-table.table thead th:last-child,
-table.table tbody td:last-child{ padding-right: 40px; }
+table.table-padd thead th:last-child,
+table.table-padd tbody td:last-child{ padding-right: 40px; }
 
 table.table>tbody>tr>td,
 table.table>tbody>tr>th,
