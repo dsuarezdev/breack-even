@@ -12,7 +12,9 @@
                 </div>
 
                 <div class="footer-right pull-right">
-                    <a href="mailto:hello@simcase.io">help@simcase.io</a>
+                    <a href="#" id="about-link" style="color:#FFF;">About</a>
+                    <span style="opacity:0.5;">&nbsp; | &nbsp;</span>
+                    <a href="mailto:hello@simcase.io" style="color:#FFF;">help@simcase.io</a>
                 </div>
             </div>
         </div>
@@ -20,6 +22,33 @@
 
     <script type="text/javascript" src="<%- makeURL('/js/utils.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/scripts.js') %>"></script>
+
+    <script>
+        jQuery(document).ready(function(){
+            var menuAbout = document.getElementById('about-link');
+            menuAbout.addEventListener('click', function(e){
+
+                e.preventDefault();
+
+                var aboutHTML = '';
+                aboutHTML += '<div class="text-center" style="padding:0 20px 0 20px;">';
+                aboutHTML +=    '<p class="mt20">';
+                aboutHTML +=    '</p>';
+                aboutHTML +=    '<p class="mt10"><strong>Powered by SimCase</strong></p>';
+                aboutHTML +=    '<div class="mt30" style="margin-left:-20px; margin-right:-20px;">';
+                aboutHTML +=        '<img src="<%- makeURL('/game_assets/assets/logo_wide.png') %>" style="max-width: 100%; width: 50px;" alt="Logo"></div>';
+                aboutHTML +=    '</div>';
+                aboutHTML +=    '<p class="mt30">Copyright © 2017, SimCase Co.</p>';
+                aboutHTML += '</div>';
+
+                bootbox.alert({
+                    title: 'About BaseApp',
+                    message: aboutHTML
+                });
+
+            });
+        });
+    </script>
 
 </body>
 </html>

@@ -12,6 +12,7 @@ label{font-weight: 400;}
 .mt20{margin-top:20px;}
 .mt30{margin-top:30px;}
 .mt40{margin-top:40px;}
+.mt50{margin-top:50px;}
 .mt45{margin-top:45px;}
 .mt55{margin-top:55px;}
 .mt60{margin-top:60px;}
@@ -63,6 +64,12 @@ label{font-weight: 400;}
 }
 
 
+.screen-frame{
+    height: 100%;
+    overflow: auto;
+}
+
+
 
 /* Navigation */
 #module-name{
@@ -103,7 +110,7 @@ label{font-weight: 400;}
     transform: translateX(-50%);
 }
 .topbar-right{
-    right: 145px;
+    right: 95px;
 }
 
 
@@ -183,15 +190,89 @@ label{font-weight: 400;}
 }
 
 
-/* Bootstrap */
-.panel, .modal-content{
-    border: 0;
+
+
+/* Menu Modal */
+#menu-modal{
+    text-align: center;
+}
+#menu-modal .modal-dialog{
+    display: inline-block;
+    width: 90%;
+}
+#menu-modal .modal-content{
+    border: none;
     border-radius: 0;
+    box-shadow: none;
+    background: transparent;
 }
 
-.modal-content{ background: transparent; box-shadow: none; }
-.modal-header{ color: #FFF; font-size: 20px; font-weight: 300; }
-.modal-body, .modal-footer{ background: #FFF; }
+#slide-menu ul{
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+}
+#slide-menu ul li{
+    margin: 5px;
+}
+#slide-menu ul li > a,
+#slide-menu ul li > span{
+    display: inline-block;
+    width: 90%;
+    padding: 10px 18px;
+    font-size: 20px;
+    font-weight: 300;
+    color: #FFF;
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+/* Bootstrap */
+.panel{ border-radius: 0; }
+.panel, .modal-content{
+    border: 0;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+.modal-dialog {
+  display: inline-block;
+  vertical-align: middle;
+}
+.modal-content .close{
+    position: absolute;
+    top: -7px;
+    right: -5px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 23px;
+    font-weight: 300;
+    line-height: 30px;
+    border-radius: 50%;
+    color: #FFF;
+    text-shadow: none;
+    background: #DDD;
+    opacity: 1;
+}
+.modal-content{ box-shadow: none; }
+.modal-header{ font-size: 20px; font-weight: 300; border-bottom: none; }
+.modal-footer{ text-align: center; }
 
 table.table thead{ background: #cbdee9; }
 table.table thead th{ padding: 20px 15px; border: none; color: #333; }
@@ -208,7 +289,7 @@ table.table>tfoot>tr>td,
 table.table>tfoot>tr>th,
 table.table>thead>tr>td,
 table.table>thead>tr>th{
-    padding: 15px 5px;
+    padding: 10px 5px;
     border-top: none;
 }
 

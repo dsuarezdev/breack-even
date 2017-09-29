@@ -36,7 +36,9 @@ a:hover{ color: #36b3bb; }
     color: #6c55ff;
 }
 
+.panel{ box-shadow: none; }
 .panel-heading{ border-radius:0; background: #cbdee9; }
+.panel-heading .btn{ color: #445360; }
 .panel-sidebar{
     position: absolute;
     left: 0;
@@ -68,6 +70,12 @@ a:hover{ color: #36b3bb; }
 #module-name{ color: rgba(255,255,255,.9); }
 
 .secondary-bar{ border-left: 3px solid #6c55ff; }
+
+
+/* Menu Modal */
+#menu-modal{
+    background: rgba(71, 83, 101, 1);
+}
 
 
 /* Slide menu */
@@ -119,6 +127,12 @@ a:hover{ color: #36b3bb; }
 
 .jumbotron{ background: #e1dcff; }
 
+.nav-pills>li>a{
+    color: #36b3bb;
+    border: 1px solid #36b2ba;
+    background-color: #FFF;
+}
+
 .nav-pills>li.active>a,
 .nav-pills>li.active>a:focus,
 .nav-pills>li.active>a:hover {
@@ -128,6 +142,9 @@ a:hover{ color: #36b3bb; }
 
 
 /* Debrief Bar */
+#inner-menu.nav-pills>li>a{
+    border: none;
+}
 #inner-menu.nav-pills>li>a:hover{
     color: #6c55ff;
 }
@@ -136,8 +153,11 @@ a:hover{ color: #36b3bb; }
 #inner-menu.nav-pills>li.active>a:hover{
     color: #6c55ff;
     font-weight: 600;
+    border: none;
     background: transparent;
 }
+
+
 
 
 
@@ -182,6 +202,13 @@ a:hover{ color: #36b3bb; }
 .highcharts-color-9 {
   fill: #27979e;
   stroke: #27979e; }
+.highcharts-errorbar-series .highcharts-point{
+    stroke: transparent;
+}
+.highcharts-column-series .highcharts-point {
+    stroke: inherit;
+    fill: inherit;
+}
 
 
 
@@ -192,18 +219,15 @@ a:hover{ color: #36b3bb; }
     opacity: 1;
     background: rgba(71, 83, 101, .8);
 }
-.modal-header .close{
-    position: absolute;
-    right: 0;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    font-size: 23px;
-    font-weight: 300;
-    line-height: 30px;
-    border-radius: 50%;
+.modal-content .close{
     color: #FFF;
-    text-shadow: none;
     background: #6a52ff;
-    opacity: 1;
 }
+.modal-footer .btn-default{
+    border: 1px solid #36b3bb;
+    color: #36b3bb;
+}
+
+
+
+footer{ background: rgba(68, 83, 96, .5); }

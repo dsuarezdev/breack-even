@@ -107,7 +107,7 @@ function appinit(o){
         aboutHTML +=    '<div>';
         aboutHTML +=        '<img src="game_assets/assets/logo_wide.png" alt="Logo"></div>';
         aboutHTML +=    '</div>';
-        aboutHTML +=    '<p class="mt20">Copyright © 2017, Simcase</p>';
+        aboutHTML +=    '<p class="mt20">Copyright © 2017, SimCase Co.</p>';
         aboutHTML += '</div>';
 
        alertModal('About', aboutHTML);
