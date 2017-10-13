@@ -11,13 +11,12 @@
     <link rel="stylesheet" href="<%- makeURL('/css/font-awesome.min.css') %>">
 
     <!-- COMMON -->
-    <link rel="stylesheet" type="text/css" href="<%- makeURL('/css/common.css') %>">
-    <!-- THEME -->
-    <link rel="stylesheet" type="text/css" href="<%- makeURL('/css/theme-purple.css') %>">
-
+    <link rel="stylesheet" href="<%- makeURL('/css/common.css') %>">
     <link rel="stylesheet" href="<%- makeURL('/css/admin.css') %>">
     <link rel="stylesheet" href="<%- makeURL('/css/highcharts.css') %>">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,500" rel="stylesheet">
+    <!-- THEME -->
+    <link rel="stylesheet" type="text/css" href="<%- makeURL('/css/theme-purple.css') %>">
 
     <!-- JS -->
     <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
@@ -26,7 +25,9 @@
     <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootstrap-switch.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/highcharts.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/highcharts-more.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/simple-statistics.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/numeral/numeral.min.js') %>"></script>
 
     <style>
         body{ padding-top: 90px; }
@@ -35,7 +36,7 @@
 <body class="bgicon">
 
 <nav id="main-menu" class="navbar navbar-fixed-top" data-spy="affix" data-offset-top="1">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
 
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

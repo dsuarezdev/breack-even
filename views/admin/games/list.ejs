@@ -1,92 +1,91 @@
 <%- include ../header %>
 
-    <div class="container panel">
+    <div class="container-fluid">
 
-      <!-- .topbar -->
-      <div class="topbar topbar-right">
-        <a href="<%- makeURL('/admin/games/create') %>" id="new-round-btn" class="btn btn-md btn-link">
-            <!--<span class="btn-label"><i class="fa fa-plus"></i></span> New Game-->
-            New Game &nbsp; <span class="circle"><i class="fa fa-plus"></i></span>
-        </a>
-      </div>
+        <!-- .topbar -->
+        <div class="topbar topbar-right">
+            <a href="<%- makeURL('/admin/games/create') %>" id="new-round-btn" class="btn btn-md btn-link">
+                <!--<span class="btn-label"><i class="fa fa-plus"></i></span> New Game-->
+                New Game &nbsp; <span class="circle">+</span>
+            </a>
+        </div>
         <!-- /.topbar -->
 
-    <div class="row secondary-bar">
-        <div class="col-xs-12">
-            <h2 class="mt0 mb0"><%- app.name %> <span class="title-color">Games</span></h2>
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="secondary-bar">
+                    <h2 class="mt0 mb0">Game Sessions</h2>
+                </div>
+
+                <div class="panel">
+                    <table id="crud-list" class="table table-padd">
+                        <thead>
+                            <th class="text-left">Name
+                            </th>
+                            <th class="text-center" data-sort-default>Date
+                            </th>
+                            <th class="text-center">Status
+                            </th>
+                            <th class="text-center">Players
+                            </th>
+                            <th class="text-center no-sort" data-sort-method="none" style="width:1%; white-space: nowrap;">Actions</th>
+                        </thead>
+                        <tbody>
+
+                            <% games.forEach(function(game){ %>
+                                <tr>
+                                    <td>
+                                        <% if(game.status == 'saved'){ %>
+                                            <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn-link"><%- game.name %></a>
+                                        <% }else{ %>
+                                            <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn-link"><%- game.name %></a>
+                                        <% } %>
+                                    </td>
+                                    <td class="capitalize text-center" data-sort="<%- game.created_at.getTime() %>">
+                                        <% if(game.created_at){ %>
+                                            <%
+                                                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                                                var cm = game.created_at.getMonth();
+                                            %>
+                                            <%- months[cm] %>
+                                            <%- game.created_at.getDate() %>,
+                                            <%- game.created_at.getFullYear() %>
+                                        <% } %>
+                                    </td>
+                                    <td class="text-center">
+                                        <% if(game.status == 'initialized'){ %> Setup <% } %>
+                                        <% if(game.status == 'saved'){ %> Setup <% } %>
+                                        <% if(game.status == 'launched'){ %> Play <% } %>
+                                        <% if(game.status == 'finalized'){ %> Complete <% } %>
+                                    </td>
+                                    <td class="text-center"><%- game.registered.length %></td>
+                                     <td class="text-right" style="width:1%; white-space: nowrap;">
+
+                                        <% if(game.status == 'saved'){ %>
+                                            <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
+                                                <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> Add Players
+                                            </a>
+                                        <% }else{ %>
+                                            <a href="<%- makeURL('/admin/games/debrief/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
+                                                <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> In Progress
+                                            </a>
+                                        <% } %>
+
+                                        <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-link delete">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            <% }) %>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
-    </div>
-
-      <div class="row">
-
-        <div class="">
-
-            <table id="crud-list" class="table">
-                <thead>
-                    <th class="text-left">Name
-                    </th>
-                    <th class="text-center" data-sort-default>Date
-                    </th>
-                    <th class="text-center">Status
-                    </th>
-                    <th class="text-center">Players
-                    </th>
-                    <th class="text-center no-sort" data-sort-method="none" style="width:1%; white-space: nowrap;">Actions</th>
-                </thead>
-                <tbody>
-
-                    <% games.forEach(function(game){ %>
-                        <tr>
-                            <td>
-                                <% if(game.status == 'saved'){ %>
-                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn-link"><%- game.name %></a>
-                                <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn-link"><%- game.name %></a>
-                                <% } %>
-                            </td>
-                            <td class="capitalize text-center" data-sort="<%- game.created_at.getTime() %>">
-                                <% if(game.created_at){ %>
-                                    <%
-                                        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                                        var cm = game.created_at.getMonth();
-                                    %>
-                                    <%- months[cm] %>
-                                    <%- game.created_at.getDate() %>,
-                                    <%- game.created_at.getFullYear() %>
-                                <% } %>
-                            </td>
-                            <td class="text-center">
-                                <% if(game.status == 'initialized'){ %> Setup <% } %>
-                                <% if(game.status == 'saved'){ %> Setup <% } %>
-                                <% if(game.status == 'launched'){ %> Play <% } %>
-                                <% if(game.status == 'finalized'){ %> Complete <% } %>
-                            </td>
-                            <td class="text-center"><%- game.registered.length %></td>
-                             <td class="text-right" style="width:1%; white-space: nowrap;">
-
-                                <% if(game.status == 'saved'){ %>
-                                    <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
-                                        <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> Add Players
-                                    </a>
-                                <% }else{ %>
-                                    <a href="<%- makeURL('/admin/games/debrief/' + game._id) %>" class="btn btn-labeled btn-primary" style="width:140px;">
-                                        <span class="btn-label"><i class="fa fa-edit fa-fw"></i></span> In Progress
-                                    </a>
-                                <% } %>
-
-                                <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-link delete">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-
-                            </td>
-                        </tr>
-                    <% }) %>
-
-                </tbody>
-            </table>
-        </div>
-
-      </div>
     </div>
 
     <script src="<%- site_url %>/js/tablesort.min.js"></script>

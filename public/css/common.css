@@ -70,6 +70,14 @@ label{font-weight: 400;}
 }
 
 
+.innerpad{
+    padding: 0 25px;
+}
+
+.minipad{
+    padding: 5px;
+}
+
 
 /* Navigation */
 #module-name{
@@ -111,6 +119,13 @@ label{font-weight: 400;}
 }
 .topbar-right{
     right: 95px;
+}
+.topbar .circle{
+    width: 20px;
+    height: 20px;
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 20px;
 }
 
 
@@ -193,8 +208,16 @@ label{font-weight: 400;}
 
 
 /* Menu Modal */
+.close-menu:hover{
+    cursor: pointer;
+}
 #menu-modal{
     text-align: center;
+}
+#menu-modal .close-menu{
+    position: absolute;
+    top: 30px;
+    right: 30px;
 }
 #menu-modal .modal-dialog{
     display: inline-block;
@@ -257,7 +280,7 @@ label{font-weight: 400;}
 .modal-content .close{
     position: absolute;
     top: -7px;
-    right: -5px;
+    right: -7px;
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -298,3 +321,17 @@ table.table>tbody>tr:hover td,
 table.table>tbody>tr:hover td a.btn-link{ color: #333; }
 
 table a.btn-link, table td{ color: #777; }
+
+
+
+
+
+/* App Exclusive */
+#appbox table.table>tbody>tr>td,
+#appbox table.table>tbody>tr>th,
+#appbox table.table>tfoot>tr>td,
+#appbox table.table>tfoot>tr>th,
+#appbox table.table>thead>tr>td,
+#appbox table.table>thead>tr>th{
+    padding: 5px 5px;
+}

@@ -1,5 +1,5 @@
     <footer class="footer mt30">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <!--
                 <div class="footer-logo pull-left">
@@ -32,17 +32,14 @@
 
                 var aboutHTML = '';
                 aboutHTML += '<div class="text-center" style="padding:0 20px 0 20px;">';
-                aboutHTML +=    '<p class="mt20">';
-                aboutHTML +=    '</p>';
-                aboutHTML +=    '<p class="mt10"><strong>Powered by SimCase</strong></p>';
                 aboutHTML +=    '<div class="mt30" style="margin-left:-20px; margin-right:-20px;">';
-                aboutHTML +=        '<img src="<%- makeURL('/game_assets/assets/logo_wide.png') %>" style="max-width: 100%; width: 50px;" alt="Logo"></div>';
+                aboutHTML +=        '<img src="<%- makeURL('/game_assets/assets/logo_wide.png') %>" style="max-width: 100%; width: 200px;" alt="Logo"></div>';
                 aboutHTML +=    '</div>';
-                aboutHTML +=    '<p class="mt30">Copyright © 2017, SimCase Co.</p>';
+                aboutHTML +=    '<p class="mt30">Copyright © 2017, SimCase</p>';
                 aboutHTML += '</div>';
 
                 bootbox.alert({
-                    title: 'About BaseApp',
+                    title: 'About',
                     message: aboutHTML
                 });
 

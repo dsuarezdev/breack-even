@@ -1,6 +1,6 @@
 <%- include ../header %>
 
-    <div class="container panel">
+    <div class="container-fluid">
 
         <!-- Top Bar -->
         <div class="topbar topbar-right">
@@ -15,75 +15,77 @@
 
         <%- messages() %>
 
-        <div class="row main">
+        <div class="row">
 
             <div class="col-xs-12">
+                <div class="panel">
 
-                <form id="game-form" method="POST" class="row">
+                    <form id="game-form" method="POST" class="clearfix pt20 pb20">
 
-                    <div class="col-sm-6">
+                        <div class="col-sm-6">
 
-                        <!-- Short URL -->
-                        <div class="jumbotron text-center mt10">
-                            <br/>
-                            <input type="text" id="shortlink" name="short_url" value="<%- game.short_url || '' %>" placeholder="http://sc.io/ax12" />
-                            <p style="margin-bottom:0;">Register Here!</p>
-                        </div>
-
-                        <!-- Settings -->
-                        <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
-                            <span class="coll">Show Advanced Settings</span>
-                            <span class="nocoll">Hide Advanced Settings</span>
-                        </span>
-
-                        <div id="advanced-settings" class="collapse">
-                            <div class="row mt10">
-                                <div class="form-group col-sm-8">
-                                    <h4>Name</h4>
-                                    <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <h4>
-                                        Access Type
-                                        <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
-                                    </h4>
-                                    <select class="form-control input-lg" id="access_type" name="access_type">
-                                        <option value="lms" <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
-                                        <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
-                                        <option value="csv" <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
-                                    </select>
-                                </div>
+                            <!-- Short URL -->
+                            <div class="jumbotron text-center">
+                                <br/>
+                                <input type="text" id="shortlink" name="short_url" value="<%- game.short_url || '' %>" placeholder="http://sc.io/ax12" />
+                                <p style="margin-bottom:0;">Register Here!</p>
                             </div>
-                            <!-- Long Registration Link -->
-                            <h4>Long Registration Link</h4>
-                            <pre id="reg-link" class="" style="padding-right:80px;"><%- site_url %>/join/<%- game._id %></pre>
-                            <!-- Copy -->
-                            <span id="copy-link" class="btn btn-md btn-default pull-right"
-                                    data-clipboard-target="#reg-link"
-                                    data-toggle="tooltip" data-placement="bottom" title="..."
-                                    style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
-                                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+
+                            <!-- Settings -->
+                            <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
+                                <span class="coll">Show Advanced Settings</span>
+                                <span class="nocoll">Hide Advanced Settings</span>
                             </span>
+
+                            <div id="advanced-settings" class="collapse">
+                                <div class="row mt10">
+                                    <div class="form-group col-sm-8">
+                                        <h4>Name</h4>
+                                        <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <h4>
+                                            Access Type
+                                            <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
+                                        </h4>
+                                        <select class="form-control input-lg" id="access_type" name="access_type">
+                                            <option value="lms" <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
+                                            <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
+                                            <option value="csv" <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Long Registration Link -->
+                                <h4>Long Registration Link</h4>
+                                <pre id="reg-link" class="" style="padding-right:80px;"><%- site_url %>/join/<%- game._id %></pre>
+                                <!-- Copy -->
+                                <span id="copy-link" class="btn btn-md btn-default pull-right"
+                                        data-clipboard-target="#reg-link"
+                                        data-toggle="tooltip" data-placement="bottom" title="..."
+                                        style="margin-top:-39px; padding:8px 10px 9px; margin-left:5px; position:relative;">
+                                    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy
+                                </span>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <div class="form-group col-sm-6">
 
-                    <div class="form-group col-sm-6">
+                            <h4 class="mt0">Registered Players (<span id="rp-count"><%- game.registered.length %></span>)</h4>
 
-                        <h4>Registered Players (<span id="rp-count"><%- game.registered.length %></span>)</h4>
+                            <ul id="registered-players" class="list-group">
+                                <% game.registered.forEach(function(reg){ %>
+                                    <li class="list-group-item">
+                                        <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
+                                    </li>
+                                <% }); %>
+                            </ul>
 
-                        <ul id="registered-players" class="list-group">
-                            <% game.registered.forEach(function(reg){ %>
-                                <li class="list-group-item">
-                                    <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
-                                </li>
-                            <% }); %>
-                        </ul>
+                        </div>
 
-                    </div>
+                    </form>
 
-                </form>
-
+                </div>
             </div>
 
         </div>

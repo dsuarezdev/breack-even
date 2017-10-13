@@ -1,6 +1,6 @@
 <%- include ../header %>
 
-    <div class="container panel">
+    <div class="container-fluid">
 
         <!-- Top Bar -->
         <div class="topbar topbar-right">
@@ -15,86 +15,88 @@
 
         <%- messages() %>
 
-        <div class="row main">
+        <div class="row">
 
             <div class="col-xs-12">
+                <div class="panel">
 
-                <form id="game-form" method="POST" class="row">
+                    <form id="game-form" method="POST" class="clearfix pt20 pb20">
 
-                    <div class="col-sm-6">
+                        <div class="col-sm-6">
 
-                        <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
-                            <span class="coll">Show Advanced Settings</span>
-                            <span class="nocoll">Hide Advanced Settings</span>
-                        </span>
-
-                        <div id="advanced-settings" class="collapse">
-
-                            <div class="row mt20">
-                                <div class="form-group col-sm-8">
-                                    <h4>Name</h4>
-                                    <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <h4>
-                                        Access Type
-                                        <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
-                                    </h4>
-                                    <select class="form-control input-lg" id="access_type" name="access_type">
-                                        <option value="lms" <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
-                                        <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
-                                        <option value="csv" <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <hr/>
-
-                        <div class="text-left">
-                            <span class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#instructions-settings" aria-expanded="false">
-                                <span class="coll">Show CSV Instructions</span>
-                                <span class="nocoll">Hide CSV Instructions</span>
+                            <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
+                                <span class="coll">Show Advanced Settings</span>
+                                <span class="nocoll">Hide Advanced Settings</span>
                             </span>
-                        </div>
 
-                        <div id="instructions-settings" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div id="advanced-settings" class="collapse">
 
-                            <div id="instructions" class="panel panel-default mt10">
-                                <div class="panel-body">
-                                    <ol>
-                                        <li>Download the .csv template <strong><a href="<%- makeURL('/templates/simcase_csv_template.csv'); %>" target="_blank">here</a></strong>. Fill-in details for all participants, then copy &amp; paste to the text area at right.</li>
-                                        <li>
-                                            If you prefer, type each participant's email, first name, and last name in the text area at right. One per line, ie:
-                                            <br/>
-                                            <code><small>john@email.com, John, Doe</small></code>
-                                        </li>
-                                        <li>Once you have entered all participants, save the game and launch it.</li>
-                                    </ol>
+                                <div class="row mt20">
+                                    <div class="form-group col-sm-8">
+                                        <h4>Name</h4>
+                                        <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <h4>
+                                            Access Type
+                                            <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
+                                        </h4>
+                                        <select class="form-control input-lg" id="access_type" name="access_type">
+                                            <option value="lms" <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
+                                            <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
+                                            <option value="csv" <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
+                                        </select>
+                                    </div>
                                 </div>
+
+                            </div>
+
+                            <hr/>
+
+                            <div class="text-left">
+                                <span class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#instructions-settings" aria-expanded="false">
+                                    <span class="coll">Show CSV Instructions</span>
+                                    <span class="nocoll">Hide CSV Instructions</span>
+                                </span>
+                            </div>
+
+                            <div id="instructions-settings" class="collapse" aria-expanded="false" style="height: 0px;">
+
+                                <div id="instructions" class="panel panel-default mt10">
+                                    <div class="panel-body">
+                                        <ol>
+                                            <li>Download the .csv template <strong><a href="<%- makeURL('/templates/simcase_csv_template.csv'); %>" target="_blank">here</a></strong>. Fill-in details for all participants, then copy &amp; paste to the text area at right.</li>
+                                            <li>
+                                                If you prefer, type each participant's email, first name, and last name in the text area at right. One per line, ie:
+                                                <br/>
+                                                <code><small>john@email.com, John, Doe</small></code>
+                                            </li>
+                                            <li>Once you have entered all participants, save the game and launch it.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="form-group col-sm-6">
 
-                    <div class="form-group col-sm-6">
+                            <h4>
+                                 Registered Players (<span id="rp-count"><%- game.players.length %></span>)
+                                 <span id="warning" class="hide pull-right text-danger">
+                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                     <small id="warning-message"></small>
+                                 </span>
+                             </h4>
 
-                        <h4>
-                             Registered Players (<span id="rp-count"><%- game.players.length %></span>)
-                             <span id="warning" class="hide pull-right text-danger">
-                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                 <small id="warning-message"></small>
-                             </span>
-                         </h4>
+                             <textarea id="importer" name="players_text" class="form-control" rows="15" placeholder="student@email.edu"><%- game.players_text %></textarea>
 
-                         <textarea id="importer" name="players_text" class="form-control" rows="15" placeholder="student@email.edu"><%- game.players_text %></textarea>
+                        </div>
 
-                    </div>
+                    </form>
 
-                </form>
-
+                </div>
             </div>
 
         </div>

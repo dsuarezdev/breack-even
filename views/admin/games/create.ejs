@@ -1,11 +1,12 @@
 <%- include ../header %>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
 
-        <%- messages() %>
-
         <div class="col-xs-12">
+
+            <%- messages() %>
+
             <div class="panel">
 
                 <form id="create-form" method="POST" class="pt30 pb30">
@@ -133,7 +134,8 @@
                             <button class="btn btn-labeled btn-mb btn-success" id="create-btn" >
                                 <span class="btn-label"><i class="fa fa-check fa-fw"></i></span>Create Game
                             </button>
-                            <a href="<%- makeURL('/admin/games') %>" class="btn btn-md btn-default">Cancel</a>
+                            <br/><br/>
+                            <a href="<%- makeURL('/admin/games') %>" class="btn btn-md btn-link">Cancel</a>
                         </div>
                     </div>
 

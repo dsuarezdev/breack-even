@@ -1,6 +1,6 @@
 <%- include ../header %>
 
-    <div class="container panel">
+    <div class="container-fluid">
 
         <!-- Top Bar -->
         <div class="topbar topbar-right">
@@ -15,133 +15,136 @@
 
         <%- messages() %>
 
-        <div class="row main">
+        <div class="row">
 
             <div class="col-xs-12">
+                <div class="panel">
 
-                <form id="game-form" method="POST" class="row">
+                    <form id="game-form" method="POST" class="clearfix pt20 pb20">
 
-                    <div class="col-sm-6">
+                        <div class="col-sm-6">
 
-                        <!-- Advanced Settings -->
-                        <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed mt10" data-toggle="collapse" data-target="#advanced-settings">
-                            <span class="coll">Show Advanced Settings</span>
-                            <span class="nocoll">Hide Advanced Settings</span>
-                        </span>
+                            <!-- Advanced Settings -->
+                            <span id="toggle-settings" class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#advanced-settings">
+                                <span class="coll">Show Advanced Settings</span>
+                                <span class="nocoll">Hide Advanced Settings</span>
+                            </span>
 
-                        <div id="advanced-settings" class="collapse">
-                            <div class="row mt10">
-                                <div class="form-group col-sm-8">
-                                    <h4>Name</h4>
-                                    <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <h4>
-                                        Access Type
-                                        <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
-                                    </h4>
-                                    <select class="form-control input-lg" id="access_type" name="access_type">
-                                        <option value="lms"  <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
-                                        <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
-                                        <option value="csv"  <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
-                                    </select>
+                            <div id="advanced-settings" class="collapse">
+                                <div class="row">
+                                    <div class="form-group col-sm-8">
+                                        <h4>Name</h4>
+                                        <input type="text" id="name" name="name" class="form-control input-lg" value="<%- game.name %>" />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <h4>
+                                            Access Type
+                                            <span class="glyphicon glyphicon-question-sign" style="cursor:pointer;" data-toggle="modal" data-target="#info-modal"></span>
+                                        </h4>
+                                        <select class="form-control input-lg" id="access_type" name="access_type">
+                                            <option value="lms"  <% if(game.access_type == 'lms'){ %>selected="selected"<% } %>>LMS/LTI</option>
+                                            <option value="link" <% if(game.access_type == 'link'){ %>selected="selected"<% } %>>LINK + EMAIL</option>
+                                            <option value="csv"  <% if(game.access_type == 'csv'){ %>selected="selected"<% } %>>CSV</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- /Advanced Settings -->
+
+                            <hr/>
+
+                            <!-- Instructions -->
+                            <span class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#instructions">
+                                <span class="coll">Show LTI Instructions</span>
+                                <span class="nocoll">Hide LTI Instructions</span>
+                            </span>
+
+                            <div id="instructions" class="collapse" aria-expanded="true">
+
+                                <!-- Tabs: LMS Instructions -->
+                                <ul class="nav nav-tabs nav-justified mt20" role="tablist">
+                                    <li role="presentation" class="active"><a href="#ins-canvas" role="tab" data-toggle="tab">Canvas</a></li>
+                                    <li role="presentation"><a href="#ins-moodle" role="tab" data-toggle="tab">Moodle</a></li>
+                                    <li role="presentation"><a href="#ins-others" role="tab" data-toggle="tab">Others</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="ins-canvas">
+                                        <p><strong>Create an LTI External app in Canvas LMS:</strong></p>
+                                        <ol>
+                                            <li>Create an External App in Canvas Menu.</li>
+                                            <li>Complete the required External App form details</li>
+                                            <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
+                                        </ol>
+                                        <p>
+                                            <strong>First-time? Review detailed instructions here:</strong><br>
+                                            <a href="https://community.canvaslms.com/docs/DOC-9965-415257103" target="_blank">
+                                                https://community.canvaslms.com/docs/DOC-9965-415257103
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="ins-moodle">
+                                        <p><strong>Create an LTI External app in Moodle LMS:</strong></p>
+                                        <ol>
+                                            <li>Create an External App in Moodle Menu.</li>
+                                            <li>Complete the required External App form details.</li>
+                                            <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
+                                        </ol>
+                                        <p>
+                                            <strong>First-time? Review detailed instructions here:</strong><br>
+                                            <a href="https://docs.moodle.org/32/en/External_tool_settings" target="_blank">
+                                                https://docs.moodle.org/32/en/External_tool_settings
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="ins-others">
+                                        <p><strong>Instructions for other LMS platforms:</strong></p>
+                                        <ul>
+                                            <li>
+                                                <a href="https://help.blackboard.com/Learn/Administrator/SaaS/Integrations/Learning_Tools_Interoperability" target="_blank">
+                                                    Blackboard Instructions
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://support.schoology.com/hc/en-us/articles/204377963-A-How-to-Guide-for-Schoology-s-LTI-Integration" target="_blank">
+                                                    Schoology Instructions
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <strong>Want to use another LMS?</strong><br>
+                                            Let us know at <a href="mailto:tech@simcase.io">tech@simcase.io</a><br>
+                                            We'll get to work on it!
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /Instructions -->
+
                         </div>
-                        <!-- /Advanced Settings -->
 
-                        <hr/>
+                        <div class="form-group col-sm-6">
 
-                        <!-- Instructions -->
-                        <span class="btn btn-xs btn-link coll-toggle collapsed" data-toggle="collapse" data-target="#instructions">
-                            <span class="coll">Show LTI Instructions</span>
-                            <span class="nocoll">Hide LTI Instructions</span>
-                        </span>
+                            <h4 class="mt0">Registered Players (<span id="rp-count"><%- game.registered.length %></span>)</h4>
 
-                        <div id="instructions" class="collapse" aria-expanded="true">
-
-                            <!-- Tabs: LMS Instructions -->
-                            <ul class="nav nav-tabs nav-justified mt20" role="tablist">
-                                <li role="presentation" class="active"><a href="#ins-canvas" role="tab" data-toggle="tab">Canvas</a></li>
-                                <li role="presentation"><a href="#ins-moodle" role="tab" data-toggle="tab">Moodle</a></li>
-                                <li role="presentation"><a href="#ins-others" role="tab" data-toggle="tab">Others</a></li>
+                            <ul id="registered-players" class="list-group">
+                                <% game.registered.forEach(function(reg){ %>
+                                    <li class="list-group-item">
+                                        <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
+                                    </li>
+                                <% }); %>
                             </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="ins-canvas">
-                                    <p><strong>Create an LTI External app in Canvas LMS:</strong></p>
-                                    <ol>
-                                        <li>Create an External App in Canvas Menu.</li>
-                                        <li>Complete the required External App form details</li>
-                                        <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
-                                    </ol>
-                                    <p>
-                                        <strong>First-time? Review detailed instructions here:</strong><br>
-                                        <a href="https://community.canvaslms.com/docs/DOC-9965-415257103" target="_blank">
-                                            https://community.canvaslms.com/docs/DOC-9965-415257103
-                                        </a>
-                                    </p>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="ins-moodle">
-                                    <p><strong>Create an LTI External app in Moodle LMS:</strong></p>
-                                    <ol>
-                                        <li>Create an External App in Moodle Menu.</li>
-                                        <li>Complete the required External App form details.</li>
-                                        <li>Use the following link as your app URL: <pre><%- site_url %>/lti/<%- game._id %></pre></li>
-                                    </ol>
-                                    <p>
-                                        <strong>First-time? Review detailed instructions here:</strong><br>
-                                        <a href="https://docs.moodle.org/32/en/External_tool_settings" target="_blank">
-                                            https://docs.moodle.org/32/en/External_tool_settings
-                                        </a>
-                                    </p>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="ins-others">
-                                    <p><strong>Instructions for other LMS platforms:</strong></p>
-                                    <ul>
-                                        <li>
-                                            <a href="https://help.blackboard.com/Learn/Administrator/SaaS/Integrations/Learning_Tools_Interoperability" target="_blank">
-                                                Blackboard Instructions
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="https://support.schoology.com/hc/en-us/articles/204377963-A-How-to-Guide-for-Schoology-s-LTI-Integration" target="_blank">
-                                                Schoology Instructions
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <strong>Want to use another LMS?</strong><br>
-                                        Let us know at <a href="mailto:tech@simcase.io">tech@simcase.io</a><br>
-                                        We'll get to work on it!
-                                    </p>
-                                </div>
-                            </div>
 
                         </div>
-                        <!-- /Instructions -->
 
-                    </div>
+                    </form>
 
-                    <div class="form-group col-sm-6">
-
-                        <h4>Registered Players (<span id="rp-count"><%- game.registered.length %></span>)</h4>
-
-                        <ul id="registered-players" class="list-group">
-                            <% game.registered.forEach(function(reg){ %>
-                                <li class="list-group-item">
-                                    <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
-                                </li>
-                            <% }); %>
-                        </ul>
-
-                    </div>
-
-                </form>
-
+                </div>
             </div>
 
         </div>
+
     </div>
 
     <%- include modal_access_types %>
