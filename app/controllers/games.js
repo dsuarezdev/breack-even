@@ -420,7 +420,7 @@ var GamesModule = function(io){
             if(err) req.flash('error', err);
 
             // Ok
-            return res.redirect( '/admin/games' );
+            return res.redirect( configOauth.site_url + '/admin/games' );
 
         });
 
