@@ -169,6 +169,26 @@ module.exports = function(app, io, appConfig) {
     app.post('/lti/:game_id', AuthController.lti)
     app.get('/logout', AuthController.logout);
 
+
+    // =====================================
+    // 404 ERROR PAGE
+    // =====================================
+    app.use(function(req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        err.message = 'Oops! The url you are trying to reach does not exist.';
+        next(err);
+    });
+    // development error handler
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            status: err.status,
+            message: err.message,
+            error: err
+        });
+    });
+
 };
 
 // route middleware to make sure a user is logged in
