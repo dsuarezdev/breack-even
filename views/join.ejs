@@ -121,7 +121,23 @@
 
                     var socket = io.connect(oauthData.io_domain, {path: oauthData.io_path});
 
-                    // Listen Socket
+                    // Listen Socket Messages
+                    socket.on('disconnect', function(){
+                        console.log('Oops! Socket disconnected...');
+                    });
+
+                    // Reconnecting ??
+                    socket.on('connect', function(){
+                        console.log('Socket connected...');
+                        var nameInput     = document.getElementById('name-input').value;
+                        var lastnameInput = document.getElementById('lastname-input').value;
+                        var emailAddress  = document.getElementById('email-input').value;
+                        if( nameInput.length > 0 && lastnameInput.length > 0 && emailAddress.length > 0 ){
+                            document.getElementById('register-btn').click();
+                        }
+                    });
+
+                    // Launch Socket
                     socket.on('launch', function(data){
                         window.location.href = data.link;
                     });
@@ -156,6 +172,9 @@
                             function(res){
 
                                 console.log(res);
+
+                                if( typeof res.link != 'undefined' )
+                                    return window.location.href = res.link;
 
                                 if( typeof res.error != 'undefined' ){
                                     bootbox.alert({

@@ -1,6 +1,4 @@
-body{
-    min-height: 100vh;
-}
+body{}
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{font-weight: 400;}
 label{font-weight: 400;}
@@ -334,4 +332,87 @@ table a.btn-link, table td{ color: #777; }
 #appbox table.table>thead>tr>td,
 #appbox table.table>thead>tr>th{
     padding: 5px 5px;
+}
+
+
+
+
+/* State Overlays */
+#connection-popup{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    background-color: #eeedea;
+    z-index: 99999;
+}
+
+#pause-popup{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    background-color: #eeedea;
+    z-index: 99998;
+}
+
+
+
+/* MEDIA QUERIES */
+@media (min-width: 700px) {
+
+    body{
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
+    #appbox{
+        height: 100%;
+        max-width: 800px;
+    }
+
+    .navbar-ds{
+        position: absolute;
+        max-width: 800px;
+    }
+
+    .screen{
+        height: 100%;
+        max-width: 800px;
+    }
+
+}
+
+ body{
+        position: relative;
+        max-width: 980px;
+        margin: 0 auto;
+    }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+    .container{
+        width: 100%;
+    }
+
+    .navbar-ds{
+        position: absolute;
+        left: auto;
+        top: 0;
+        min-height: 0px;
+        background:#333;
+        z-index: 998;
+    }
+
+    .screen{
+        width: 100%;
+    }
+
 }

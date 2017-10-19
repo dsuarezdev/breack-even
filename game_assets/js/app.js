@@ -33,7 +33,8 @@ function appinit(o){
     var hubURL = '';
     var appURL = o.site_url;
     var clientID  = '';
-    var debriefData;
+    var socketLayer = document.getElementById('connection-popup');
+    var pauseLayer  = document.getElementById('pause-popup');
 
     // ELEMENTS
     var loader = document.getElementById('loader');
@@ -44,6 +45,8 @@ function appinit(o){
     _chart;
 
     makeNavigable( appbox, document.getElementById('splash') );
+
+
 
 
     // ******************************
@@ -88,14 +91,68 @@ function appinit(o){
         });
 
         socket.on('finalize', function(){
-
             toFrame(appbox, 'debrief-1', 'R', 'L', 300, false );
-
         });
 
     // ******************************
     // END: CONNECT & GET GAME INFO
     // ******************************
+
+
+
+
+    /**********************************************/
+    /**************** GAME SCREENS ****************/
+    /**********************************************/
+
+    /* Screen 2 - ITEM TYPE SELECTION */
+    var screen2 = document.getElementById('screen2');
+    screen2.sreadyin = function(){
+        loader.classList.remove('loading');
+
+    }
+
+    /**********************************************/
+    /**************** /GAME SCREENS ***************/
+    /**********************************************/
+
+
+
+
+    /**********************************************/
+    /**************** SOCKET EVENTS ***************/
+    /**********************************************/
+
+    // Pause
+    socket.on('pause', function(){
+        pauseLayer.classList.add('show');
+    });
+
+    // Unpause
+    socket.on('unpause', function(){
+        pauseLayer.classList.remove('show');
+    });
+
+    // Disconnection! :(
+    socket.on('disconnect', function(){
+        socketLayer.classList.add('show');
+    });
+
+    // Refresh on connection issue
+    document.getElementById('refresh-btn').addEventListener('click', function(){
+        window.onbeforeunload = undefined;
+        location.reload();
+    });
+
+    /**********************************************/
+    /*************** /SOCKET EVENTS ***************/
+    /**********************************************/
+
+
+
+    /**********************************************/
+    /**************** HELPERS *********************/
+    /**********************************************/
 
     var menuAbout = document.getElementById('about');
     menuAbout.addEventListener('click', function(){
@@ -114,26 +171,5 @@ function appinit(o){
 
     });
 
-    /**********************************************/
-    /**************** GAME SCREENS ****************/
-    /**********************************************/
-
-    /* Screen 2 - ITEM TYPE SELECTION */
-    var screen2 = document.getElementById('screen2');
-    screen2.sreadyin = function(){
-        loader.classList.remove('loading');
-
-    }
 
 }
-
-
-
-
-    /**********************************************/
-    /**************** /GAME SCREENS ***************/
-    /**********************************************/
-
-    /**********************************************/
-    /**************** HELPERS *********************/
-    /**********************************************/

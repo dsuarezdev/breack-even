@@ -321,6 +321,11 @@ var GamesModule = function(io){
                 console.log(registeredPlayers);
             }
 
+            // CSV: If player text are is empty
+            if( playertxt.length == 0 && game.access_type == 'csv' ){
+                registeredPlayers = [];
+            }
+
             // New: registered as an array of *object*
             if( registeredPlayers.length > 0 && typeof registeredPlayers[0] == 'object' ){
                 // Trim emails
@@ -806,7 +811,7 @@ var GamesModule = function(io){
             }
 
             // Define the fields
-            var fields = ['order', 'name', 'lastname', 'email', 'item', 'item_price', 'player_estimation'];
+            var fields = ['order', 'name', 'surname', 'email', 'item', 'item_price', 'player_estimation'];
             var data = [];
 
             game.estimates.forEach(function(es, ei){

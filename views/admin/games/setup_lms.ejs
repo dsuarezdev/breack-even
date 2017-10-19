@@ -131,7 +131,12 @@
                             <ul id="registered-players" class="list-group">
                                 <% game.registered.forEach(function(reg){ %>
                                     <li class="list-group-item">
-                                        <%- reg.email %>, <%- reg.name %> <%- reg.lastname %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
+                                        <%
+                                            var usertext =  reg.email;
+                                            usertext += (typeof reg.name != 'undefined' && reg.name.length > 0) ? ', ' + reg.name : '';
+                                            usertext += (typeof reg.lastname != 'undefined' && reg.lastname.length > 0) ? ' ' + reg.lastname : '';
+                                        %>
+                                        <%- usertext %> <span class="btn btn-xs btn-danger pull-right remove" data-email="<%- reg.email %>">Remove</span>
                                     </li>
                                 <% }); %>
                             </ul>
