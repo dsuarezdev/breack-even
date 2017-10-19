@@ -1,4 +1,8 @@
-body{}
+body.game{
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
+}
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{font-weight: 400;}
 label{font-weight: 400;}
@@ -310,8 +314,14 @@ table.table>tfoot>tr>td,
 table.table>tfoot>tr>th,
 table.table>thead>tr>td,
 table.table>thead>tr>th{
-    padding: 10px 5px;
+    padding: 7px 7px;
     border-top: none;
+    vertical-align: middle;
+    /* This avoids table overflow */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
 }
 
 table.table>tbody>tr:hover{ background: #e1dcff; }
@@ -367,7 +377,7 @@ table a.btn-link, table td{ color: #777; }
 /* MEDIA QUERIES */
 @media (min-width: 700px) {
 
-    body{
+    body.game{
         padding-top: 2%;
         padding-bottom: 2%;
     }
@@ -388,12 +398,6 @@ table a.btn-link, table td{ color: #777; }
     }
 
 }
-
- body{
-        position: relative;
-        max-width: 980px;
-        margin: 0 auto;
-    }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
