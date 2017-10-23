@@ -39,7 +39,7 @@
                                         <% if(game.status == 'saved'){ %>
                                             <a href="<%- makeURL('/admin/games/update/' + game._id) %>" class="btn-link"><%- game.name %></a>
                                         <% }else{ %>
-                                            <a href="<%- makeURL('/admin/games/gameboard/' + game._id) %>" class="btn-link"><%- game.name %></a>
+                                            <a href="<%- makeURL('/admin/games/debrief/' + game._id) %>" class="btn-link"><%- game.name %></a>
                                         <% } %>
                                     </td>
                                     <td class="capitalize text-center" data-sort="<%- game.created_at.getTime() %>">
@@ -72,9 +72,11 @@
                                             </a>
                                         <% } %>
 
-                                        <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-link delete">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
+                                        <% if(user.role == 'administrator'){ %>
+                                            <a href="<%- makeURL('/admin/games/remove/' + game._id) %>" class="btn btn-link delete">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        <% } %>
 
                                     </td>
                                 </tr>

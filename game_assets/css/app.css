@@ -18,6 +18,7 @@ body{
 }
 
 .screen{
+    background: #FFF;
     z-index: 990;
 }
 

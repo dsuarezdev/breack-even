@@ -27,8 +27,14 @@
     <!-- Base template styles for this app -->
     <link href="<%- makeURL('/game_assets/css/template-base.css') %>" rel="stylesheet">
 
+    <!-- App base structure -->
+    <link href="<%- makeURL('/css/common.css') %>" rel="stylesheet">
+
+    <!-- Base template styles for this app -->
+    <link href="<%- makeURL('/css/theme-purple.css') %>" rel="stylesheet">
+
     <!-- Google Fonts -->
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:300,400">
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -47,14 +53,18 @@
         <!-- Navbar -->
         <nav class="navbar-ds">
             <ul class="nav-ds">
-                <li id="menu-btn-left" class="pull-left" data-toggle="modal" data-target="#quitModal"
+                <li id="menu-btn-left" class="pull-left hide" data-toggle="modal" data-target="#quitModal"
                    data-title="Are you sure you want to exit?" data-body="If you do, you will lose this game's progress.">
                     <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                 </li>
-                <li class="brand">
-                   <small class="fleft"><%- app.name %></small>
-                   <span><img id="nav-logo" src="<%- makeURL('/game_assets/assets/icon.png') %>" width="30" alt="" /></span>
-                   <small class="fright">Subtitle</small>
+                <li class="brand pull-left">
+                   <small class="fleft"></small>
+                   <span style="padding-left:10px; padding-right:10px;">
+
+                       <img id="nav-logo" src="<%- makeURL('/game_assets/assets/icon.png') %>" width="30" alt="" />
+
+                   </span>
+                   <small class="fright"><%- app.name %><i id="current-level"></i></small>
                 </li>
                 <li id="menu-btn-right" class="pull-right">
                     <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
@@ -70,26 +80,117 @@
         <!-- Screen 1 - WALKTHROUGH -->
         <div id="screen1" class="screen current initial">
 
-            <div class="container mt45">
-                <div class="mt20">
-                    Screen 1
-                </div>
-                <div class="mt20 mb20 col-xs-12 col-sm-8 col-sm-offset-2">
-                    <span id="begin" class="bottom-button btn btn-success">Start Game</span>
-                </div>
+            <div class="container v-center">
 
+                  <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
+
+                <h2>Welcome to BaseApp</h2>
+
+                <div class="mt20 mb20 col-xs-12 col-sm-8 col-sm-offset-2">
+                    <span id="begin" class="btn btn-lg btn-primary">Start Game</span>
+                </div>
 
             </div>
         </div>
 
-        <!-- Screen 2 - ITEM TYPE SELECTION -->
+        <!-- Screen 2 -->
         <div id="screen2" class="screen">
 
             <div class="container mt45">
 
-                <div class="mt20">
-                    Screen 2
+               <div class="row">
+                   <div class="col-sm-8 col-sm-offset-2">
+
+                       <h3>Pre-Quiz</h3>
+
+                        <div class="form mt20 text-left">
+                            <div class="form-group">
+                                <b>What's your name?</b>
+                                <input class="form-control input-lg" placeholder="Enter your name" />
+                            </div>
+                            <div class="form-group mt20">
+                                <b>What's your favorite food?</b>
+                                <input class="form-control input-lg" placeholder="Enter your name" />
+                            </div>
+                            <div class="form-group mt20">
+                                <b>Where do you live?</b>
+                                <input class="form-control input-lg" placeholder="Enter your name" />
+                            </div>
+                            <span id="to-screen-3" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+                        </div>
+
+                   </div>
+               </div>
+
+            </div>
+        </div>
+
+        <!-- Screen 3 -->
+        <div id="screen3" class="screen">
+
+            <div class="container mt45">
+
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2">
+
+                        <h3>Select an option</h3>
+
+                        <p class="lead">This is a demo, here you can choose one of the items and continue.</p>
+
+                        <div class="row mt20">
+                            <div class="col-xs-4">
+                                <label>
+                                    <img src="http://lorempixel.com/150/150/animals/1" class="img-responsive" />
+                                    <br/>
+                                    <input type="radio" name="animal" value="1" /> Option 1
+                                </label>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>
+                                    <img src="http://lorempixel.com/150/150/animals/2" class="img-responsive" />
+                                    <br/>
+                                    <input type="radio" name="animal" value="2" /> Option 2
+                                </label>
+                            </div>
+                            <div class="col-xs-4">
+                                <label>
+                                    <img src="http://lorempixel.com/150/150/animals/3" class="img-responsive" />
+                                    <br/>
+                                    <input type="radio" name="animal" value="3" /> Option 3
+                                </label>
+                            </div>
+                        </div>
+
+                        <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+
+                    </div>
                 </div>
+
+            </div>
+        </div>
+
+        <!-- Screen 4 -->
+        <div id="screen4" class="screen">
+
+            <div class="container mt45">
+
+                <div class="row">
+                   <div class="col-sm-8 col-sm-offset-2">
+
+                        <h3>Final Question</h3>
+
+                        <div id="chart-1"></div>
+
+                        <div class="form mt20 text-left">
+                            <div class="form-group">
+                                <b>How many animals were on the image?</b>
+                                <input class="form-control input-lg" placeholder="Enter the number of animals" />
+                            </div>
+                            <span id="to-screen-5" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+                        </div>
+
+                   </div>
+               </div>
 
             </div>
         </div>
@@ -104,15 +205,111 @@
         </div>
 
 
+        <!-- Role Modal -->
+        <div class="modal" id="role-modal" tabindex="-1" role="dialog" aria-labelledby="popup-modal-label">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    Role
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body" style="padding-top:0;">
+
+                    <div id="role-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+
+                            <div class="item-content">
+                                <div class="v-center">
+
+                                    <p class="lead mt20">
+                                        This is the Role
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="carousel-controls">
+                                <a class="btn btn-sm btn-primary" href="#role-carousel" role="button" data-slide="next">
+                                    Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="item">
+
+                            <div class="item-content">
+                                <div class="v-center">
+                                    <p class="lead mt20">
+                                         Role step 2
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="carousel-controls">
+                                <a class="btn btn-sm btn-primary" href="#role-carousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
+                                </a>
+                                <a class="btn btn-sm btn-primary" href="#role-carousel" role="button" data-slide="next">
+                                    Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="item">
+
+                            <div class="item-content">
+                                <div class="v-center">
+
+                                    <p class="lead mt20">
+                                        Last role screen
+                                    </p>
+                                    <p class="lead">
+                                        Woohoo!
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="carousel-controls">
+                                <a class="btn btn-sm btn-primary" href="#role-carousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Previous
+                                </a>
+                                <a class="btn btn-sm btn-primary" data-dismiss="modal" role="button">
+                                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> OK
+                                </a>
+                            </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Menu Modal -->
         <div class="modal" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="popup-modal-label">
+          <span id="close-menu" class="close-menu">
+            <span class="circle"><span aria-hidden="true">&times;</span></span>
+          </span>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div id="slide-menu" class="modal-body">
 
                     <ul class="text-center">
-                        <li id="close-menu" class="close-menu"><span>Close</span></li>
+                        <li><span id="role-menu-item">Role</span></li>
+                        <li><span id="walk-menu-item">Walkthrough</span></li>
                         <li><span id="about">About</span></li>
-                        <li><a href="#" tabindex="-1">Logout</a></li>
                     </ul>
 
                 </div>

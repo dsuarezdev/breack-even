@@ -105,12 +105,79 @@ function appinit(o){
     /**************** GAME SCREENS ****************/
     /**********************************************/
 
-    /* Screen 2 - ITEM TYPE SELECTION */
+
+    /* Screen 1 - SPLASH SCREEN */
+    var beginBtn = document.getElementById('begin');
+    var screen1 = document.getElementById('screen1');
+    screen1.sreadyin = function(){
+        loader.classList.remove('loading');
+    }
+
+    beginBtn.addEventListener('click', function(e){
+        loader.classList.add('loading');
+        toFrame(appbox, 'screen2', 'R', 'L', 300, false );
+    });
+
+
+    /* Screen 2 */
+    var btnToScreen3 = document.getElementById('to-screen-3');
     var screen2 = document.getElementById('screen2');
     screen2.sreadyin = function(){
         loader.classList.remove('loading');
+        jQuery('#role-modal').modal('show');
+    }
+
+    btnToScreen3.addEventListener('click', function(){
+        loader.classList.add('loading');
+        toFrame(appbox, 'screen3', 'R', 'L', 300, false );
+    });
+
+
+    /* Screen 3 */
+    var screen3 = document.getElementById('screen3');
+    screen3.sreadyin = function(){
+        loader.classList.remove('loading');
+    }
+
+
+    /* Screen 4 */
+    var btnToScreen4 = document.getElementById('to-screen-4');
+    var screen4 = document.getElementById('screen4');
+    screen4.sreadyin = function(){
+        loader.classList.remove('loading');
+
+        Highcharts.chart('chart-1', {
+            chart: { type: 'column', height: 200 },
+            creadits: { enable: false },
+            title: { text: '' },
+            xAxis: {
+                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total animals'
+                }
+            },
+            series: [{
+                name: 'John',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: 'Jane',
+                data: [2, 2, 3, 2, 1]
+            }, {
+                name: 'Joe',
+                data: [3, 4, 4, 2, 5]
+            }]
+        });
 
     }
+
+    btnToScreen4.addEventListener('click', function(e){
+        loader.classList.add('loading');
+        toFrame(appbox, 'screen4', 'R', 'L', 300, false );
+    });
+
 
     /**********************************************/
     /**************** /GAME SCREENS ***************/

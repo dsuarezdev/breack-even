@@ -203,10 +203,22 @@
         }
         launchBtn.addEventListener('click', function(e){
 
-            if( this.classList.contains('disabled') ){
-                e.preventDefault();
-                return false;
+            e.preventDefault();
+
+            if( !this.classList.contains('disabled') ){
+                bootbox.confirm({
+                    message: "Are you sure you want to launch this game?",
+                    buttons: {
+                        confirm: { label: 'Yes', className: 'btn-success' },
+                        cancel: { label: 'No', className: 'btn-danger' }
+                    },
+                    callback: function (result) {
+                        if( result ) window.location.href = launchBtn.href;
+                    }
+                });
             }
+
+            return false;
 
         });
 

@@ -337,12 +337,24 @@
                 launchBtn.classList.add('disabled');
             }
             launchBtn.addEventListener('click', function(e){
-                //e.preventDefault();
-                if( this.classList.contains('disabled') ){
-                    return false;
-                }else{
-                    return true;
+
+                e.preventDefault();
+
+                if( !this.classList.contains('disabled') ){
+                    bootbox.confirm({
+                        message: "Are you sure you want to launch this game?",
+                        buttons: {
+                            confirm: { label: 'Yes', className: 'btn-success' },
+                            cancel: { label: 'No', className: 'btn-danger' }
+                        },
+                        callback: function (result) {
+                            if( result ) window.location.href = launchBtn.href;
+                        }
+                    });
                 }
+
+                return false;
+
             });
 
             // Validate the form fields
