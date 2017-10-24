@@ -41,7 +41,7 @@
 
         <%
             var activePlayers = game.players.filter(function(p){ return p.results.length > 0; });
-            var activePlayersCount = (activePlayers) activePlayers.length : 0;
+            var activePlayersCount = (activePlayers) ? activePlayers.length : 0;
             var activePlayersPercent = Math.round( (100/game.players.length) * activePlayersCount );
         %>
 
