@@ -42,7 +42,7 @@
         <%- JSON.stringify( game.players ) %>
 
         <% game.players.forEach(function(p){ %>
-            <%- p.results %>
+            <%- typeof p.results %>
         <% }) %>
 
         <%
