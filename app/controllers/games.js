@@ -714,6 +714,8 @@ var GamesModule = function(io){
 
         Game.findOne({_id: gameId}).populate('players').exec(function(err, game){
 
+            console.log(game);
+
             // Catch the error
             if(err){
                 req.flash('error', err);
