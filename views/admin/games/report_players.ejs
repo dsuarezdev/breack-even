@@ -40,7 +40,11 @@
         <!-- /.topbar -->
 
         <%- JSON.stringify( game.players ) %>
-        <%- game.players.filter(function(p){ return p.results.length > 0; }) %>
+
+        <% game.players.filter(function(p){ %>
+            <%- p.results %>
+        <% }) %>
+
         <%
             var activePlayers = game.players.filter(function(p){ return p.results.length > 0; });
             var activePlayersCount = (activePlayers) ? activePlayers.length : 0;
