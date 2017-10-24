@@ -9,7 +9,7 @@ var playerSchema = Schema({
     lastname  : { type : String, trim: true },
     game_id   : { type : Schema.Types.ObjectId, ref: 'Game' },
     token     : { type : String },
-    results   : [{ type : Schema.Types.ObjectId, ref: 'Result', default: [] }]
+    results   : [{ type: Schema.Types.Mixed, default: []}]
 
 }, {collection: 'player'});
 

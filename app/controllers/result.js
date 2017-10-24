@@ -1,9 +1,5 @@
 // Load models
-var Simcase = require('../models/simcase');
 var Result = require('../models/result');
-
-// Load Helpers
-var Reports = require('../helpers/reports');
 
 // Load Helpers
 var HubAPI = require('../helpers/hubapi');
@@ -19,9 +15,6 @@ module.exports = {
         // Validate parameters
         //if( !code || code == 0 )
         //    return res.send('Missing code parameter.');
-
-        // Helper example
-        var myReport = Reports.method_name(1, 2, 3);
 
         Simcase.find({code: code}, function(err, simcase){
 

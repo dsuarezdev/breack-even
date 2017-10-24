@@ -3,10 +3,7 @@ var AuthController      = require('./controllers/auth');
 var DashboardController = require('./controllers/dashboard');
 var DebriefController   = require('./controllers/debrief');
 var PlayController      = require('./controllers/play');
-var SimcaseController   = require('./controllers/simcase');
-var ScenarioController  = require('./controllers/scenario');
 var ResultController    = require('./controllers/result');
-var ResultController2   = require('./controllers/resultController');
 var GamesController     = require('./controllers/games');
 
 module.exports = function(app, io, appConfig) {
@@ -133,24 +130,6 @@ module.exports = function(app, io, appConfig) {
         isLoggedIn,
         AuthController.me);
 
-
-    // =====================================
-    // SIMCASE
-    // =====================================
-    app.get('/simcase/:code',
-        isLoggedIn,
-        SimcaseController.find);
-
-    app.get('/simcase/sections',
-        isLoggedIn,
-        SimcaseController.sectionBySimcase);
-
-
-    // =====================================
-    // SCENARIO
-    // =====================================
-    app.get('/scenario/:name',
-        ScenarioController.find);
 
     // =====================================
     // RESULT

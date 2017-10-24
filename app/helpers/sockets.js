@@ -108,12 +108,7 @@ module.exports.listen = function(io){
                 var player = game.players.find(function(p){ return (p.email == data.email && p.token == data.token) });
                 if( typeof player == 'undefined' ) return ack({ error: 'You do not belong to this room.' });
 
-                console.log(player);
-
-                player.results.push( data.result );
-
-                console.log(player);
-
+                player.results.push(data.result);
                 game.save(function(err){
                     if( err ) console.log(err);
                     return ack(data.result);

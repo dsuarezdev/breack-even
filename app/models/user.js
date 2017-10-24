@@ -10,15 +10,7 @@ var userSchema = Schema({
     token        : { type : String, trim: true },
     role         : { type : String, trim: true },
     name         : { type : String, trim: true },
-    lastname     : { type : String, trim: true },
-
-    // game fields
-    correctness             : { type: Number, default: 0 },
-    correctness_calculation : { type: Number, default: 0 },
-    correctness_selection   : { type: Number, default: 0 },
-    rounds                  : { type: Number, default: 0 },
-    revenue                 : { type: Number, default: 0 },
-    completed               : { type: Schema.Types.Mixed, defaults: 0 }
+    lastname     : { type : String, trim: true }
 
 }, {collection: 'user'});
 
