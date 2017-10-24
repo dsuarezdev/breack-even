@@ -13,26 +13,10 @@ function appinit(o){
     var playerEmail = getQueryVariable('e');
     var playerToken = getQueryVariable('t');
 
-
-    var item_type = '';
-    var item_title = '';
-    var result = {};
-    var gameResult = {};
-    var _max;
-    var _chart;
-    var chart;
-    var _xaxis;
-    var _yaxis;
-    var _color;
-    var scenario;
-
     // GLOBALS
     var gameData = {};
-    var currentPlayerResults = [];
+    var gameResult = {};
     var socket;
-    var hubURL = '';
-    var appURL = o.site_url;
-    var clientID  = '';
     var socketLayer = document.getElementById('connection-popup');
     var pauseLayer  = document.getElementById('pause-popup');
 
@@ -41,9 +25,7 @@ function appinit(o){
     var popup = document.getElementById('popup');
 
 
-    // Chart
-    _chart;
-
+    // This functions enable the navigation between screens
     makeNavigable( appbox, document.getElementById('splash') );
 
 
@@ -71,20 +53,12 @@ function appinit(o){
 
                 // If game is "finalized", then *return* and move to the summary
                 if( game.status == 'finalized' ){
-                    toFrame(appbox, 'debrief-1', 'R', 'L', 300, false );
+                    toFrame(appbox, 'screen6', 'R', 'L', 300, false );
                     loader.classList.add('loading');
                 }
 
                 // If game is launched & started
-                if( game.status == 'launched' ){
-
-                     /* Screen 1 - */
-                    document.getElementById('begin').addEventListener('click', function(){
-                        toFrame(appbox, 'screen2', 'R', 'L', 300, false );
-                        loader.classList.add('loading');
-                    });
-
-                }
+                if( game.status == 'launched' ){}
 
             }
 
@@ -120,6 +94,9 @@ function appinit(o){
 
 
     /* Screen 2 */
+    var iQ1 = document.getElementById('iq-1');
+    var iQ2 = document.getElementById('iq-2');
+    var ageSlider = new Slider('#age-slider');
     var btnToScreen3 = document.getElementById('to-screen-3');
     var screen2 = document.getElementById('screen2');
     screen2.sreadyin = function(){
@@ -128,27 +105,61 @@ function appinit(o){
     }
 
     btnToScreen3.addEventListener('click', function(){
-        loader.classList.add('loading');
-        toFrame(appbox, 'screen3', 'R', 'L', 300, false );
+
+        // Validate if the user answered the question
+        if( iQ1.value.length && iQ2.value.length && ageSlider.getValue() > 0 ){
+
+            loader.classList.add('loading');
+
+            gameResult.quiz1 = { name: iQ1.value, age: ageSlider.getValue(), livesin: iQ2.value };
+
+            toFrame(appbox, 'screen3', 'R', 'L', 300, false );
+
+        }else{
+            bootbox.alert('Complete the answers before continuing.');
+        }
+
     });
 
 
     /* Screen 3 */
+    var item1 = document.getElementById('item-1');
+    var item2 = document.getElementById('item-2');
+    var item3 = document.getElementById('item-3');
+    var btnToScreen4 = document.getElementById('to-screen-4');
     var screen3 = document.getElementById('screen3');
     screen3.sreadyin = function(){
         loader.classList.remove('loading');
     }
 
+    btnToScreen4.addEventListener('click', function(e){
+
+        // Validate if the user answered the question
+        if( item1.checked || item2.checked || item3.checked ){
+            loader.classList.add('loading');
+
+            if( item1.checked ) gameResult.selectedItem = item1.value;
+            if( item2.checked ) gameResult.selectedItem = item2.value;
+            if( item3.checked ) gameResult.selectedItem = item3.value;
+
+            toFrame(appbox, 'screen4', 'R', 'L', 300, false );
+        }else{
+            bootbox.alert('Select an item before continuing.');
+        }
+
+    });
+
 
     /* Screen 4 */
-    var btnToScreen4 = document.getElementById('to-screen-4');
+    var animalCount = document.getElementById('animal-count');
+    var btnToScreen5 = document.getElementById('to-screen-5');
     var screen4 = document.getElementById('screen4');
     screen4.sreadyin = function(){
         loader.classList.remove('loading');
 
         Highcharts.chart('chart-1', {
-            chart: { type: 'column', height: 200 },
-            creadits: { enable: false },
+            chart: { type: 'column', height: 250 },
+            creadits: { enabled: false },
             title: { text: '' },
             xAxis: {
                 categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
@@ -157,6 +168,12 @@ function appinit(o){
                 min: 0,
                 title: {
                     text: 'Total animals'
+                }
+            },
+            legend: {
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
                 }
             },
             series: [{
@@ -173,10 +190,106 @@ function appinit(o){
 
     }
 
-    btnToScreen4.addEventListener('click', function(e){
-        loader.classList.add('loading');
-        toFrame(appbox, 'screen4', 'R', 'L', 300, false );
+    btnToScreen5.addEventListener('click', function(e){
+
+        if( animalCount.value.length > 0 && animalCount.value > 0 ){
+            loader.classList.add('loading');
+            gameResult.animalCount = animalCount.value;
+            toFrame(appbox, 'screen5', 'R', 'L', 300, false );
+        }else{
+            bootbox.alert('Please enter a valid integer.');
+        }
+
     });
+
+
+    /* Screen 5 */
+    var finalRadio1 = document.getElementById('final-radio-1');
+    var finalRadio2 = document.getElementById('final-radio-2');
+    var btnToScreen6 = document.getElementById('to-screen-6');
+    var screen5 = document.getElementById('screen5');
+    screen5.sreadyin = function(){
+        loader.classList.remove('loading');
+    }
+
+    btnToScreen6.addEventListener('click', function(e){
+
+        // Validate if the user answered the question
+        if( finalRadio1.checked || finalRadio2.checked ){
+            loader.classList.add('loading');
+
+            if( finalRadio1.checked ) gameResult.quiz2 = { enjoy: finalRadio1.value };
+            if( finalRadio2.checked ) gameResult.quiz2 = { enjoy: finalRadio2.value };
+
+            // Send the gameResult object
+            socket.emit('result', {game_id: gameId, email: playerEmail, token: playerToken, result: gameResult}, function(gres){
+
+                console.log(gres);
+
+                // Any errors?
+                if( gres.error )
+                    return console.log(gres.error);
+
+                return toFrame(appbox, 'screen6', 'R', 'L', 300, false );
+            });
+
+        }else{
+            bootbox.alert('You must answer the question in order to proceed.');
+        }
+
+    });
+
+
+    /* Screen 6 */
+    var fbName = document.getElementById('fb-name');
+    var fbAge = document.getElementById('fb-age');
+    var fbLive = document.getElementById('fb-live');
+    var fbItem = document.getElementById('fb-item');
+    var fbAnimals = document.getElementById('fb-animals');
+    var fbEnjoy = document.getElementById('fb-enjoy');
+    var screen6 = document.getElementById('screen6');
+    screen6.sreadyin = function(){
+
+        loader.classList.remove('loading');
+        console.log(gameResult);
+
+        Highcharts.chart('chart-2', {
+            chart: { type: 'column', height: 250 },
+            creadits: { enabled: false },
+            title: { text: '' },
+            xAxis: {
+                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+            },
+            yAxis: {
+                min: 0,
+                title: { text: 'Total animals' }
+            },
+            legend: {
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            },
+            series: [{
+                name: 'John',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: 'Jane',
+                data: [2, 2, 3, 2, 1]
+            }, {
+                name: 'Joe',
+                data: [3, 4, 4, 2, 5]
+            }]
+        });
+
+        fbName.innerHTML = gameResult.quiz1.name;
+        fbAge.innerHTML = gameResult.quiz1.age;
+        fbLive.innerHTML = gameResult.quiz1.livesin;
+        fbItem.innerHTML = gameResult.selectedItem;
+        fbAnimals.innerHTML = gameResult.animalCount;
+        fbEnjoy.innerHTML = gameResult.quiz2.enjoy;
+
+    }
 
 
     /**********************************************/

@@ -215,6 +215,7 @@ a:hover{ color: #36b3bb; }
 
 
 
+
 /* Game */
 .modal-backdrop.in{
     opacity: 1;
@@ -232,3 +233,16 @@ a:hover{ color: #36b3bb; }
 
 
 footer{ background: rgba(68, 83, 96, .5); }
+
+
+
+
+/* Library: Bootstrap Slider */
+
+.slider-handle {
+    background-color: #a853fd;
+    background-image: -webkit-linear-gradient(top,#a853fd 0,#0480be 100%);
+    background-image: -o-linear-gradient(top,#a853fd 0,#0480be 100%);
+    background-image: linear-gradient(to bottom,#a853fd 0,#0480be 100%);
+    background-repeat: repeat-x;
+}

@@ -262,7 +262,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // SIDEMENU
 
-
     // MODAL: QUIT
     jQuery('#quitModal').on('show.bs.modal', function (event) {
         var button = jQuery(event.relatedTarget); // Button that triggered the modal
@@ -272,5 +271,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         modal.find('.modal-title').text(title);
         modal.find('.modal-body').text(body);
     });
+
+    // Enable tooltips & popovers
+    jQuery('[data-toggle="tooltip"]').tooltip();
+    jQuery('[data-toggle="popover"]').popover();
 
 });

@@ -15,11 +15,11 @@
     <!-- Bootstrap core CSS -->
     <link href="<%- makeURL('/game_assets/bootstrap/css/bootstrap.min.css') %>" rel="stylesheet">
 
+    <!-- Highcharts -->
+    <link href="<%- makeURL('/css/highcharts.css') %>" rel="stylesheet">
+
     <!-- App base structure -->
     <link href="<%- makeURL('/game_assets/css/style.css') %>" rel="stylesheet">
-
-    <!-- Icofont -->
-    <link href="<%- makeURL('/game_assets/icofont/css/icofont.css') %>" rel="stylesheet">
 
     <!-- Custom styles for this app -->
     <link href="<%- makeURL('/game_assets/css/app.css') %>" rel="stylesheet">
@@ -29,6 +29,9 @@
 
     <!-- App base structure -->
     <link href="<%- makeURL('/css/common.css') %>" rel="stylesheet">
+
+    <!-- Optional Libraries: Remove CSS files you're not using -->
+    <link href="<%- makeURL('/css/bootstrap-slider.min.css') %>" rel="stylesheet">
 
     <!-- Base template styles for this app -->
     <link href="<%- makeURL('/css/theme-purple.css') %>" rel="stylesheet">
@@ -82,9 +85,11 @@
 
             <div class="container v-center">
 
-                  <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
+                <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
 
                 <h2>Welcome to BaseApp</h2>
+
+                <p class="lead">This is the "Splash Screen".</p>
 
                 <div class="mt20 mb20 col-xs-12 col-sm-8 col-sm-offset-2">
                     <span id="begin" class="btn btn-lg btn-primary">Start Game</span>
@@ -101,22 +106,22 @@
                <div class="row">
                    <div class="col-sm-8 col-sm-offset-2">
 
-                       <h3>Pre-Quiz</h3>
+                        <h3>Initial Quiz</h3>
 
                         <div class="form mt20 text-left">
                             <div class="form-group">
-                                <b>What's your name?</b>
-                                <input class="form-control input-lg" placeholder="Enter your name" />
+                                <label>What's your name?</label>
+                                <input id="iq-1" class="form-control input-lg" placeholder="Enter your name" />
                             </div>
                             <div class="form-group mt20">
-                                <b>What's your favorite food?</b>
-                                <input class="form-control input-lg" placeholder="Enter your name" />
+                                <label>What's your age?</label><br/>
+                                <input id="age-slider" style="width:100%;" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
                             </div>
                             <div class="form-group mt20">
-                                <b>Where do you live?</b>
-                                <input class="form-control input-lg" placeholder="Enter your name" />
+                                <label>Where do you live?</label>
+                                <input id="iq-2" class="form-control input-lg" placeholder="Enter your name" />
                             </div>
-                            <span id="to-screen-3" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+                            <span id="to-screen-3" class="btn btn-primary btn-lg btn-block mt40">Next</span>
                         </div>
 
                    </div>
@@ -133,35 +138,42 @@
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2">
 
-                        <h3>Select an option</h3>
+                        <h3>
+                            Select an option
+                            <small>
+                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="This is a bootstrap tooltip. Tooltips are initialized by default in the BaseApp."></span>
+                            </small>
+                        </h3>
 
-                        <p class="lead">This is a demo, here you can choose one of the items and continue.</p>
+                        <p class="lead">
+                            This is a demo, here you can choose one of the items and continue.
+                        </p>
 
                         <div class="row mt20">
                             <div class="col-xs-4">
                                 <label>
                                     <img src="http://lorempixel.com/150/150/animals/1" class="img-responsive" />
                                     <br/>
-                                    <input type="radio" name="animal" value="1" /> Option 1
+                                    <input id="item-1" type="radio" name="animal" value="1" /> Option 1
                                 </label>
                             </div>
                             <div class="col-xs-4">
                                 <label>
                                     <img src="http://lorempixel.com/150/150/animals/2" class="img-responsive" />
                                     <br/>
-                                    <input type="radio" name="animal" value="2" /> Option 2
+                                    <input id="item-2" type="radio" name="animal" value="2" /> Option 2
                                 </label>
                             </div>
                             <div class="col-xs-4">
                                 <label>
                                     <img src="http://lorempixel.com/150/150/animals/3" class="img-responsive" />
                                     <br/>
-                                    <input type="radio" name="animal" value="3" /> Option 3
+                                    <input id="item-3" type="radio" name="animal" value="3" /> Option 3
                                 </label>
                             </div>
                         </div>
 
-                        <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+                        <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt40">Next</span>
 
                     </div>
                 </div>
@@ -177,17 +189,97 @@
                 <div class="row">
                    <div class="col-sm-8 col-sm-offset-2">
 
-                        <h3>Final Question</h3>
+                        <h3>Final Step</h3>
+
+                        <p class="lead">
+                            Sometimes, and based on the previous interactions, the user is presented with some data and must make a decision.
+                        </p>
 
                         <div id="chart-1"></div>
 
                         <div class="form mt20 text-left">
                             <div class="form-group">
-                                <b>How many animals were on the image?</b>
-                                <input class="form-control input-lg" placeholder="Enter the number of animals" />
+                                <label>
+                                    How many animals were on the image?
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-trigger="hover" data-toggle="popover" title="Numeric Input" data-content="This is a native numeric input, check the onkeypress event to see the validations."></span>
+                                </label>
+                                <input id="animal-count" type="number" min="0" step="1" class="form-control input-lg" tabindex="-1" onkeypress='return event.charCode >= 48 && event.charCode <= 57 && this.value < 1000' placeholder="Enter the number of animals" />
                             </div>
-                            <span id="to-screen-5" class="btn btn-primary btn-lg btn-block mt20">Next</span>
+                            <span id="to-screen-5" class="btn btn-primary btn-lg btn-block mt40">Next</span>
                         </div>
+
+                   </div>
+               </div>
+
+            </div>
+        </div>
+
+        <!-- Screen 5 -->
+        <div id="screen5" class="screen">
+
+            <div class="container mt45">
+
+                <div class="row">
+                   <div class="col-sm-8 col-sm-offset-2">
+
+                        <h3>Final Quiz</h3>
+
+                        <div class="form mt20">
+                            <div class="form-group text-center">
+                                <label>Did you enjoy the game?</label><br/>
+                                <div class="btn-group" data-toggle="buttons" style="width:50%;">
+                                    <label class="btn btn-default btn-lg" style="width:50%;">
+                                      <input id="final-radio-1" type="radio" name="enjoy" value="si" autocomplete="off"> Yes
+                                    </label>
+                                    <label class="btn btn-default btn-lg" style="width:50%;">
+                                      <input id="final-radio-2" type="radio" name="enjoy" value="no" autocomplete="off"> No
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info mt40">
+                                At this point of the game, all the data generated by the user interacctions has been stored in an "result" JSON.
+                                By clicking the "Submit &amp; Check Results" button the "result" object will be sent to the server using AJAX or WebSockets.
+                            </div>
+
+                            <span id="to-screen-6" class="btn btn-primary btn-lg btn-block mt40">Submit &amp; Check Results</span>
+                        </div>
+
+                   </div>
+               </div>
+
+            </div>
+        </div>
+
+        <!-- Screen 6 -->
+        <div id="screen6" class="screen">
+
+            <div class="container mt45">
+
+                <div class="row">
+                   <div class="col-sm-8 col-sm-offset-2">
+
+                        <h3>Feedback</h3>
+
+                        <div id="chart-2"></div>
+
+                        <label>What's your name?</label>
+                        <p id="fb-name" class="lead"></p>
+
+                        <label>What's your age?</label>
+                        <p id="fb-age" class="lead"></p>
+
+                        <label>Where do you live?</label>
+                        <p id="fb-live" class="lead"></p>
+
+                        <label>Selected item</label>
+                        <p id="fb-item" class="lead"></p>
+
+                        <label>Animals on the image</label>
+                        <p id="fb-animals" class="lead"></p>
+
+                        <label>Did you enjoy the SimCase?</label>
+                        <p id="fb-enjoy" class="lead"></p>
 
                    </div>
                </div>
@@ -226,8 +318,9 @@
                             <div class="item-content">
                                 <div class="v-center">
 
+                                    <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
                                     <p class="lead mt20">
-                                        This is the Role
+                                        This is the Role Modal, it's usually triggered after players click "Start Game" button in the Spash Screen.
                                     </p>
                                 </div>
                             </div>
@@ -244,9 +337,12 @@
 
                             <div class="item-content">
                                 <div class="v-center">
+
+                                    <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
                                     <p class="lead mt20">
-                                         Role step 2
+                                         You can launch this role modal again from the menu (top-right).
                                     </p>
+
                                 </div>
                             </div>
 
@@ -266,8 +362,9 @@
                             <div class="item-content">
                                 <div class="v-center">
 
+                                    <img id="nav-logo" src="<%- makeURL('/game_assets/img/apple-touch-icon-114x114.png') %>" alt="" />
                                     <p class="lead mt20">
-                                        Last role screen
+                                        That's it, keep the role modal short and descriptive ;)
                                     </p>
                                     <p class="lead">
                                         Woohoo!
@@ -313,25 +410,6 @@
                     </ul>
 
                 </div>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- Quit Modal -->
-        <div class="modal fade" id="quitModal" tabindex="-1" role="dialog" aria-labelledby="quitModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="quitModalTitle"></h4>
-              </div>
-              <div id="quitModalBody" class="modal-body">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                <a href="javascript:location.reload();" class="btn btn-danger">Exit</a>
-              </div>
             </div>
           </div>
         </div>
@@ -410,7 +488,13 @@
     <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/highcharts.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/game_assets/js/fastclick.js') %>"></script>
+
+    <!-- Optional Libraries: Remove scripts if you're not using them -->
+    <script type="text/javascript" src="<%- makeURL('/js/bootstrap-slider.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/bootstrap-switch.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/bootstrap-tour.min.js') %>"></script>
 
     <!-- Objects & Helpers -->
     <script type="text/javascript" src="<%- makeURL('/game_assets/js/utils.js') %>"></script>

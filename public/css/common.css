@@ -344,6 +344,22 @@ table a.btn-link, table td{ color: #777; }
     padding: 5px 5px;
 }
 
+#role-modal .item {
+    height: 67vh;
+    padding-bottom: 40px;
+}
+#role-modal .carousel-controls {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 10px 0 0;
+    background: #FFF;
+}
+#role-modal .item-content {
+    overflow: auto;
+    height: 98%;
+}
 
 
 

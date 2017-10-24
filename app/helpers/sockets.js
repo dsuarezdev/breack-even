@@ -92,13 +92,34 @@ module.exports.listen = function(io){
 
 
         // RESULT
-        socket.on('result', function(result, ack){
+        socket.on('result', function(data, ack){
 
             // Validations
-            if( !result.game_id ) return ack({ error: 'Invalid game id.' });
-            if( !result.user_id ) return ack({ error: 'Invalid email address.' });
+            if( !data.game_id ) return ack({ error: 'Invalid game id.' });
+            if( !data.email ) return ack({ error: 'Invalid email address.' });
+            if( !data.token ) return ack({ error: 'Invalid token.' });
 
-            return ack([]);
+            Game.findOne({_id: data.game_id}).populate('players').exec(function(err, game){
+
+                // Game?
+                if( !game ) return ack({ error: 'The game room does not exists.' });
+
+                // User belongs to this room? (look for him in the game players list)
+                var player = game.players.find(function(p){ return (p.email == data.email && p.token == data.token) });
+                if( typeof player == 'undefined' ) return ack({ error: 'You do not belong to this room.' });
+
+                console.log(player);
+
+                player.results.push( data.result );
+
+                console.log(player);
+
+                game.save(function(err){
+                    if( err ) console.log(err);
+                    return ack(data.result);
+                });
+
+            });
 
         });
 
