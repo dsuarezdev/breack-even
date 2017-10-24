@@ -39,6 +39,7 @@
         </div>
         <!-- /.topbar -->
 
+        <%- JSON.stringify( game.players ) %>
         <%
             var activePlayers = game.players.filter(function(p){ return p.results.length > 0; });
             var activePlayersCount = (activePlayers) ? activePlayers.length : 0;
