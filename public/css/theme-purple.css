@@ -170,6 +170,20 @@ a:hover{ color: #36b3bb; }
     border: 1px solid #6a52ff;
     background: #6a52ff;
 }
+/* Bootstrap Buttons: Success */
+.btn-success, .btn-success.active{
+    border: 1px solid #27979e;
+    background: #27979e;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:focus:active,
+.btn-success:active,
+.btn-success.active:hover,
+.btn-success:active:hover{
+    border: 1px solid #27979e;
+    background: #27979e;
+}
 /* Bootstrap Buttons: Info */
 .btn-info, .btn-info.active{
     border: 1px solid #2687ff;
