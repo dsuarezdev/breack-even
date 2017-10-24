@@ -329,10 +329,7 @@ a:hover{ color: #36b3bb; }
     color: #FFF;
     background: #6a52ff;
 }
-.modal-footer .btn-default{
-    border: 1px solid #36b3bb;
-    color: #36b3bb;
-}
+.modal-footer .btn-default{}
 
 
 
