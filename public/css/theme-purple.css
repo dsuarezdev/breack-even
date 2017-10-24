@@ -111,10 +111,55 @@ a:hover{ color: #36b3bb; }
     background: #445360;
 }
 
-/* Bootstrap Buttons */
-.btn-primary, .btn-primary.active{
-    border: 1px solid #36b3bb;
+
+
+/* Bootstrap Buttons: Button */
+.btn, .btn.active{
+    color: #FFF;
+    border: 1px solid #cbdee9;
+    background: #cbdee9;
+}
+.btn:hover,
+.btn:focus,
+.btn:focus:active,
+.btn:active,
+.btn.active:hover,
+.btn:active:hover{
+    border: 1px solid #cbdee9;
+    background: #cbdee9;
+}
+/* Bootstrap Buttons: Link */
+.btn-link, .btn-link.active{
+    border: none;
+    background: transparent;
+}
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:focus:active,
+.btn-link:active,
+.btn-link.active:hover,
+.btn-link:active:hover{
+    border: none;
+    background: transparent;
+}
+/* Bootstrap Buttons: Default */
+.btn-default, .btn-default.active{
+    border: 1px solid #3eced7;
     background: #3eced7;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:focus:active,
+.btn-default:active,
+.btn-default.active:hover,
+.btn-default:active:hover{
+    border: 1px solid #3eced7;
+    background: #3eced7;
+}
+/* Bootstrap Buttons: Primary */
+.btn-primary, .btn-primary.active{
+    border: 1px solid #6a52ff;
+    background: #6a52ff;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -122,9 +167,54 @@ a:hover{ color: #36b3bb; }
 .btn-primary:active,
 .btn-primary.active:hover,
 .btn-primary:active:hover{
-    border: 1px solid #36b3bb;
-    background: #36b3bb;
+    border: 1px solid #6a52ff;
+    background: #6a52ff;
 }
+/* Bootstrap Buttons: Info */
+.btn-info, .btn-info.active{
+    border: 1px solid #2687ff;
+    background: #2687ff;
+}
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:focus:active,
+.btn-info:active,
+.btn-info.active:hover,
+.btn-info:active:hover{
+    border: 1px solid #2687ff;
+    background: #2687ff;
+}
+/* Bootstrap Buttons: Warning */
+.btn-warning, .btn-warning.active{
+    border: 1px solid #ff8814;
+    background: #ff8814;
+}
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:focus:active,
+.btn-warning:active,
+.btn-warning.active:hover,
+.btn-warning:active:hover{
+    border: 1px solid #ff8814;
+    background: #ff8814;
+}
+/* Bootstrap Buttons: Danger */
+.btn-danger, .btn-danger.active{
+    border: 1px solid #fd5846;
+    background: #fd5846;
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:focus:active,
+.btn-danger:active,
+.btn-danger.active:hover,
+.btn-danger:active:hover{
+    border: 1px solid #fd5846;
+    background: #fd5846;
+}
+
+
+
 
 .jumbotron{ background: #e1dcff; }
 

@@ -115,6 +115,10 @@ module.exports = function(app, io, appConfig) {
         isLoggedIn,
         GamesController.debrief);
 
+    app.get('/admin/games/leaderboard/:id/',
+        isLoggedIn,
+        GamesController.leaderboard);
+
     app.get('/admin/games/csv/:id/',
         isLoggedIn,
         GamesController.csv);

@@ -6,7 +6,7 @@
         <div class="topbar topbar-right">
 
             <% if( game.status != 'finalized' ){ %>
-                <a id="add-player-btn" href="#" id="addplayer-btn" class="btn btn-mb btn-labeled btn-info"
+                <a id="add-player-btn" href="#" id="addplayer-btn" class="btn btn-mb btn-labeled btn-default"
                    data-toggle="modal" data-target="#add-new-pair-modal">
                     <span class="btn-label"><i class="fa fa-plus"></i></span> Add Player
                 </a>
@@ -15,30 +15,23 @@
             <!-- Pause/Unpause -->
             <% if( !game.async_mode ){ %>
                 <% if( game.paused ){ %>
-                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-warning">
+                    <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-info">
                         <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
                     </a>
                 <% }else{ %>
-                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-warning">
+                    <a href="<%- makeURL('/admin/games/pause/' + game._id) %>" id="pause-btn" class="btn btn-mb btn-labeled btn-info">
                         <span class="btn-label"><i class="fa fa-pause"></i></span> Pause
                     </a>
                 <% } %>
             <% } %>
 
-            <!-- CSV -->
-            <% if( game.status == 'finalized' ){ %>
-                <a href="<%- makeURL('/admin/games/csv/' + game._id) %>" id="csv-btn" class="btn btn-mb btn-labeled btn-primary">
-                    <span class="btn-label"><i class="fa fa-download"></i></span> Download CSV
-                </a>
-            <% } %>
-
             <!-- Start/Finalize -->
             <% if( game.started ){ %>
-                <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-danger">
+                <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-primary">
                     <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
                 </a>
             <% }else{ %>
-                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-info">
+                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-primary">
                     <span class="btn-label"><i class="fa fa-play"></i></span> Start
                 </a>
             <% } %>
@@ -48,7 +41,7 @@
 
         <%
             var activePlayers = game.players.filter(function(p){ return p.results.length > 0; });
-            var activePlayersPercent = (100/game.players.length) * activePlayers.length;
+            var activePlayersPercent = Math.round( (100/game.players.length) * activePlayers.length );
         %>
 
         <div class="row">
@@ -101,7 +94,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <span class="btn btn-md btn-default btn-block text-center"
+                                                <span class="btn btn-md btn-info btn-block text-center"
                                                       data-toggle="modal"
                                                       data-target="#shareModal"
                                                       data-magiclink="<%- site_url + '/play?i=' + p.game_id + '&e=' + p.email + '&t=' + p.token %>">
@@ -122,6 +115,8 @@
                                     <h4 class="modal-title" id="myModalLabel">Share Magic-link</h4>
                                   </div>
                                   <div class="modal-body text-center">
+
+                                      <div class="modal-msg alert alert-success" style="display:none;"></div>
 
                                       <p>You are about to share the following Magic-link</p>
                                       <input type="text" id="magiclink-url" class="form-control input-lg" disabled />
@@ -199,9 +194,10 @@
                         success: function(res){
 
                             if( res ){
-                                jQuery('#magiclink-url').val('');
+                                // Instead of hiding the modal, we're now displaying an message //jQuery('#shareModal').modal('hide');
+                                var msg = '<p>The Magic-link was successfully sent to <strong>' + email + '</strong>.';
+                                jQuery('#shareModal .modal-msg').show().html(msg);
                                 jQuery('#email-to').val('');
-                                jQuery('#shareModal').modal('hide');
                             }
 
                         }

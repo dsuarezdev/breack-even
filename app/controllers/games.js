@@ -764,6 +764,34 @@ var GamesModule = function(io){
 
 
 
+    // DEBRIEF LEADERBOARD
+    this.leaderboard = function(req, res){
+
+        var gameId = req.params.id;
+
+        Game.findOne({_id: gameId}).populate('players').exec(function(err, game){
+
+            // Catch the error
+            if(err){
+                req.flash('error', err);
+                res.redirect(req.get('referer'));
+            }
+
+            // Load the form view
+            return res.render('admin/games/report_leaderboard', {
+                game: game,
+                site_url: configOauth.site_url,
+                o: configApp,
+                controller: 'games',
+                action: 'debrief_leaderboard'
+            });
+
+        });
+
+    },
+
+
+
     // START GAME
     this.start = function(req, res){
 

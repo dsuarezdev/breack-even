@@ -90,11 +90,12 @@ label{font-weight: 400;}
 #main-menu{ background: rgba(68, 83, 96, .5); }
 
 #main-menu .nav > li > a,
-.topbar a,
 .topbar .btn-link{
     font-size:16px;
     font-weight: 300;
     color: rgba(255,255,255,.9);
+    border: none;
+    background: transparent;
 }
 
 .topbar a:focus,
@@ -321,7 +322,7 @@ table.table>thead>tr>th{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 200px;
+    max-width: 230px;
 }
 
 table.table>tbody>tr:hover{ background: #e1dcff; }

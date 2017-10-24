@@ -60,45 +60,37 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        Overview
+                        <strong>Leaderboard</strong>
                     </div>
                     <div class="panel-body">
 
-                        <table id="overview-table" class="table mb40">
+                        <table id="leaderboard-table" class="table table-bordered mb0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Email</th>
+                                    <th class="text-center" data-sort-default>Plays</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                               <tr>
-                                    <td class="text-center" style="width:33%"><h3 class="mt0 mb0">Context</h3></td>
-                                    <td class="text-center" style="width:33%"><h3 class="mt0 mb0">Decisions</h3></td>
-                                    <td class="text-center" style="width:33%"><h3 class="mt0 mb0">Factors</h3></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-signal" aria-hidden="true"></span></h1>
-                                        <p class="lead">Context Number One</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-user" aria-hidden="true"></span></h1>
-                                        <p class="lead">Decision Number One</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-time" aria-hidden="true"></span></h1>
-                                        <p class="lead">Factor Number One</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h1>
-                                        <p class="lead">Context Number Two</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-book" aria-hidden="true"></span></h1>
-                                        <p class="lead">Decision Number Two</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <h1><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></h1>
-                                        <p class="lead">Factor Number Two</p>
-                                    </td>
-                                </tr>
+                                <% game.players.forEach(function(p){ %>
+
+                                    <%
+                                        p.name = (typeof p.name == 'undefined') ? '' : p.name;
+                                        p.lastname = (typeof p.lastname == 'undefined') ? '' : p.lastname;
+                                    %>
+
+                                    <tr>
+                                        <td><%- p.name %></td>
+                                        <td><%- p.lastname %></td>
+                                        <td><%- p.email %></td>
+                                        <td class="text-center">
+                                            <%- p.results.length %>
+                                        </td>
+                                    </tr>
+
+                                <% }) %>
                             </tbody>
                         </table>
 
@@ -128,6 +120,16 @@
             // Init & Connect Socket
             var socket = io.connect(o.io_domain, {path: o.io_path});
 
+        });
+    </script>
+
+    <!-- Table sorting -->
+    <script src="<%- site_url %>/js/tablesort.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            var sortedTable = new Tablesort(document.getElementById('leaderboard-table'), {
+                descending: true
+            });
         });
     </script>
 
