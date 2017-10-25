@@ -227,6 +227,10 @@
                     bootbox.confirm({
                         title: "Are you sure?",
                         message: msg,
+                        buttons: {
+                            confirm: { label: 'Yes', className: 'btn-default' },
+                            cancel: { label: 'No', className: 'btn-primary' }
+                        },
                         callback: function(confirmation){
 
                             // Confirm
@@ -234,7 +238,7 @@
 
                                 jQuery.ajax({
                                     method: 'POST',
-                                    url: '/admin/games/' + gameObj._id + '/rmemail/' + email,
+                                    url: '<%- site_url %>' + '/admin/games/' + gameObj._id + '/rmemail/' + email,
                                     success: function(response){
                                         if(typeof response != 'undefined' && response.email){
 
@@ -344,8 +348,8 @@
                     bootbox.confirm({
                         message: "Are you sure you want to launch this game?",
                         buttons: {
-                            confirm: { label: 'Yes', className: 'btn-success' },
-                            cancel: { label: 'No', className: 'btn-danger' }
+                            confirm: { label: 'Yes', className: 'btn-default' },
+                            cancel: { label: 'No', className: 'btn-primary' }
                         },
                         callback: function (result) {
                             if( result ) window.location.href = launchBtn.href;

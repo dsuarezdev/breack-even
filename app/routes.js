@@ -112,6 +112,10 @@ module.exports = function(app, io, appConfig) {
         isLoggedIn,
         GamesController.debrief);
 
+    app.get('/admin/games/demochart/:id/',
+        isLoggedIn,
+        GamesController.demochart);
+
     app.get('/admin/games/leaderboard/:id/',
         isLoggedIn,
         GamesController.leaderboard);

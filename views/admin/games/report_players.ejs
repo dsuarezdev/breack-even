@@ -107,36 +107,6 @@
                                 </tbody>
                             </table>
 
-                            <!-- Share Magic Link Modal -->
-                            <div class="modal fade" id="shareModal" tabindex="-1" role="dialog">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Share Magic-link</h4>
-                                  </div>
-                                  <div class="modal-body text-center">
-
-                                      <div class="modal-msg alert alert-success" style="display:none;"></div>
-
-                                      <p>You are about to share the following Magic-link</p>
-                                      <input type="text" id="magiclink-url" class="form-control input-lg" disabled />
-
-                                      <p class="mt20">Type the email address and press the send button</p>
-                                      <input type="email" id="email-to" class="form-control input-lg" placeholder="email@simcase.io" />
-
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button id="share-send" type="button" class="btn btn-primary">Send</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- / Share Magic Link Modal -->
-
-                            <%- include add_player_modal %>
-
                         </div>
 
                     </div>
@@ -145,6 +115,53 @@
             </div>
         </div>
     </div>
+
+    <!-- Share Magic Link Modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Share Magic-link</h4>
+          </div>
+          <div class="modal-body text-center">
+
+              <div class="modal-msg alert alert-success" style="display:none;"></div>
+
+              <p>You are about to share the following Magic-link</p>
+              <input type="text" id="magiclink-url" class="form-control input-lg" disabled />
+
+              <p class="mt20">Type the email address and press the send button</p>
+              <input type="email" id="email-to" class="form-control input-lg" placeholder="email@simcase.io" />
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="share-send" type="button" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Share Magic Link Modal -->
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Player</h4>
+          </div>
+          <div class="modal-body text-center">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Share Magic Link Modal -->
+
+    <%- include add_player_modal %>
+
+
 
     <!-- Libraries -->
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
@@ -160,11 +177,32 @@
             // Init & Connect Socket
             var socket = io.connect(o.io_domain, {path: o.io_path});
 
-            // Capture the player estimates
-            socket.on('result', function(data){ // Imagine that you're sending the results using web sockets
-                //console.log(data);
+            // Capture the player results
+            // Whenever a player submits a result, the server sends a 'results' message
+            // using WebSockets, this view reacts to this message by changing the Activity Button text
+            socket.on('result', function(data){
                 var activitySpan = document.getElementById('activity-player-' + data.player);
                 activitySpan.innerHTML = 'Active';
+            });
+
+
+            // Loop players & add the feedback button listener
+            var feedbackModal = jQuery('#feedback-modal');
+            var playersFeedback = document.querySelectorAll('.player-feedback');
+            playersFeedback.forEach(function(feed, fi){
+
+                feed.addEventListener('click', function(e){
+
+                    // This is a demo feedback content
+                    // It ussually includes data from the results or even a chart
+                    var totalPlays = gameObj.players[fi].results.length;
+                    document.querySelector('#feedback-modal .modal-title').innerHTML = 'Player ' + this.dataset.email;
+                    document.querySelector('#feedback-modal .modal-body').innerHTML = '<p>This player email is ' + this.dataset.email + '.</p>';
+                    document.querySelector('#feedback-modal .modal-body').innerHTML += '<p>This player has played a total of ' + totalPlays + ' plays.</p>';
+                    feedbackModal.modal('show');
+
+                });
+
             });
 
             // Share Magic-link

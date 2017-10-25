@@ -24,6 +24,32 @@ function appinit(o){
     var loader = document.getElementById('loader');
     var popup = document.getElementById('popup');
 
+    // TOUR
+    var tour = new Tour({
+        name: 'baseapp',
+        storage: window.localStorage,
+        steps: [
+            {
+                element: "#menu-btn-right",
+                title: "Menu",
+                content: "Use the menu bar to navigate through additional resources.",
+                placement: 'left'
+            },
+            {
+                element: "#tour-2",
+                title: "Items",
+                content: "You can use this tool to guide the users through the app.",
+                placement: 'top'
+            },
+            {
+                element: "#to-screen-4",
+                title: "Next",
+                content: "Use this buttons to navigate through screens.",
+                placement: 'top'
+            }
+        ]
+    });
+
 
     // This functions enable the navigation between screens
     makeNavigable( appbox, document.getElementById('splash') );
@@ -126,10 +152,14 @@ function appinit(o){
     var item1 = document.getElementById('item-1');
     var item2 = document.getElementById('item-2');
     var item3 = document.getElementById('item-3');
+    var itemsAbout = document.querySelectorAll('.about-item');
     var btnToScreen4 = document.getElementById('to-screen-4');
     var screen3 = document.getElementById('screen3');
     screen3.sreadyin = function(){
         loader.classList.remove('loading');
+
+        tour.setCurrentStep(0);
+        tour.start();
     }
 
     btnToScreen4.addEventListener('click', function(e){
@@ -146,6 +176,19 @@ function appinit(o){
         }else{
             bootbox.alert('Select an item before continuing.');
         }
+
+    });
+
+    itemsAbout = [].slice.call(itemsAbout);
+    itemsAbout.forEach(function(a){
+
+        a.addEventListener('click', function(e){
+            bootbox.dialog({
+                title: 'A custom dialog',
+                message:  '<p>We are using a library called Bootbox to create fancy alerts, dialogs, confirms & prompts based on Bootstrap elements.</p>'
+                        + '<p>In some cases it is better to use native Bootstrap modals, which allow more customization (check Admin Area > Game > User Management).</p>'
+            });
+        });
 
     });
 
@@ -333,6 +376,12 @@ function appinit(o){
     /**********************************************/
     /**************** HELPERS *********************/
     /**********************************************/
+
+    var menuRole = document.getElementById('role-menu-item');
+    menuRole.addEventListener('click', function(){
+        jQuery('#role-carousel').carousel(0);
+        jQuery('#role-modal').modal('show');
+    });
 
     var menuAbout = document.getElementById('about');
     menuAbout.addEventListener('click', function(){

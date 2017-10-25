@@ -49,11 +49,11 @@
                     <h2 class="mt0 mb5 pull-left">Debrief</h2>
                     <ul id="inner-menu" class="nav nav-pills nav-justified mt0">
                         <li <% if( action == 'debrief' ){ %> class="active" <% } %>><a href="<%- makeURL('/admin/games/debrief/' + game._id) %>">Overview</a></li>
-                        <li <% if( action == 'debrief_charts1' ){ %> class="active" <% } %>><a href="#">Charts 1</a></li>
-                        <li <% if( action == 'debrief_charts2' ){ %> class="active" <% } %>><a href="#">Charts 2</a></li>
-                        <li <% if( action == 'debrief_charts3' ){ %> class="active" <% } %>><a href="#">Charts 3</a></li>
+                        <li <% if( action == 'debrief_demochart' ){ %> class="active" <% } %>><a href="<%- makeURL('/admin/games/demochart/' + game._id) %>">Demo Chart</a></li>
+                        <li <% if( action == 'debrief_charts2' ){ %> class="active" <% } %>><a href="#">Chart 2</a></li>
+                        <li <% if( action == 'debrief_charts3' ){ %> class="active" <% } %>><a href="#">Chart 3</a></li>
                         <li <% if( action == 'debrief_leaderboard' ){ %> class="active" <% } %>><a href="<%- makeURL('/admin/games/leaderboard/' + game._id) %>">Leaderboard</a></li>
-                        <li <% if( action == 'debrief_download' ){ %> class="active" <% } %>><a href="#">Download</a></li>
+                        <li <% if( action == 'debrief_download' ){ %> class="active" <% } %>><a href="<%- makeURL('/admin/games/csv/' + game._id) %>">Download</a></li>
                     </ul>
                 </div>
                 <!-- /Menu-bar -->

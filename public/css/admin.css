@@ -243,12 +243,12 @@ label.error{
 
 
 /* FORMS COLLAPSE */
-.coll-toggle,
-.coll-toggle:hover{
+.btn.coll-toggle,
+.btn.coll-toggle:hover{
     text-decoration: none;
     color: #EEE;
 }
-.coll-toggle.collapsed{
+.btn.coll-toggle.collapsed{
     color: #666;
     background: #dedede;
 }

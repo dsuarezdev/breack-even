@@ -60,39 +60,11 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <strong>Leaderboard</strong>
+                        Overview
                     </div>
                     <div class="panel-body">
 
-                        <table id="leaderboard-table" class="table table-bordered mb0">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Surname</th>
-                                    <th>Email</th>
-                                    <th class="text-center" data-sort-default>Plays</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% game.players.forEach(function(p){ %>
-
-                                    <%
-                                        p.name = (typeof p.name == 'undefined') ? '' : p.name;
-                                        p.lastname = (typeof p.lastname == 'undefined') ? '' : p.lastname;
-                                    %>
-
-                                    <tr>
-                                        <td><%- p.name %></td>
-                                        <td><%- p.lastname %></td>
-                                        <td><%- p.email %></td>
-                                        <td class="text-center">
-                                            <%- p.results.length %>
-                                        </td>
-                                    </tr>
-
-                                <% }) %>
-                            </tbody>
-                        </table>
+                        <div id="demochart"></div>
 
                     </div>
                 </div>
@@ -120,16 +92,35 @@
             // Init & Connect Socket
             var socket = io.connect(o.io_domain, {path: o.io_path});
 
-        });
-    </script>
 
-    <!-- Table sorting -->
-    <script src="<%- site_url %>/js/tablesort.min.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function(){
-            var sortedTable = new Tablesort(document.getElementById('leaderboard-table'), {
-                descending: true
+            // Get players plays count
+            var playersCategories = gameObj.players.map(function(p, pi){ return p.email; });
+            var playsPerPlayer = gameObj.players.map(function(p, pi){ return p.results.length; });
+
+            // Demo Chart
+            Highcharts.chart('demochart', {
+                chart: { type: 'column', height: 350 },
+                creadits: { enabled: false },
+                title: { text: '' },
+                xAxis: {
+                    categories: playersCategories
+                },
+                yAxis: {
+                    min: 0,
+                    title: { text: 'Total Plays' }
+                },
+                legend: {
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                },
+                series: [{
+                    name: 'Plays',
+                    data: playsPerPlayer
+                }]
             });
+
         });
     </script>
 

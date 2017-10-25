@@ -763,6 +763,33 @@ var GamesModule = function(io){
     },
 
 
+    // CHART 1
+    this.demochart = function(req, res){
+
+        var gameId = req.params.id;
+
+        Game.findOne({_id: gameId}).populate('players').exec(function(err, game){
+
+            // Catch the error
+            if(err){
+                req.flash('error', err);
+                res.redirect(req.get('referer'));
+            }
+
+            // Load the form view
+            return res.render('admin/games/report_demochart', {
+                game: game,
+                site_url: configOauth.site_url,
+                o: configApp,
+                controller: 'games',
+                action: 'debrief_demochart'
+            });
+
+        });
+
+    },
+
+
 
     // DEBRIEF LEADERBOARD
     this.leaderboard = function(req, res){
@@ -825,12 +852,7 @@ var GamesModule = function(io){
 
         var gameId  = req.params.id;
 
-        Game.findOne({_id: gameId}).populate({
-            path: 'estimates',
-            populate: {
-                path: 'player item'
-            }
-        }).exec(function(err, game){
+        Game.findOne({_id: gameId}).populate('players').exec(function(err, game){
 
             // Catch the error
             if(err){
@@ -839,18 +861,20 @@ var GamesModule = function(io){
             }
 
             // Define the fields
-            var fields = ['order', 'name', 'surname', 'email', 'item', 'item_price', 'player_estimation'];
+            var fields = ['name', 'surname', 'email', 'survey_name', 'survey_age', 'survey_location'];
             var data = [];
 
-            game.estimates.forEach(function(es, ei){
-                data.push({
-                    order: ei+1,
-                    name: es.player.name || '',
-                    lastname: es.player.lastname || '',
-                    email: es.player.email,
-                    item: es.item.name,
-                    item_price: es.item.price,
-                    player_estimation: es.price
+            game.players.forEach(function(p, pi){
+                p.results.forEach(function(r, ri){
+                    data.push({
+                        order: ri+1,
+                        name: p.name || '',
+                        lastname: p.lastname || '',
+                        email: p.email,
+                        survey_name: r.quiz1.name,
+                        survey_age: r.quiz1.age,
+                        survey_location: r.quiz1.livesin
+                    });
                 });
             });
 

@@ -105,8 +105,8 @@ a:hover{ color: #36b3bb; }
 /* Game Setup */
 #shortlink{ color: #445360; }
 
-.coll-toggle,
-.coll-toggle:hover{
+.btn.coll-toggle,
+.btn.coll-toggle:hover{
     color: #EEE;
     background: #445360;
 }
@@ -114,11 +114,12 @@ a:hover{ color: #36b3bb; }
 
 
 /* Bootstrap Buttons: Button */
-.btn, .btn.active{
+.btn{
     color: #FFF;
     border: 1px solid #cbdee9;
     background: #cbdee9;
 }
+.btn.active,
 .btn:hover,
 .btn:focus,
 .btn:focus:active,
@@ -129,10 +130,11 @@ a:hover{ color: #36b3bb; }
     background: #cbdee9;
 }
 /* Bootstrap Buttons: Link */
-.btn-link, .btn-link.active{
+.btn-link{
     border: none;
     background: transparent;
 }
+.btn-link.active,
 .btn-link:hover,
 .btn-link:focus,
 .btn-link:focus:active,
@@ -143,88 +145,96 @@ a:hover{ color: #36b3bb; }
     background: transparent;
 }
 /* Bootstrap Buttons: Default */
-.btn-default, .btn-default.active{
-    border: 1px solid #3eced7;
+.btn-default{
+    color: #FFF;
+    border: 1px solid #37b5bd;
     background: #3eced7;
 }
+.btn-default.active,
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:focus:active,
 .btn-default:active,
 .btn-default.active:hover,
 .btn-default:active:hover{
-    border: 1px solid #3eced7;
-    background: #3eced7;
+    color: #FFF;
+    border: 1px solid #37b5bd;
+    background: #37b5bd;
 }
 /* Bootstrap Buttons: Primary */
-.btn-primary, .btn-primary.active{
-    border: 1px solid #6a52ff;
+.btn-primary{
+    border: 1px solid #5541d2;
     background: #6a52ff;
 }
+.btn-primary.active,
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:focus:active,
 .btn-primary:active,
 .btn-primary.active:hover,
 .btn-primary:active:hover{
-    border: 1px solid #6a52ff;
-    background: #6a52ff;
+    border: 1px solid #5541d2;
+    background: #5541d2;
 }
 /* Bootstrap Buttons: Success */
-.btn-success, .btn-success.active{
-    border: 1px solid #27979e;
+.btn-success{
+    border: 1px solid #1f7c82;
     background: #27979e;
 }
+.btn-success.active,
 .btn-success:hover,
 .btn-success:focus,
 .btn-success:focus:active,
 .btn-success:active,
 .btn-success.active:hover,
 .btn-success:active:hover{
-    border: 1px solid #27979e;
-    background: #27979e;
+    border: 1px solid #1f7c82;
+    background: #1f7c82;
 }
 /* Bootstrap Buttons: Info */
-.btn-info, .btn-info.active{
-    border: 1px solid #2687ff;
+.btn-info{
+    border: 1px solid #1f71d6;
     background: #2687ff;
 }
+.btn-info.active,
 .btn-info:hover,
 .btn-info:focus,
 .btn-info:focus:active,
 .btn-info:active,
 .btn-info.active:hover,
 .btn-info:active:hover{
-    border: 1px solid #2687ff;
-    background: #2687ff;
+    border: 1px solid #1f71d6;
+    background: #1f71d6;
 }
 /* Bootstrap Buttons: Warning */
-.btn-warning, .btn-warning.active{
-    border: 1px solid #ff8814;
+.btn-warning{
+    border: 1px solid #da7410;
     background: #ff8814;
 }
+.btn-warning.active,
 .btn-warning:hover,
 .btn-warning:focus,
 .btn-warning:focus:active,
 .btn-warning:active,
 .btn-warning.active:hover,
 .btn-warning:active:hover{
-    border: 1px solid #ff8814;
-    background: #ff8814;
+    border: 1px solid #da7410;
+    background: #da7410;
 }
 /* Bootstrap Buttons: Danger */
-.btn-danger, .btn-danger.active{
-    border: 1px solid #fd5846;
+.btn-danger{
+    border: 1px solid #d84838;
     background: #fd5846;
 }
+.btn-danger.active,
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:focus:active,
 .btn-danger:active,
 .btn-danger.active:hover,
 .btn-danger:active:hover{
-    border: 1px solid #fd5846;
-    background: #fd5846;
+    border: 1px solid #d84838;
+    background: #d84838;
 }
 
 
@@ -346,4 +356,27 @@ footer{ background: rgba(68, 83, 96, .5); }
     background-image: -o-linear-gradient(top,#a853fd 0,#0480be 100%);
     background-image: linear-gradient(to bottom,#a853fd 0,#0480be 100%);
     background-repeat: repeat-x;
+}
+
+
+
+/* Library: Bootstrap Tour */
+.popover.tour-baseapp{
+    font-weight: 300;
+    color: #FFF;
+    background: #6a52ff;
+}
+.popover.tour-baseapp.left > .arrow:after{border-left-color: #6a52ff;}
+.popover.tour-baseapp.right > .arrow:after{border-right-color: #6a52ff;}
+.popover.tour-baseapp.top > .arrow:after{border-top-color: #6a52ff;}
+.popover.tour-baseapp.bottom > .arrow:after{border-bottom-color: #6a52ff;}
+.popover.tour-baseapp .popover-title{
+    border: none;
+    background: transparent;
+}
+
+.popover.tour-baseapp .popover-navigation{padding: 5px;}
+.popover.tour-baseapp .btn-default{
+    border: none;
+    background: transparent;
 }
