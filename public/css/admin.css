@@ -160,6 +160,7 @@ footer{
     font-weight: 300;
     color: #FFF;
 }
+footer.fixed{ position: fixed; }
 footer a{color: #FFF;}
 .footer-text{}
 .footer-right, .footer-text{
