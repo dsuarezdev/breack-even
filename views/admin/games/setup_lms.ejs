@@ -197,6 +197,10 @@
                 bootbox.confirm({
                     title: 'Access Type Change',
                     message: 'You are about to change the game Access Type',
+                    buttons: {
+                        confirm: { label: 'Yes', className: 'btn-success' },
+                        cancel: { label: 'No', className: 'btn-danger' }
+                    },
                     callback: function(result){
                         if( result ){
                             saveBtn.click();
@@ -228,8 +232,8 @@
                         title: "Are you sure?",
                         message: msg,
                         buttons: {
-                            confirm: { label: 'Yes', className: 'btn-default' },
-                            cancel: { label: 'No', className: 'btn-primary' }
+                            confirm: { label: 'Yes', className: 'btn-success' },
+                            cancel: { label: 'No', className: 'btn-danger' }
                         },
                         callback: function(confirmation){
 
@@ -348,8 +352,8 @@
                     bootbox.confirm({
                         message: "Are you sure you want to launch this game?",
                         buttons: {
-                            confirm: { label: 'Yes', className: 'btn-default' },
-                            cancel: { label: 'No', className: 'btn-primary' }
+                            confirm: { label: 'Yes', className: 'btn-success' },
+                            cancel: { label: 'No', className: 'btn-danger' }
                         },
                         callback: function (result) {
                             if( result ) window.location.href = launchBtn.href;

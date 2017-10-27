@@ -29,11 +29,21 @@ jQuery(document).ready(function(){
     [].forEach.call(deletes, function(deleteBtn, idx){
 
         deleteBtn.addEventListener('click', function(e){
+
             e.preventDefault();
             var link = this.href;
-            bootbox.confirm("Are you sure you want to delete this item?", function(result){
-                if(result) location.href = link;
+
+            bootbox.confirm({
+                message: "Are you sure you want to delete this item?",
+                buttons: {
+                    confirm: { label: 'Yes', className: 'btn-success' },
+                    cancel: { label: 'No', className: 'btn-danger' }
+                },
+                callback: function (result) {
+                    if(result) location.href = link;
+                }
             });
+
         });
 
     });
