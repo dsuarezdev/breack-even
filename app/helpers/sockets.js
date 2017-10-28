@@ -109,7 +109,6 @@ module.exports.listen = function(io){
                 if( typeof player == 'undefined' ) return ack({ error: 'You do not belong to this room.' });
 
                 player.results.push(data.result);
-                console.log(game);
                 game.save(function(err){
                     if( err ) console.log(err);
                     return ack(data.result);
