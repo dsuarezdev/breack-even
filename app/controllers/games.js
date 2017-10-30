@@ -755,7 +755,8 @@ var GamesModule = function(io){
                 site_url: configOauth.site_url,
                 o: configApp,
                 controller: 'games',
-                action: 'debrief'
+                action: 'debrief',
+                headerTitle: game.name
             });
 
         });
@@ -782,7 +783,8 @@ var GamesModule = function(io){
                 site_url: configOauth.site_url,
                 o: configApp,
                 controller: 'games',
-                action: 'debrief_demochart'
+                action: 'debrief_demochart',
+                headerTitle: game.name
             });
 
         });
@@ -810,7 +812,8 @@ var GamesModule = function(io){
                 site_url: configOauth.site_url,
                 o: configApp,
                 controller: 'games',
-                action: 'debrief_leaderboard'
+                action: 'debrief_leaderboard',
+                headerTitle: game.name
             });
 
         });

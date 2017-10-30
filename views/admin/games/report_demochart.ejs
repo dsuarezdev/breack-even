@@ -2,7 +2,6 @@
 
     <div class="container-fluid">
 
-
         <!-- .topbar -->
         <div class="topbar topbar-right">
 
@@ -14,7 +13,7 @@
             <% } %>
 
             <!-- Pause/Unpause -->
-            <% if( !game.async_mode ){ %>
+            <% if( game.status == 'launched' && game.started ){ %>
                 <% if( game.paused ){ %>
                     <a href="<%- makeURL('/admin/games/unpause/' + game._id) %>" id="unpause-btn" class="btn btn-mb btn-labeled btn-info">
                         <span class="btn-label"><i class="fa fa-play"></i></span> Unpause
@@ -27,13 +26,14 @@
             <% } %>
 
             <!-- Start/Finalize -->
-            <% if( game.started ){ %>
+            <% if( game.status == 'launched' && !game.started ){ %>
+                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-labeled btn-primary">
+                    <span class="btn-label"><i class="fa fa-play"></i></span> Start
+                </a>
+            <% } %>
+            <% if( game.status != 'finalized' && game.started ){ %>
                 <a href="<%- makeURL('/admin/games/finalize/' + game._id) %>" id="finalize-btn" class="btn btn-mb btn-labeled btn-primary">
                     <span class="btn-label"><i class="fa fa-stop"></i></span> Finalize
-                </a>
-            <% }else{ %>
-                <a href="<%- makeURL('/admin/games/start/' + game._id) %>" class="btn btn-md btn-primary">
-                    <span class="btn-label"><i class="fa fa-play"></i></span> Start
                 </a>
             <% } %>
 
@@ -60,7 +60,7 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        Overview
+                        Demo Chart
                     </div>
                     <div class="panel-body">
 
