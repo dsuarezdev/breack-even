@@ -2,12 +2,15 @@
   "name": "simcase-optimization",
   "version": "1.0.0",
   "description": "Optimization Simulation Game - SimCase.io",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node .",
+    "dev": "nodemon app.js",
     "db_dump": "mongodump  --db sc-optimization",
     "mongorestore_local": "mongorestore -d sc-optimization dump/sc-optimization --drop",
-    "mongorestore_heroku": "mongorestore -h ds035816.mlab.com:35816 -d heroku_8kqlg0sv -u heroku_8kqlg0sv -p qudkab63js2slv8aehqvj3r2as dump/sc-optimization --drop"
+    "mongorestore_heroku":
+      "mongorestore -h ds035816.mlab.com:35816 -d heroku_8kqlg0sv -u heroku_8kqlg0sv -p qudkab63js2slv8aehqvj3r2as dump/sc-optimization --drop"
   },
   "repository": {
     "type": "git",
@@ -39,5 +42,8 @@
     "passport-lti": "0.0.7",
     "request": "^2.74.0",
     "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
