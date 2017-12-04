@@ -1,7 +1,9 @@
 <!doctype html>
 <html>
+
 <head>
-    <title><%- app.name %> - SimCase</title>
+    <title>
+        <%- app.name %> - SimCase</title>
 
     <link rel="shortcut icon" href="<%- makeURL('/favicon.png') %>" type="image/png">
 
@@ -24,40 +26,49 @@
     <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootstrap-switch.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/jquery.bootstrap.wizard.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/highcharts.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/highcharts-more.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/simple-statistics.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/numeral/numeral.min.js') %>"></script>
 
     <style>
-        body{ padding-top: 90px; }
+        body {
+            padding-top: 90px;
+        }
     </style>
 </head>
+
 <body class="bgicon">
 
-<nav id="main-menu" class="navbar navbar-fixed-top" data-spy="affix" data-offset-top="1">
-  <div class="container-fluid">
-    <div class="navbar-header">
+    <nav id="main-menu" class="navbar navbar-fixed-top" data-spy="affix" data-offset-top="1">
+        <div class="container-fluid">
+            <div class="navbar-header">
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-      <span class="navbar-brand" style="padding:8px;">
-          <a href="<%- makeURL('/admin') %>" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Click to exit and view all game sessions.">
-            <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase" />
-            <%- app.name %>
-          </a>
-          <span id="module-name"><% if( typeof headerTitle != 'undefined' ){ %> <%- headerTitle %> <% }%>&nbsp;</span>
-      </span>
+                <span class="navbar-brand" style="padding:8px;">
+                    <a href="<%- makeURL('/admin') %>" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Click to exit and view all game sessions.">
+                        <img src="<%- makeURL('/images/s-logo-white.png') %>" style="height:100%; display:inline-block; margin-top:-9px;" alt="SimCase"
+                        />
+                        <%- app.name %>
+                    </a>
+                    <span id="module-name">
+                        <% if( typeof headerTitle != 'undefined' ){ %>
+                            <%- headerTitle %>
+                                <% }%>&nbsp;</span>
+                </span>
 
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
 
-        <!--
+                <!--
         <ul class="nav navbar-nav navbar-left">
             <li><a href="<%- makeURL('/admin/dashboard') %>">Dashboard</a></li>
             <li><a href="<%- makeURL('/admin/games') %>">Games</a></li>
@@ -65,16 +76,17 @@
         </ul>
         -->
 
-        <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
 
-            <li id="slidemenu-btn">
-                <a href="#">
-                    Menu &nbsp; <i class="fa fa-bars"></i>
-                </a>
-            </li>
+                    <li id="slidemenu-btn">
+                        <a href="#">
+                            Menu &nbsp;
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
 
-        </ul>
+                </ul>
 
-    </div>
-  </div>
-</nav>
+            </div>
+        </div>
+    </nav>
