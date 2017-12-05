@@ -48,14 +48,6 @@ function appinit(o) {
     ]
   });
 
-  // Added by dsuarez (TK)
-  var gameObj = {
-    costs={
-      
-    }
-  }
-  // Added by dsuarez (TK)
-
   // This functions enable the navigation between screens
   makeNavigable(appbox, document.getElementById('splash'));
 
@@ -320,32 +312,9 @@ function appinit(o) {
 
   // Added by dsuarez (TK)
   $(document).ready(function() {
-    $('#rootwizard').bootstrapWizard({
-      tabClass: 'nav nav-tabs',
-      nextSelector: '.wz-next',
-      onTabChange: function(tab, navigation, index) {
-        console.log(tab);
-        if (tab[0].id === 'des-tab') {
-          console.log(tab[0].id);
-          $('#des-tab > a > span').css('transform', 'rotate(90deg)');
-        }
-        if (tab[0].id === 'cos-tab') {
-          console.log(tab[0].id);
-          $('#cos-tab > a > span').css('transform', 'rotate(90deg)');
-        }
-        if (tab[0].id === 'val-tab') {
-          console.log(tab[0].id);
-          $('#val-tab > a > span').css('transform', 'rotate(90deg)');
-        }
-        return true;
-      }
-    });
+
   });
   // Added by dsuarez (TK)
-
-  /**********************************************/
-  /**************** /GAME SCREENS ***************/
-  /**********************************************/
 
   /**********************************************/
   /**************** SOCKET EVENTS ***************/

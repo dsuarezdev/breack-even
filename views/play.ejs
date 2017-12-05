@@ -216,18 +216,18 @@
                                     <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                                 </a>
                             </li>
-                            <li id="cos-tab">
+                            <li id="cost-tab">
                                 <a data-toggle="tab" href="#cost">Cost &ensp;
                                     <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                                 </a>
                             </li>
-                            <li id="val-tab">
+                            <li id="valuec-tab">
                                 <a data-toggle="tab" href="#valuec">Value Chain &ensp;
                                     <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                                 </a>
                             </li>
-                            <li id="sub-tab">
-                                <a data-toggle="tab" href="#valuec">Submit</a>
+                            <li id="submit-tab">
+                                <a data-toggle="tab" href="#submit">Submit</a>
                             </li>
                         </ul>
                     </div>
@@ -235,6 +235,19 @@
 
                 <div class="tab-content">
                     <div id="description" class="tab-pane fade in active">
+                        <h2>Costs &amp; Demand</h2>
+
+                        <p class="lead text-justify">The Hohner Marine Band harmonica retailed for €30 in Germany. German retailers generally insisted
+                            on a 33% margin, and distributors took a 12% margin, based on the selling price of each. Hohner
+                            and its direct competitors sold a total of 800,000 units annually, with Hohner’s share at 75%.</p>
+                        <p class="lead text-justify">Hohner faced variable manufacturing costs of €2.70 per Marine Band, with fixed manufacturing costs
+                            of €900,000 and an annual advertising budget of €500,000. The Marine Band manager’s salary and
+                            expenses totaled €35,000. Marine Band salespeople working for Hohner were paid solely by a 10%
+                            commission on Hohner’s sales. Shipping costs, breakage, and insurance were €0.60 per unit. </p>
+                        <a id="des-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+                    </div>
+
+                    <div id="cost" class="tab-pane fade">
                         <div class="container">
                             <div class="row cost-wrapper">
                                 <div class="col-xs-12">
@@ -245,58 +258,97 @@
                                         <button type="button" id="abs-btn" class="btn btn-default">Absolute</button>
                                     </div>
                                 </div>
-                                <div id="cost-btn1" class="col-xs-5 cost-btn animated bounce">
-                                    <h4>Marketing &amp; Adverting</h4>
-                                    €
-                                    <span id="ma-cost">1.50</span>
-                                    <br>
-                                    <p id="ma-type">(Click to Assing)</p>
+                                <div id="cost-btn1" class="col-xs-5 cost-btn animated tada">
+                                    <h4>
+                                        <strong>Marketing &amp; Adverting
+                                        </strong>
+                                    </h4>
+                                    <p class="lead">€
+                                        <span id="ma-cost">1.50</span>
+                                        <br>
+                                        <strong>
+                                            <span id="ma-opt">(Click to Assing)</span>
+                                        </strong>
+                                    </p>
+
                                 </div>
-                                <div id="cost-btn2" class="col-xs-5 cost-btn">
-                                    <h4>Sales Comissions</h4>
-                                    €
-                                    <span id="sc-cost">0.16</span>
-                                    <br>
-                                    <p>Variable Cost</p>
+                                <div class="col-xs-5 cost-btn">
+                                    <h4>
+                                        <strong>Sales Comissions
+                                        </strong>
+                                    </h4>
+                                    <p class="lead"> €
+                                        <span id="sc-cost">0.16</span>
+                                        <br>
+                                        <strong>
+                                            <span>Variable Cost</span>
+                                        </strong>
+                                    </p>
                                 </div>
-                                <div id="cost-btn1" class="col-xs-5 cost-btn animated bounce">
-                                    <h4>Research &amp; Development</h4>
-                                    €
-                                    <span id="rd-cost">1.50</span>
-                                    <br>
-                                    <p id="ma-type">(Click to Assing)</p>
+                                <div id="cost-btn2" class="col-xs-5 cost-btn animated tada">
+                                    <h4>
+                                        <strong>Research &amp; Development
+                                        </strong>
+                                    </h4>
+                                    <p class="lead">€
+                                        <span id="rd-cost">1.50</span>
+                                        <br>
+                                        <strong>
+                                            <span id="rd-opt">(Click to Assing)</span>
+                                        </strong>
+                                    </p>
                                 </div>
-                                <div id="cost-btn2" class="col-xs-5 cost-btn">
-                                    <h4>Other Fixed Cost</h4>
-                                    €
-                                    <span id="of-cost">0.06</span>
-                                    <br>
-                                    <p>Fixed Cost</p>
+                                <div class="col-xs-5 cost-btn">
+                                    <h4>
+                                        <strong>Other Fixed Cost
+                                        </strong>
+                                    </h4>
+                                    <p class="lead">€
+                                        <span id="of-cost">0.06</span>
+                                        <br>
+                                        <strong>
+                                            <span>Fixed Cost</span>
+                                        </strong>
+                                    </p>
+
                                 </div>
-                                <div id="cost-btn1" class="col-xs-5 cost-btn animated bounce">
-                                    <h4>Shipping, Breakage, Insurance, etc.</h4>
-                                    €
-                                    <span id="sbi-cost">0.60</span>
-                                    <br>
-                                    <p id="ma-type">(Click to Assing)</p>
+                                <div id="cost-btn3" class="col-xs-5 cost-btn animated tada">
+                                    <h4>
+                                        <strong>Shipping, Breakage, Insurance, etc.
+                                        </strong>
+                                    </h4>
+                                    <p class="lead"> €
+                                        <span id="sbi-cost">0.60</span>
+                                        <br>
+                                        <strong>
+                                            <span id="sbi-opt">(Click to Assing)</span>
+                                        </strong>
+                                    </p>
                                 </div>
-                                <div id="cost-btn2" class="col-xs-5 cost-btn">
-                                    <h4>Variable Mfg. Cost</h4>
-                                    €
-                                    <span id="vm-cost">2.70</span>
-                                    <br>
-                                    <p>Variable Cost</p>
+                                <div class="col-xs-5 cost-btn">
+                                    <h4>
+                                        <strong>Variable Mfg. Cost
+                                        </strong>
+                                    </h4>
+                                    <p class="lead">€
+                                        <span id="vm-cost">2.70</span>
+                                        <br>
+                                        <strong>
+                                            <span>Variable Cost</span>
+                                        </strong>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <a class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+                        <a id="cost-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
                     </div>
-                    <div id="cost" class="tab-pane fade">
+
+                    <div id="valuec" class="tab-pane fade">
                         <h3>Menu 1</h3>
                         <p>Some content in menu 1.</p>
-                        <a class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+                        <a id="valuec-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
                     </div>
-                    <div id="valuec" class="tab-pane fade">
+                    <div id="submit" class="tab-pane fade">
                         <h3>Menu 2</h3>
                         <p>Some content in menu 2.</p>
                         <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt40">Next</span>
