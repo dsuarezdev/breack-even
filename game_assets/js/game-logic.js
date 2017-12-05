@@ -1,12 +1,20 @@
 $(document).ready(function() {
   var game = {
     unitCost: {
-      markAdv: '1.50',
-      saleCom: '0.16',
-      reseDev: '1.50',
-      otherFix: '0.06',
-      shiBreIn: '0.60',
-      varMfg: '2.70'
+      markAdv: 1.5,
+      saleCom: 0.16,
+      reseDev: 1.5,
+      otherFix: 0.06,
+      shiBreIn: 0.6,
+      varMfg: 2.7
+    },
+    absCost: {
+      markAdv: 900000,
+      saleCom: 1620000,
+      reseDev: 900000,
+      otherFix: 35000,
+      shiBreIn: 360000,
+      varMfg: 96000
     },
     opt: {
       markAdv: '',
@@ -43,15 +51,32 @@ $(document).ready(function() {
   /**************** COST LOGIC ******************/
   /**********************************************/
 
+  var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  });
+
   $('#unit-btn').click(function(e) {
     e.preventDefault();
 
-    $('#ma-cost').text(game.unitCost.markAdv);
-    $('#sc-cost').text(game.unitCost.saleCom);
-    $('#rd-cost').text(game.unitCost.reseDev);
-    $('#of-cost').text(game.unitCost.otherFix);
-    $('#sbi-cost').text(game.unitCost.shiBreIn);
-    $('#vm-cost').text(game.unitCost.varMfg);
+    $('#ma-cost').text(formatter.format(game.unitCost.markAdv));
+    $('#sc-cost').text(formatter.format(game.unitCost.saleCom));
+    $('#rd-cost').text(formatter.format(game.unitCost.reseDev));
+    $('#of-cost').text(formatter.format(game.unitCost.otherFix));
+    $('#sbi-cost').text(formatter.format(game.unitCost.shiBreIn));
+    $('#vm-cost').text(formatter.format(game.unitCost.varMfg));
+  });
+
+  $('#abs-btn').click(function(e) {
+    e.preventDefault();
+
+    $('#ma-cost').text(formatter.format(game.absCost.markAdv));
+    $('#sc-cost').text(formatter.format(game.absCost.saleCom));
+    $('#rd-cost').text(formatter.format(game.absCost.reseDev));
+    $('#of-cost').text(formatter.format(game.absCost.otherFix));
+    $('#sbi-cost').text(formatter.format(game.absCost.shiBreIn));
+    $('#vm-cost').text(formatter.format(game.absCost.varMfg));
   });
 
   $('#cost-btn1').click(function() {
