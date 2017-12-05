@@ -444,17 +444,36 @@ span.input-group-addon{
 
 .cost-btn {
   padding: 5px 5px;
-  border: 2px solid #603b62;
+  border: 4px solid #603b62;
   margin-left: 15px;
-  height: 150px;
+  height: 140px;
   margin-top: 10px;
-}
-.cost-wrapper {
 }
 
 #cost-btn1 {
+  animation-duration: 1s;
   -webkit-animation-duration: 1s;
-  -webkit-animation-delay: 2s;
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+}
+
+#cost-btn2 {
+  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-delay: 0.5s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+}
+
+#cost-btn3 {
+  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3s;
+  animation-delay: 0.7s;
+  -webkit-animation-delay: 0.7s;
+  animation-iteration-count: 1;
   -webkit-animation-iteration-count: 1;
 }
 
