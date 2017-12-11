@@ -310,10 +310,6 @@ function appinit(o) {
     fbEnjoy.innerHTML = gameResult.quiz2.enjoy;
   };
 
-  // Added by dsuarez (TK)
-  $(document).ready(function() {});
-  // Added by dsuarez (TK)
-
   /**********************************************/
   /**************** SOCKET EVENTS ***************/
   /**********************************************/
