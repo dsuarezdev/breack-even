@@ -254,7 +254,7 @@ $(document).ready(function() {
     var sum = parseFloat($('#retail-cost-input').val()) + parseFloat(e.key);
 
     var alert = `<div id="valuec-alert" class="alert alert-info">
-                  <strong>Info!</strong> Only values between 0 to 30 are alllowed.
+                  <strong>Too high Icarus!</strong> Our product retails at €30.00 so that is our input ceiling. Revisit you calculations and try again.
                 </div>`;
 
     if (sum > 30 || sum < 0) {

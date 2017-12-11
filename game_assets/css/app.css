@@ -577,7 +577,7 @@ span.input-group-addon{
 #valuec-alert {
   position: absolute;
   top: 10%;
-  left: 10%;
+  padding: 5px;
 }
 
 .retail-cost-btn:focus {
