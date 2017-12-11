@@ -311,9 +311,7 @@ function appinit(o) {
   };
 
   // Added by dsuarez (TK)
-  $(document).ready(function() {
-
-  });
+  $(document).ready(function() {});
   // Added by dsuarez (TK)
 
   /**********************************************/
@@ -368,11 +366,14 @@ function appinit(o) {
 
     var aboutHTML = '';
     aboutHTML += '<div class="text-center" style="padding:0 20px 0 20px;">';
-    aboutHTML += '<p class="mt20"><i>Author: Author Name<br>Author Title</i></p>';
+    aboutHTML +=
+      '<p class="mt20"><i><strong>Author:</strong> Eric T. Anderson<br>Hartmarx Professor of Marketing<br>Director of the Center for Marketing Practice</i></p>';
+    aboutHTML += '<p><strong>Powered by SimCase</strong></p>';
     aboutHTML += '<div>';
-    aboutHTML += '<img src="game_assets/assets/logo_wide.png" alt="Logo"></div>';
+    aboutHTML += '<img src="game_assets/assets/k-logop.png" alt="Logo"></div>';
     aboutHTML += '</div>';
-    aboutHTML += '<p class="mt20">Copyright © 2017, SimCase Co.</p>';
+    aboutHTML +=
+      '<p class="mt20">Copyright © 2017, Northwestern university, Kellogg School of Management</p>';
     aboutHTML += '</div>';
 
     alertModal('About', aboutHTML);
