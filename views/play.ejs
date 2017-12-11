@@ -12,7 +12,7 @@
     <title>
         <%- app.name %> - SimCase</title>
 
-    <link rel="shortcut icon" href="<%- makeURL('/favicon.png') %>" type="image/png">
+    <link rel="shortcut icon" href="<%- makeURL('/favicon-b.png') %>" type="image/png">
 
     <!-- Animate CSS -->
     <link href="<%- makeURL('/game_assets/css/animate.css') %>" rel="stylesheet">
@@ -68,17 +68,19 @@
                 <li class="brand pull-left">
                     <small class="fleft"></small>
                     <span style="padding-left:10px; padding-right:10px;">
-
-                        <img id="nav-logo" src="<%- makeURL('/game_assets/assets/icon.png') %>" width="30" alt="" />
-
+                        <img id="nav-logo" src="<%- makeURL('/favicon.png') %>" width="30" alt="" />
                     </span>
                     <small class="fright">
                         <%- app.name %>
                             <i id="current-level"></i>
                     </small>
                 </li>
+
                 <li id="menu-btn-right" class="pull-right">
                     <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                </li>
+                <li class="pull-right brand">
+                    <small id="game-step"></small>
                 </li>
             </ul>
         </nav>
@@ -208,22 +210,27 @@
 
             <div class="container mt45" id="rootwizard">
 
-                <div class="row">
-                    <div id="nav-col" class="col-xs-11 col-xs-offset-1">
+                <div class="row" id="nav-row">
+                    <div id="nav-col" class="col-xs-12">
                         <ul>
                             <li id="des-tab" class="active">
                                 <a data-toggle="tab" href="#description">Description &ensp;
-                                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                                 </a>
                             </li>
                             <li id="cost-tab">
                                 <a data-toggle="tab" href="#cost">Cost &ensp;
-                                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                                 </a>
                             </li>
                             <li id="valuec-tab">
                                 <a data-toggle="tab" href="#valuec">Value Chain &ensp;
-                                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                            <li id="break-tab">
+                                <a data-toggle="tab" href="#break">Break-Event &ensp;
+                                    <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                                 </a>
                             </li>
                             <li id="submit-tab">
@@ -263,8 +270,8 @@
                                         <strong>Marketing &amp; Adverting
                                         </strong>
                                     </h4>
-                                    <p class="lead">€
-                                        <span id="ma-cost">1.50</span>
+                                    <p class="lead">
+                                        <span id="ma-cost">€1.50</span>
                                         <br>
                                         <strong>
                                             <span id="ma-opt">(Click to Assing)</span>
@@ -277,8 +284,8 @@
                                         <strong>Sales Comissions
                                         </strong>
                                     </h4>
-                                    <p class="lead"> €
-                                        <span id="sc-cost">0.16</span>
+                                    <p class="lead">
+                                        <span id="sc-cost">€0.16</span>
                                         <br>
                                         <strong>
                                             <span>Variable Cost</span>
@@ -290,8 +297,8 @@
                                         <strong>Research &amp; Development
                                         </strong>
                                     </h4>
-                                    <p class="lead">€
-                                        <span id="rd-cost">1.50</span>
+                                    <p class="lead">
+                                        <span id="rd-cost">€1.50</span>
                                         <br>
                                         <strong>
                                             <span id="rd-opt">(Click to Assing)</span>
@@ -303,8 +310,8 @@
                                         <strong>Other Fixed Cost
                                         </strong>
                                     </h4>
-                                    <p class="lead">€
-                                        <span id="of-cost">0.06</span>
+                                    <p class="lead">
+                                        <span id="of-cost">€0.06</span>
                                         <br>
                                         <strong>
                                             <span>Fixed Cost</span>
@@ -317,8 +324,8 @@
                                         <strong>Shipping, Breakage, Insurance, etc.
                                         </strong>
                                     </h4>
-                                    <p class="lead"> €
-                                        <span id="sbi-cost">0.60</span>
+                                    <p class="lead">
+                                        <span id="sbi-cost">€0.60</span>
                                         <br>
                                         <strong>
                                             <span id="sbi-opt">(Click to Assing)</span>
@@ -330,8 +337,8 @@
                                         <strong>Variable Mfg. Cost
                                         </strong>
                                     </h4>
-                                    <p class="lead">€
-                                        <span id="vm-cost">2.70</span>
+                                    <p class="lead">
+                                        <span id="vm-cost">€2.70</span>
                                         <br>
                                         <strong>
                                             <span>Variable Cost</span>
@@ -340,19 +347,154 @@
                                 </div>
                             </div>
                         </div>
-                        <a id="cost-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+                        <!-- <a id="cost-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a> -->
+                        <a id="pl-modal-btn" data-toggle="modal" data-target="#pl-modal" class="btn btn-primary btn btn-block mt40">Review P&amp;L</a>
                     </div>
 
                     <div id="valuec" class="tab-pane fade">
-                        <h3>Menu 1</h3>
-                        <p>Some content in menu 1.</p>
-                        <a id="valuec-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+
+                        <div class="container mt10">
+                            <div class="row">
+                                <div class="col-xs-12 mb20">
+                                    <h3>Value Chain</h3>
+                                </div>
+                                <div id="retail-cost-btn" class="col-xs-4 text-center valuec-btn">
+                                    <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img1.png') %>" alt="" />
+                                    <small>1. Retail</small>
+                                </div>
+                                <div id="dist-cost-btn" class="col-xs-4 text-center valuec-btn">
+                                    <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img2.png') %>" alt="" />
+                                    <small>2. Distribuitor</small>
+                                </div>
+                                <div id="mfg-cost-btn" class="col-xs-4 text-center valuec-btn">
+                                    <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img3.png') %>" alt="" />
+                                    <small>3. Manufacturing</small>
+                                </div>
+                            </div>
+                            <div id="vc-wrapper" class="row">
+                                <div id="last-price" class="col-xs-4 text-center">
+                                    <h4>Retail Price</h4>
+                                    <h4>€30.00</h4>
+                                </div>
+                                <div id="margin-unit" class="col-xs-4 text-center">
+                                    <h4>Margin</h4>
+                                    <h4>30%</h4>
+                                </div>
+                                <div id="next-price" class="col-xs-4 text-center">
+                                    <h4>Dist. Price</h4>
+                                    <h4>€
+                                        <span id="price-cost"></span>
+                                    </h4>
+                                </div>
+                                <div class="col-xs-12 mt20">
+                                    <div id="retail-wrapper">
+                                        <p class="lead">Calculate Distribuitor Price (Retail Cost)</p>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">€</span>
+                                            <input id="retail-cost-input" type="number" class="form-control currency" />
+                                        </div>
+                                        <a id="retail-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                    </div>
+                                    <div id="dist-wrapper" class="hide">
+                                        <p class="lead">Calculate Mfg. Price (Distribuitor Cost)</p>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">€</span>
+                                            <input id="dist-cost-input" type="number" class="form-control currency" />
+                                        </div>
+                                        <a id="dist-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                    </div>
+                                    <div id="mfg-wrapper" class="hide">
+                                        <p class="lead">At a 10% rate, how much is the company paying in sales comission</p>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">€</span>
+                                            <input id="sc-cost-input" type="number" class="form-control currency" />
+                                        </div>
+                                        <a id="sc-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                    </div>
+                                    <div id="con-wrapper" class="hide">
+                                        <p class="lead">Calculate Unit Profit (Contribution)</p>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">€</span>
+                                            <input id="con-cost-input" type="number" class="form-control currency" />
+                                        </div>
+                                        <a id="con-next-btn" class="wz-next btn btn-primary btn btn-block mt10 hide">Confirm</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <a id="valuec-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a> -->
+                    </div>
+                    <div id="break" class="tab-pane fade">
+                        <h3>Break-Even</h3>
+                        <p>Some content in menu 2.</p>
+                        <span id="to-screen-4" class="wz-next btn btn-primary btn-lg btn-block mt40">Next</span>
                     </div>
                     <div id="submit" class="tab-pane fade">
                         <h3>Menu 2</h3>
                         <p>Some content in menu 2.</p>
                         <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt40">Next</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- P&L Modal -->
+        <div class="modal" id="pl-modal" tabindex="-1" role="dialog" aria-labelledby="popup-modal-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        P&amp;L
+                        <small></small>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body role-modal-body" style="padding-top:0;">
+                        <h4 class="text-center">
+                            <u>Costs Centers Categorized by type</u>
+                        </h4>
+                        <div id="pl-alert" class="alert alert-info">
+                            <strong>Wait!</strong> First things first. One or more cost centers still needs to be assigned to a category
+                            before you can advance to the next phase.
+                        </div>
+                        <div class="container">
+                            <div id="fixed-cost-table" class="row pl-table">
+                                <div class="col-xs-4 col-xs-offset-8 pl-label">
+                                    €000s
+                                </div>
+                                <div class="col-xs-8" id="fixed-cost-des">
+                                    <span>Other Fixed Cost</span>
+                                </div>
+                                <div class="col-xs-4" id="fixed-cost-value">
+                                    <span>€35,000.00</span>
+                                </div>
+                            </div>
+
+                            <div id="variable-cost-table" class="row pl-table">
+                                <div class="col-xs-4 col-xs-offset-8 pl-label">
+                                    € Per Unit
+                                </div>
+                                <div class="col-xs-8" id="var-cost-des">
+                                    <span>Sales Comission</span>
+                                    <span>Variable Manufacturing Cost</span>
+                                </div>
+                                <div class="col-xs-2" id="var-cost-value">
+                                    <span>€0.16</span>
+                                    <span>€2.70</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
+                        <button id="cost-confirm-btn" type="button" class="wz-next btn btn-success" data-dismiss="modal" disabled>Confirm</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -730,17 +872,17 @@
                                     <div class="item-content">
                                         <div class="">
                                             <div class="container">
-                                                <div class="row">
-                                                    <div class="col-xs-7">
+                                                <div class="row mb20">
+                                                    <div class="col-xs-8">
                                                         <h4>
                                                             <strong>Step: 1</strong>
                                                         </h4>
                                                         <p class="lead mt20">Assess the current operational enviroment.</p>
                                                     </div>
-                                                    <div class="col-xs-5">
+                                                    <div class="col-xs-4">
                                                         <img class="be-img-70 center-img" src="<%- makeURL('/game_assets/img/be-img1.png') %>" alt="" />
                                                     </div>
-                                                    <div class="col-xs-7">
+                                                    <div class="col-xs-8">
                                                         <h4>
                                                             <strong>Step: 2</strong>
                                                         </h4>
@@ -748,10 +890,10 @@
                                                             <strong>increase in advertising</strong>
                                                         </p>
                                                     </div>
-                                                    <div class="col-xs-5">
+                                                    <div class="col-xs-4">
                                                         <img class="be-img-70 center-img" src="<%- makeURL('/game_assets/img/be-img2.png') %>" alt="" />
                                                     </div>
-                                                    <div class="col-xs-7">
+                                                    <div class="col-xs-8">
                                                         <h4>
                                                             <strong>Step: 3</strong>
                                                         </h4>
@@ -759,7 +901,7 @@
                                                             <strong>increase in advertising</strong>
                                                         </p>
                                                     </div>
-                                                    <div class="col-xs-5 text-center">
+                                                    <div class="col-xs-4 text-center">
                                                         <img class="be-img-70 center-img" src="<%- makeURL('/game_assets/img/be-img3.png') %>" alt="" />
                                                     </div>
                                                 </div>
@@ -782,7 +924,7 @@
                                     <div class="item-content">
                                         <div class="">
                                             <div class="container">
-                                                <div class="row">
+                                                <div class="row mb20">
                                                     <div class="col-xs-12 text-center">
                                                         <h4>
                                                             <strong>Criteria: 1</strong>
@@ -942,6 +1084,7 @@
     <!-- Libraries -->
     <script src="<%- makeURL('/socket.io/socket.io.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/jquery-1.11.0.min.js') %>"></script>
+    <script type="text/javascript" src="<%- makeURL('/js/jquery.jstepper.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/highcharts.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/bootstrap/js/bootstrap.min.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/js/bootbox.min.js') %>"></script>

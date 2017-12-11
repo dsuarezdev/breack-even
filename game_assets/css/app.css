@@ -410,6 +410,23 @@ span.input-group-addon{
 
 /* Added by dsuarez (TK) */
 
+.navbar-ds {
+  background: #603b62 !important;
+}
+
+.navbar-ds .nav-ds li.brand small {
+  position: initial;
+}
+
+#game-step {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  padding-right: 10px;
+}
+
+#nav-row {
+  background-color: #ebeacb;
+}
 .role-modal-body {
   text-align: left;
 }
@@ -420,6 +437,10 @@ span.input-group-addon{
 
 .be-img-70 {
   width: 70%;
+}
+
+.be-img-100 {
+  width: 100%;
 }
 
 .underline {
@@ -442,12 +463,30 @@ span.input-group-addon{
   padding-left: 0px;
 }
 
+#vc-wrapper {
+  background-color: #ebeacb;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#last-price > h4:last-child,
+#margin-unit > h4:last-child,
+#next-price > h4:last-child {
+  font-weight: bold;
+}
+
 .cost-btn {
   padding: 5px 5px;
-  border: 4px solid #603b62;
+  border: 4px solid #ff8814;
   margin-left: 15px;
   height: 140px;
   margin-top: 10px;
+}
+
+.cost-btn:nth-child(4n + 1),
+.cost-btn:nth-child(4n + 3),
+.cost-btn:nth-child(4n + 5) {
+  border: 4px solid rgba(128, 128, 128, 0.404);
 }
 
 #cost-btn1 {
@@ -477,8 +516,17 @@ span.input-group-addon{
   -webkit-animation-iteration-count: 1;
 }
 
+.visited {
+  color: #6a52ff !important;
+}
+
 .nav-tabs {
   border: 0px;
+}
+
+.nav-tabs > li > a {
+  margin-right: 0px;
+  font-size: 13px;
 }
 
 .nav-tabs > li.active > a,
@@ -487,5 +535,60 @@ span.input-group-addon{
   border: 0px;
   color: #6a52ff;
   font-weight: bold;
+  background-color: transparent;
+}
+
+.nav-tabs > li > a {
+  color: rgba(56, 56, 56, 0.4);
+}
+
+.pl-table {
+  font-size: 16px;
+  margin-top: 20%;
+  border-top: 2px solid #37b5bd;
+}
+
+.pl-label {
+  top: -25px;
+}
+
+#ma-des,
+#ma-val,
+#rd-des,
+#rd-val,
+#sbi-des,
+#sdi-val {
+  display: block;
+}
+
+/* #var-cost-des > #ma-des,
+#var-cost-value > #ma-val,
+#var-cost-des > #rd-des,
+#var-cost-value > #rd-val,
+#fixed-cost-des > #sbi-des,
+#fixed-cost-value > #sbi-val {
+  color: red;
+} */
+
+#pl-alert {
+  margin-bottom: -10%;
+}
+
+#valuec-alert {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.retail-cost-btn:focus {
+  border-color: #603b62;
+}
+
+.valuec-btn {
+  padding: 5px;
+}
+
+.vc-btn-back {
+  background: #ebeacb;
 }
 /* Added by dsuarez (TK) */
