@@ -16,13 +16,20 @@ $(document).ready(function() {
         otherFix: 35000,
         shiBreIn: 360000,
         varMfg: 96000
-      }
+      },
+      fixed: 35000,
+      variable: 2.86
     },
     valueChain: {
-      retail: '',
-      dist: '',
-      saleCom: '',
-      profit: ''
+      retail: 0,
+      dist: 0,
+      saleCom: 0,
+      profit: 0
+    },
+    breakEven: {
+      lastyProfit: 0,
+      quantity: 0,
+      marketShare: 0
     },
     opt: {
       markAdv: '',
@@ -139,6 +146,11 @@ $(document).ready(function() {
 
   $('#cost-confirm-btn').click(function() {
     $('#rootwizard').bootstrapWizard('next');
+
+    Object.keys(game.opt).map(function(prop) {
+      if (game.opt[prop] === 'Fixed Cost') game.cost.fixed += game.cost.abs[prop];
+      else game.cost.variable += game.cost.unit[prop];
+    });
   });
 
   function appendToPlCostTable(id, description, cost, costType) {
@@ -247,7 +259,8 @@ $(document).ready(function() {
 
   $('#con-next-btn').click(function() {
     game.valueChain.profit = parseFloat($('#con-cost-input').val());
-    console.log(game.valueChain);
+    game.cost.variable += game.valueChain.saleCom;
+    breakEvenChart();
   });
 
   function errorAlert(e) {
@@ -267,5 +280,176 @@ $(document).ready(function() {
 
   /**********************************************/
   /**************** /VALUE CHAIN LOGIC **********/
+  /**********************************************/
+
+  /**********************************************/
+  /**************** BREAK-EVEN LOGIC ************/
+  /**********************************************/
+
+  $('#lasty-profit-input, #be-qty-input').jStepper({
+    minValue: 0,
+    maxValue: 1000000,
+    allowDecimals: false,
+    maxDecimals: 2
+  });
+
+  $('#be-share-btn').click(function() {
+    $('#units-wrapper').addClass('hide');
+    $('#share-wrapper').removeClass('hide');
+  });
+
+  $('#be-unit-btn').click(function() {
+    $('#units-wrapper').removeClass('hide');
+    $('#share-wrapper').addClass('hide');
+  });
+
+  $('#lasty-profit-input').keyup(function() {
+    $('#lasty-next-btn').removeClass('hide');
+  });
+
+  $('#lasty-next-btn').click(function() {
+    game.breakEven.lastyProfit = parseFloat($('#lasty-profit-input').val());
+    breakEvenChart();
+    $('#lasty-profit-wrapper').addClass('hide');
+    $('#be-qty-wrapper').removeClass('hide');
+  });
+
+  $('#be-qty-input').keyup(function() {
+    $('#qty-next-btn').removeClass('hide');
+  });
+
+  $('#qty-next-btn').click(function() {
+    game.breakEven.quantity = parseFloat($('#be-qty-input').val());
+    breakEvenChart2();
+    $('#be-share-btn').click();
+  });
+
+  $('#be-share-input').keyup(function() {
+    $('#share-next-btn').removeClass('hide');
+  });
+  $('#share-next-btn').click(function() {
+    game.breakEven.marketShare = parseFloat($('#be-share-input').val());
+    console.log(game.breakEven);
+  });
+
+  function breakEvenChart() {
+    $('#be-chart1').highcharts({
+      chart: {
+        type: 'bar',
+        width: 340
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        categories: ['Unit Contribution', 'Variable Cost', 'Fixed Cost', 'Last year Profit'],
+        allowDecimals: false
+      },
+      yAxis: {
+        allowDecimals: false
+      },
+      legend: {
+        enabled: false
+      },
+      exporting: { enabled: false },
+      tooltip: {
+        enabled: false
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true,
+            format: '€{y}'
+          }
+        }
+      },
+
+      series: [
+        {
+          name: 'Amount',
+          data: [
+            {
+              y: game.valueChain.profit,
+              name: 'First',
+              color: 'blue'
+            },
+            {
+              y: game.cost.variable,
+              name: 'Second',
+              color: 'green'
+            },
+            {
+              y: game.cost.fixed,
+              name: 'Third',
+              color: 'yellow'
+            },
+            {
+              y: game.breakEven.lastyProfit,
+              name: 'Fourth',
+              color: 'orange'
+            }
+          ]
+        }
+      ]
+    });
+  }
+  function breakEvenChart2() {
+    $('#be-chart2').highcharts({
+      chart: {
+        type: 'bar',
+        width: 340
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        categories: ['Break-even Units', 'LY Market Sales', 'LY Market Units'],
+        allowDecimals: false
+      },
+      yAxis: {
+        allowDecimals: false
+      },
+      legend: {
+        enabled: false
+      },
+      exporting: { enabled: false },
+      tooltip: {
+        enabled: false
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true,
+            format: '€{y}'
+          }
+        }
+      },
+
+      series: [
+        {
+          name: 'Amount',
+          data: [
+            {
+              y: game.breakEven.quantity,
+              name: 'First',
+              color: 'blue'
+            },
+            {
+              y: 600000,
+              name: 'Second',
+              color: 'green'
+            },
+            {
+              y: 800000,
+              name: 'Third',
+              color: 'yellow'
+            }
+          ]
+        }
+      ]
+    });
+  }
+  /**********************************************/
+  /**************** /BREAK-EVEN LOGIC ***********/
   /**********************************************/
 });
