@@ -329,7 +329,6 @@ $(document).ready(function() {
   });
   $('#share-next-btn').click(function() {
     game.breakEven.marketShare = parseFloat($('#be-share-input').val());
-    console.log(game.breakEven);
   });
 
   function breakEvenChart() {
