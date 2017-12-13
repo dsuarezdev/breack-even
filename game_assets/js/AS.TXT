@@ -1,0 +1,53 @@
+$(function() {
+  $('#container').highcharts({
+
+    chart: {
+      type: 'bar',
+    },
+    title: {
+      text: 'Break-Even'
+    },
+    xAxis: {
+      categories: ['Unit Contribution', 'Variable Cost', 'Fixed Cost', 'Last year Profit'],
+      allowDecimals: false
+    },
+    yAxis: {
+      allowDecimals: false
+    },
+    legend: {
+      enabled: false
+    },
+    ooltip: {
+      valueSuffix: ' millions'
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+
+    series: [{
+      name: "Amount",
+      data: [{
+        y: 7800.99,
+        name: 'First',
+        color: 'blue'
+      }, {
+        y: 7000,
+        name: 'Second',
+        color: 'green'
+      }, {
+        y: 9000,
+        name: 'Third',
+        color: 'yellow'
+      }, {
+        y: 1000,
+        name: 'Fourth',
+        color: 'orange'
+      }, ]
+    }],
+
+  });
+});

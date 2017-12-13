@@ -251,7 +251,7 @@
                             of €900,000 and an annual advertising budget of €500,000. The Marine Band manager’s salary and
                             expenses totaled €35,000. Marine Band salespeople working for Hohner were paid solely by a 10%
                             commission on Hohner’s sales. Shipping costs, breakage, and insurance were €0.60 per unit. </p>
-                        <a id="des-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a>
+                        <a id="des-next" class="wz-next btn btn-primary btn-lg btn-block mt40">Next</a>
                     </div>
 
                     <div id="cost" class="tab-pane fade">
@@ -348,7 +348,7 @@
                             </div>
                         </div>
                         <!-- <a id="cost-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a> -->
-                        <a id="pl-modal-btn" data-toggle="modal" data-target="#pl-modal" class="btn btn-primary btn btn-block mt40">Review P&amp;L</a>
+                        <a id="pl-modal-btn" data-toggle="modal" data-target="#pl-modal" class="btn btn-primary btn-lg btn-block mt40">Review P&amp;L</a>
                     </div>
 
                     <div id="valuec" class="tab-pane fade">
@@ -393,7 +393,7 @@
                                             <span class="input-group-addon">€</span>
                                             <input id="retail-cost-input" type="number" class="form-control currency" />
                                         </div>
-                                        <a id="retail-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                        <a id="retail-next-btn" class="btn btn-primary btn-lg btn-block mt10 hide">Next</a>
                                     </div>
                                     <div id="dist-wrapper" class="hide">
                                         <p class="lead">Calculate Mfg. Price (Distribuitor Cost)</p>
@@ -401,7 +401,7 @@
                                             <span class="input-group-addon">€</span>
                                             <input id="dist-cost-input" type="number" class="form-control currency" />
                                         </div>
-                                        <a id="dist-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                        <a id="dist-next-btn" class="btn btn-primary btn-lg btn-block mt10 hide">Next</a>
                                     </div>
                                     <div id="mfg-wrapper" class="hide">
                                         <p class="lead">At a 10% rate, how much is the company paying in sales comission</p>
@@ -409,7 +409,7 @@
                                             <span class="input-group-addon">€</span>
                                             <input id="sc-cost-input" type="number" class="form-control currency" />
                                         </div>
-                                        <a id="sc-next-btn" class="btn btn-primary btn btn-block mt10 hide">Next</a>
+                                        <a id="sc-next-btn" class="btn btn-primary btn-lg btn-block mt10 hide">Next</a>
                                     </div>
                                     <div id="con-wrapper" class="hide">
                                         <p class="lead">Calculate Unit Profit (Contribution)</p>
@@ -417,7 +417,7 @@
                                             <span class="input-group-addon">€</span>
                                             <input id="con-cost-input" type="number" class="form-control currency" />
                                         </div>
-                                        <a id="con-next-btn" class="wz-next btn btn-primary btn btn-block mt10 hide">Confirm</a>
+                                        <a id="con-next-btn" class="wz-next btn btn-primary btn-lg btn-block mt10 hide">Confirm</a>
                                     </div>
 
                                 </div>
@@ -427,13 +427,86 @@
                         <!-- <a id="valuec-next" class="wz-next btn btn-primary btn btn-block mt40">Next</a> -->
                     </div>
                     <div id="break" class="tab-pane fade">
-                        <h3>Break-Even</h3>
-                        <p>Some content in menu 2.</p>
-                        <span id="to-screen-4" class="wz-next btn btn-primary btn-lg btn-block mt40">Next</span>
+
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h3>Break-Even: </h3>
+                                </div>
+                                <div class="col-xs-6 mt20">
+                                    <div class="btn-group" role="group" aria-label="">
+                                        <button id="be-unit-btn" class="btn btn-default">Unit</button>
+                                        <button id="be-share-btn" class="btn btn-default">Share</button>
+                                    </div>
+                                </div>
+                                <div id="be-wrapper" class="col-xs-12">
+
+                                    <div id="units-wrapper">
+                                        <div id="be-chart1"></div>
+                                        <div id="lasty-profit-wrapper">
+                                            <h4>What is last year's profit?
+                                                <br> (Last Year units: 600k) </h4>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">units</span>
+                                                <input id="lasty-profit-input" type="number" class="form-control currency" />
+                                            </div>
+                                            <span id="lasty-next-btn" class="btn btn-primary btn-lg btn-block mt40 hide">Next</span>
+                                        </div>
+                                        <div id="be-qty-wrapper" class="hide">
+                                            <h4>What is the Break-even quantity?</h4>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">units</span>
+                                                <input id="be-qty-input" type="number" class="form-control currency" />
+                                            </div>
+                                            <span id="qty-next-btn" class="btn btn-primary btn-lg btn-block mt40 hide">Next</span>
+                                        </div>
+                                    </div>
+                                    <div id="share-wrapper" class="hide">
+                                        <div id="be-chart2"></div>
+                                        <h4>What is the break-even market share?</h4>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">units</span>
+                                            <input id="be-share-input" type="number" class="form-control currency" />
+                                        </div>
+                                        <span id="share-next-btn" class="wz-next btn btn-primary btn-lg btn-block mt40 hide">Next</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="submit" class="tab-pane fade">
                         <h3>Menu 2</h3>
-                        <p>Some content in menu 2.</p>
+                        <div class="submit">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="row">
+                                            <div class="col-xs-1">X</div>
+                                            <div class="col-xs-2">X</div>
+                                            <div class="col-xs-1">X</div>
+                                            <div class="col-xs-2">X</div>
+                                            <div class="col-xs-1">X</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                    </div>
+
+                                    <div class="item">
+                                    </div>
+                                </div>
+
+                                <!-- Left and right controls -->
+                                <a href="#myCarousel" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a href="#myCarousel" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
                         <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt40">Next</span>
                     </div>
                 </div>
