@@ -410,6 +410,48 @@ span.input-group-addon{
 
 /* Added by dsuarez (TK) */
 
+.col-rpad {
+  padding-right: 0px;
+}
+.col-lpad {
+  padding-left: 0px;
+}
+.col-pad-min {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.box:nth-child(4n + 2),
+.box:nth-child(4n + 4),
+.box:nth-child(4n + 6) {
+  border-left: 0px;
+  padding-top: 20%;
+}
+.box {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 5px;
+  height: 70px;
+}
+.box2 {
+  border: 1px solid #603b62;
+}
+.brd {
+  border-top: 2px solid #37b5bd;
+  border-bottom: 2px solid #37b5bd;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.submit-title {
+  background: #5f3b6256;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.divider {
+  border-bottom: 1px solid #000;
+  height: 50px;
+}
+
 .navbar-ds {
   background: #603b62 !important;
 }
@@ -427,7 +469,7 @@ span.input-group-addon{
 #nav-row {
   background-color: #ebeacb;
 }
-.role-modal-body {
+.role-modal-bsales-comody {
   text-align: left;
 }
 
@@ -524,6 +566,10 @@ span.input-group-addon{
   border: 0px;
 }
 
+#sales-val {
+  color: #ff0000;
+}
+
 .nav-tabs > li > a {
   margin-right: 0px;
   font-size: 13px;
@@ -588,7 +634,7 @@ span.input-group-addon{
   padding: 5px;
 }
 
-.vc-btn-back {
+.vc-btn-bg {
   background: #ebeacb;
 }
 /* Added by dsuarez (TK)  linear-gradient(135deg,  #00c1ca 0%,#00c1ca 54.5%,#843fff 53.5%,#843fff 100%) !important*/

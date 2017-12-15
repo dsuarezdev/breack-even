@@ -214,7 +214,7 @@
                     <div id="nav-col" class="col-xs-12">
                         <ul>
                             <li id="des-tab" class="active">
-                                <a data-toggle="tab" href="#description">Description &ensp;
+                                <a data-toggle="tab" href="#description">Desc. &ensp;
                                     <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                                 </a>
                             </li>
@@ -229,7 +229,7 @@
                                 </a>
                             </li>
                             <li id="break-tab">
-                                <a data-toggle="tab" href="#break">Break-Event &ensp;
+                                <a data-toggle="tab" href="#break">Break-Even &ensp;
                                     <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
                                 </a>
                             </li>
@@ -402,6 +402,7 @@
                                             <input id="dist-cost-input" type="number" class="form-control currency" />
                                         </div>
                                         <a id="dist-next-btn" class="btn btn-primary btn-lg btn-block mt10 hide">Next</a>
+                                        <a id="dist-back-btn" class="mt30 text-center">Back</a>
                                     </div>
                                     <div id="mfg-wrapper" class="hide">
                                         <p class="lead">At a 10% rate, how much is the company paying in sales comission</p>
@@ -410,6 +411,7 @@
                                             <input id="sc-cost-input" type="number" class="form-control currency" />
                                         </div>
                                         <a id="sc-next-btn" class="btn btn-primary btn-lg btn-block mt10 hide">Next</a>
+                                        <a id="sc-back-btn" class="mt30 text-center">Back</a>
                                     </div>
                                     <div id="con-wrapper" class="hide">
                                         <p class="lead">Calculate Unit Profit (Contribution)</p>
@@ -418,6 +420,7 @@
                                             <input id="con-cost-input" type="number" class="form-control currency" />
                                         </div>
                                         <a id="con-next-btn" class="wz-next btn btn-primary btn-lg btn-block mt10 hide">Confirm</a>
+                                        <a id="con-back-btn" class="mt30 text-center">Back</a>
                                     </div>
 
                                 </div>
@@ -475,39 +478,169 @@
                         </div>
                     </div>
                     <div id="submit" class="tab-pane fade">
-                        <h3>Menu 2</h3>
+
                         <div class="submit">
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                        <div class="row">
-                                            <div class="col-xs-1">X</div>
-                                            <div class="col-xs-2">X</div>
-                                            <div class="col-xs-1">X</div>
-                                            <div class="col-xs-2">X</div>
-                                            <div class="col-xs-1">X</div>
+                                        <h3 class="submit-title">Value-Chain Analysis</h3>
+                                        <div class="row mt20">
+                                            <div class="col-xs-3">
+                                                <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img1.png') %>" alt="" />
+                                                <small>Retail</small>
+                                            </div>
+                                            <div class="col-xs-1 divider"></div>
+                                            <div class="col-xs-3">
+                                                <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img2.png') %>" alt="" />
+                                                <small>Distribuitor</small>
+                                            </div>
+                                            <div class="col-xs-1 divider"></div>
+                                            <div class="col-xs-3">
+                                                <img class="be-img-50 center-img" src="<%- makeURL('/game_assets/img/be-img3.png') %>" alt="" />
+                                                <small>Manufacturing</small>
+                                            </div>
+                                        </div>
+                                        <div class="row mt10">
+                                            <div class="col-xs-4 col-rpad">
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Price:
+                                                        <br>Retail</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">€30.00</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Margin:
+                                                        <br>Retail</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">33%</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Cost:
+                                                        <br>Retail</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p id="cost-retail" class="lead"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-pad-min">
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Price:
+                                                        <br>Distr.</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">€20.10</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Margin:
+                                                        <br>Distr.</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">12%</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Cost:
+                                                        <br>Distr.</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p id="cost-dist" class="lead"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-lpad">
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Price:
+                                                        <br>Mfg.</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">€11.00</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <small class="">Unit Contrib.:
+                                                        <br>Mfg.</small>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p id="cost-profit" class="lead"></p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">Cost:
+                                                        <br>Mfg.</p>
+                                                </div>
+                                                <div class="col-xs-6 box">
+                                                    <p class="lead">€5.07</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt20 mb40 brd">
+                                            <div class="col-xs-8">
+                                                Sales commissions (10%)
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <span id="sale-com"></span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="item">
+                                        <h3 class="submit-title">Break-even & Profitability Analysis</h3>
+                                        <div class="row mt20">
+                                            <div class="col-xs-2 col-xs-offset-1">B-E
+                                                <br>Units
+                                            </div>
+                                            <div class="col-xs-4 col-xs-offset-1 box2">
+                                                <h5 id="be-units"></h5>
+                                            </div>
+                                        </div>
+                                        <p class="lead text-center">Your Calc.</p>
+                                        <div class="row">
+                                            <div class="col-xs-2 col-xs-offset-1">B-E
+                                                <br>Share
+                                            </div>
+                                            <div class="col-xs-4 col-xs-offset-1 box2">
+                                                <h5 id="be-shares"></h5>
+                                            </div>
+                                        </div>
+                                        <p class="lead text-center">Your Calc.</p>
+                                        <div class="row">
+                                            <div class="col-xs-3 col-xs-offset-1">Net-Zero
+                                                <br>&pi; Units
+                                            </div>
+                                            <div class="col-xs-4 box2">
+                                                <h5 id="be-units2"></h5>
+                                            </div>
+                                        </div>
+                                        <p class="lead text-center">Your Calc.</p>
+                                        <div class="row">
+                                            <div class="col-xs-3 col-xs-offset-1">Net-Zero
+                                                <br>&pi; Share
+                                            </div>
+                                            <div class="col-xs-4 box2">
+                                                <h5 id="be-shares2"></h5>
+                                            </div>
+                                        </div>
+                                        <p class="lead text-center">Your Calc.</p>
                                     </div>
 
                                     <div class="item">
+                                        <h3 class="submit-title">P&amp;L: Costs</h3>
+                                        <div id="submit-pl-wrapper" class="container mb40 text-left">
+
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!-- Left and right controls -->
-                                <a href="#myCarousel" data-slide="prev">
+                                <a class="btn btn-primary" href="#myCarousel" data-slide="prev">
                                     <span class="glyphicon glyphicon-chevron-left"></span>
                                 </a>
-                                <a href="#myCarousel" data-slide="next">
+                                <a class="btn btn-primary" href="#myCarousel" data-slide="next">
                                     <span class="glyphicon glyphicon-chevron-right"></span>
                                 </a>
                             </div>
                         </div>
-                        <span id="to-screen-4" class="btn btn-primary btn-lg btn-block mt40">Next</span>
+                        <span id="submit-btn" class="btn btn-success btn-lg btn-block mt40">Submit</span>
                     </div>
                 </div>
             </div>
@@ -534,7 +667,7 @@
                             <strong>Wait!</strong> First things first. One or more cost centers still needs to be assigned to a category
                             before you can advance to the next phase.
                         </div>
-                        <div class="container">
+                        <div id="pl-costs-table" class="container text-left">
                             <div id="fixed-cost-table" class="row pl-table">
                                 <div class="col-xs-4 col-xs-offset-8 pl-label">
                                     €000s
@@ -555,8 +688,8 @@
                                     <span>Sales Comission</span>
                                     <span>Variable Manufacturing Cost</span>
                                 </div>
-                                <div class="col-xs-2" id="var-cost-value">
-                                    <span>€0.16</span>
+                                <div class="col-xs-1" id="var-cost-value">
+                                    <span id="sales-val">Pending</span>
                                     <span>€2.70</span>
                                 </div>
                             </div>
@@ -1179,7 +1312,7 @@
     <script type="text/javascript" src="<%- makeURL('/game_assets/js/debrief_utils.js') %>"></script>
     <script type="text/javascript" src="<%- makeURL('/game_assets/js/game_utils.js') %>"></script>
     <!-- Added by dsuarez(tk) -->
-    <script type="text/javascript" src="<%- makeURL('/game_assets/js/game-logic.js') %>"></script>
+    <!-- <script type="text/javascript" src="<%- makeURL('/game_assets/js/game-logic.js') %>"></script> -->
 
     <!-- Inline Script -->
     <script>

@@ -35,7 +35,8 @@ $(document).ready(function() {
       markAdv: '',
       reseDev: '',
       shiBreIn: ''
-    }
+    },
+    canBack: false
   };
 
   var validation = {
@@ -57,7 +58,9 @@ $(document).ready(function() {
       if (index == 3) $('#valuec-tab > a').addClass('visited');
       if (index == 4) $('#break-tab > a').addClass('visited');
     },
-    onTabChange: function(tab, navigation, index) {}
+    onTabClick: function(tab, navigation, index) {
+      return game.canBack;
+    }
   });
 
   /**********************************************/
@@ -185,7 +188,7 @@ $(document).ready(function() {
     maxDecimals: 2
   });
 
-  $('#retail-cost-btn').addClass('vc-btn-back');
+  $('#retail-cost-btn').addClass('vc-btn-bg');
   document.getElementById('retail-cost-input').focus();
 
   $('#retail-cost-input').keyup(function(e) {
@@ -212,8 +215,8 @@ $(document).ready(function() {
   $('#retail-next-btn').click(function() {
     $('#dist-cost-input').focus();
 
-    $('#dist-cost-btn').addClass('vc-btn-back');
-    $('#retail-cost-btn, #mfg-cost-btn').removeClass('vc-btn-back');
+    $('#dist-cost-btn').addClass('vc-btn-bg');
+    $('#retail-cost-btn, #mfg-cost-btn').removeClass('vc-btn-bg');
 
     $('#dist-wrapper').removeClass('hide');
     $('#retail-wrapper, #mfg-wrapper, #con-wrapper').addClass('hide');
@@ -229,8 +232,8 @@ $(document).ready(function() {
   });
 
   $('#dist-next-btn').click(function() {
-    $('#mfg-cost-btn').addClass('vc-btn-back');
-    $('#retail-cost-btn, #dist-cost-btn').removeClass('vc-btn-back');
+    $('#mfg-cost-btn').addClass('vc-btn-bg');
+    $('#retail-cost-btn, #dist-cost-btn').removeClass('vc-btn-bg');
 
     $('#mfg-wrapper').removeClass('hide');
     $('#retail-wrapper, #dist-wrapper, #con-wrapper').addClass('hide');
@@ -248,6 +251,13 @@ $(document).ready(function() {
       .css('color', 'red');
   });
 
+  $('#dist-back-btn').click(function() {
+    $('#retail-cost-btn').addClass('vc-btn-bg');
+    $('#mfg-cost-btn, #dist-cost-btn').removeClass('vc-btn-bg');
+    $('#retail-wrapper').removeClass('hide');
+    $('#mfg-wrapper, #dist-wrapper, #con-wrapper').addClass('hide');
+  });
+
   $('#sc-next-btn').click(function() {
     game.valueChain.saleCom = parseFloat($('#price-cost').text());
 
@@ -257,10 +267,22 @@ $(document).ready(function() {
     document.getElementById('con-cost-input').focus();
   });
 
+  $('#sc-back-btn').click(function() {
+    $('#dist-cost-btn').addClass('vc-btn-bg');
+    $('#retail-cost-btn, #mfg-cost-btn').removeClass('vc-btn-bg');
+    $('#dist-wrapper').removeClass('hide');
+    $('#mfg-wrapper, #retail-wrapper, #con-wrapper').addClass('hide');
+  });
+
   $('#con-next-btn').click(function() {
     game.valueChain.profit = parseFloat($('#con-cost-input').val());
     game.cost.variable += game.valueChain.saleCom;
     breakEvenChart();
+  });
+
+  $('#con-back-btn').click(function() {
+    $('#mfg-wrapper').removeClass('hide');
+    $('#dist-wrapper, #retail-wrapper, #con-wrapper').addClass('hide');
   });
 
   function errorAlert(e) {
@@ -295,6 +317,7 @@ $(document).ready(function() {
 
   $('#be-share-btn').click(function() {
     $('#units-wrapper').addClass('hide');
+    breakEvenChart2();
     $('#share-wrapper').removeClass('hide');
   });
 
@@ -450,5 +473,46 @@ $(document).ready(function() {
   }
   /**********************************************/
   /**************** /BREAK-EVEN LOGIC ***********/
+  /**********************************************/
+
+  /**********************************************/
+  /**************** SUBMIT LOGIC ****************/
+  /**********************************************/
+
+  $('#share-next-btn').click(function() {
+    game.canBack = true;
+    $('#cost-retail').text(formatter.format(game.valueChain.retail));
+    $('#cost-retail')
+      .parent()
+      .css('background', '#ebeacb');
+    $('#cost-dist').text(formatter.format(game.valueChain.dist));
+    $('#cost-dist')
+      .parent()
+      .css('background', '#ebeacb');
+    $('#cost-profit').text(formatter.format(game.valueChain.profit));
+    $('#cost-profit')
+      .parent()
+      .css('background', '#ebeacb');
+    $('#sale-com').text(formatter.format(game.valueChain.saleCom));
+
+    $('#be-units, #be-units2').text(game.breakEven.quantity);
+    $('#be-shares, #be-shares2').text(game.breakEven.marketShare);
+    $('#submit-pl-wrapper').append($('#pl-costs-table'));
+    $('#sales-val').text(formatter.format(game.valueChain.saleCom));
+    $('#sales-val').css('color', '#445360');
+  });
+
+  $('#submit-btn').click(function() {
+    saveBeResults({
+      gameStep: 1,
+      variableCost: game.cost.variable,
+      fixedCost: game.cost.fixed,
+      valueChain: game.valueChain,
+      breakEven: game.breakEven
+    });
+  });
+
+  /**********************************************/
+  /**************** /SUBMIT LOGIC ***************/
   /**********************************************/
 });
