@@ -866,6 +866,34 @@ function appinit(o) {
         valueChain: game.valueChain,
         breakEven: game.breakEven
       });
+      if (game.valueChain.retail === 20.1) {
+        $('#cost-retail')
+          .parent()
+          .css('background', 'green')
+          .css('border-color', 'green');
+      } else {
+        $('#cost-retail')
+          .parent()
+          .css('border-color', 'red');
+      }
+      if (game.valueChain.retail === 20.1) {
+        $('cost-dist')
+          .parent()
+          .css('border-color', 'green');
+      } else {
+        $('cost-dist')
+          .parent()
+          .css('border-color', 'red');
+      }
+      if (game.valueChain.retail === 20.1) {
+        $('cost-profit')
+          .parent()
+          .css('border-color', 'green');
+      } else {
+        $('cost-profit')
+          .parent()
+          .css('border-color', 'red');
+      }
     });
 
     /**********************************************/
@@ -880,6 +908,7 @@ function appinit(o) {
       message: 'Please confirm your assessment.',
       callback: function(result) {
         if (result) {
+          console.log('saving!!');
           socket.emit(
             'result',
             { game_id: gameId, email: playerEmail, token: playerToken, result: beResults },
@@ -889,7 +918,8 @@ function appinit(o) {
               // Any errors?
               if (gres.error) return console.log(gres.error);
 
-              return toFrame(appbox, 'screen6', 'R', 'L', 300, false);
+              // return toFrame(appbox, 'screen6', 'R', 'L', 300, false);
+              bootbox.hideAll();
             }
           );
         }
