@@ -607,38 +607,14 @@ span.input-group-addon{
   display: block;
 }
 
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #variable-cost-table
-  > #var-cost-des
-  > #ma-des,
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #variable-cost-table
-  > #var-cost-value
-  > #ma-val,
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #variable-cost-table
-  > #var-cost-des
-  > #rd-des,
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #variable-cost-table
-  > #var-cost-value
-  > #rd-val,
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #fixed-cost-table
-  > #fixed-cost-des
-  > #sbi-des,
-#submit-pl-wrapper
-  > #pl-costs-table
-  > #fixed-cost-table
-  > #fixed-cost-value
-  > #sbi-val {
+#submit-pl-wrapper > #pl-costs-table > #variable-cost-table > #var-cost-des > #ma-des,
+#submit-pl-wrapper > #pl-costs-table > #variable-cost-table > #var-cost-value > #ma-val,
+#submit-pl-wrapper > #pl-costs-table > #variable-cost-table > #var-cost-des > #rd-des,
+#submit-pl-wrapper > #pl-costs-table > #variable-cost-table > #var-cost-value > #rd-val,
+#submit-pl-wrapper > #pl-costs-table > #fixed-cost-table > #fixed-cost-des > #sbi-des,
+#submit-pl-wrapper > #pl-costs-table > #fixed-cost-table > #fixed-cost-value > #sbi-val {
   color: red;
-  text-transform: line-through;
+  text-decoration: line-through;
 }
 
 #pl-alert {

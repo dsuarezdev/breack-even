@@ -59,30 +59,26 @@ function appinit(o) {
   socket = io.connect(o.io_domain, { path: o.io_path });
 
   // Enter the Game
-  socket.emit(
-    'enter',
-    { game_id: gameId, email: playerEmail, token: playerToken },
-    function(game) {
-      // Any errors?
-      if (game.error) return console.log(game.error);
+  socket.emit('enter', { game_id: gameId, email: playerEmail, token: playerToken }, function(game) {
+    // Any errors?
+    if (game.error) return console.log(game.error);
 
-      // Nice, the game exists and we've joined!
-      if (game._id) {
-        gameData = game;
-        console.log('gameData', gameData);
+    // Nice, the game exists and we've joined!
+    if (game._id) {
+      gameData = game;
+      console.log('gameData', gameData);
 
-        // If game is "finalized", then *return* and move to the summary
-        if (game.status == 'finalized') {
-          toFrame(appbox, 'screen6', 'R', 'L', 300, false);
-          loader.classList.add('loading');
-        }
+      // If game is "finalized", then *return* and move to the summary
+      if (game.status == 'finalized') {
+        toFrame(appbox, 'screen6', 'R', 'L', 300, false);
+        loader.classList.add('loading');
+      }
 
-        // If game is launched & started
-        if (game.status == 'launched') {
-        }
+      // If game is launched & started
+      if (game.status == 'launched') {
       }
     }
-  );
+  });
 
   socket.on('finalize', function() {
     toFrame(appbox, 'debrief-1', 'R', 'L', 300, false);
@@ -466,15 +462,8 @@ function appinit(o) {
       validation.cost.btn1Clicked = true;
       game.opt.markAdv = $('#ma-opt').text();
       var cost =
-        $('#ma-opt').text() === 'Fixed Cost'
-          ? game.cost.abs.markAdv
-          : game.cost.unit.markAdv;
-      appendToPlCostTable(
-        'ma',
-        'Marketing & Advertising',
-        cost,
-        $('#ma-opt').text()
-      );
+        $('#ma-opt').text() === 'Fixed Cost' ? game.cost.abs.markAdv : game.cost.unit.markAdv;
+      appendToPlCostTable('ma', 'Marketing & Advertising', cost, $('#ma-opt').text());
     });
 
     $('#cost-btn2').click(function() {
@@ -488,15 +477,8 @@ function appinit(o) {
       validation.cost.btn2Clicked = true;
       game.opt.reseDev = $('#rd-opt').text();
       var cost =
-        $('#rd-opt').text() === 'Fixed Cost'
-          ? game.cost.abs.reseDev
-          : game.cost.unit.reseDev;
-      appendToPlCostTable(
-        'rd',
-        'Research & Development',
-        cost,
-        game.opt.reseDev
-      );
+        $('#rd-opt').text() === 'Fixed Cost' ? game.cost.abs.reseDev : game.cost.unit.reseDev;
+      appendToPlCostTable('rd', 'Research & Development', cost, game.opt.reseDev);
     });
 
     $('#cost-btn3').click(function() {
@@ -510,15 +492,8 @@ function appinit(o) {
       validation.cost.btn3Clicked = true;
       game.opt.shiBreIn = $('#sbi-opt').text();
       var cost =
-        $('#sbi-opt').text() === 'Fixed Cost'
-          ? game.cost.abs.shiBreIn
-          : game.cost.unit.shiBreIn;
-      appendToPlCostTable(
-        'sbi',
-        'Shipping, Breakage, Insurance, etc.',
-        cost,
-        game.opt.shiBreIn
-      );
+        $('#sbi-opt').text() === 'Fixed Cost' ? game.cost.abs.shiBreIn : game.cost.unit.shiBreIn;
+      appendToPlCostTable('sbi', 'Shipping, Breakage, Insurance, etc.', cost, game.opt.shiBreIn);
     });
 
     $('#pl-modal-btn').click(function() {
@@ -536,16 +511,14 @@ function appinit(o) {
       $('#rootwizard').bootstrapWizard('next');
 
       Object.keys(game.opt).map(function(prop) {
-        if (game.opt[prop] === 'Fixed Cost')
-          game.cost.fixed += game.cost.abs[prop];
+        if (game.opt[prop] === 'Fixed Cost') game.cost.fixed += game.cost.abs[prop];
         else game.cost.variable += game.cost.unit[prop];
       });
     });
 
     function appendToPlCostTable(id, description, cost, costType) {
       var elementDes = '<span id="' + id + '-des">' + description + '</span>';
-      var elementVal =
-        '<span id="' + id + '-val">' + formatter.format(cost) + '</span>';
+      var elementVal = '<span id="' + id + '-val">' + formatter.format(cost) + '</span>';
 
       $('#' + id + '-des').remove();
       $('#' + id + '-val').remove();
@@ -568,9 +541,7 @@ function appinit(o) {
     /**************** VALUE CHAIN LOGIC ***********/
     /**********************************************/
 
-    $(
-      '#retail-cost-input, #dist-cost-input, #sc-cost-input, #con-cost-input'
-    ).jStepper({
+    $('#retail-cost-input, #dist-cost-input, #sc-cost-input, #con-cost-input').jStepper({
       minValue: 0,
       maxValue: 30,
       allowDecimals: true,
@@ -581,9 +552,7 @@ function appinit(o) {
     document.getElementById('retail-cost-input').focus();
 
     $('#retail-cost-input').keyup(function(e) {
-      $('#price-cost').text(
-        parseFloat($('#retail-cost-input').val()).toFixed(2)
-      );
+      $('#price-cost').text(parseFloat($('#retail-cost-input').val()).toFixed(2));
       $('#retail-next-btn').removeClass('hide');
       errorAlert(e);
     });
@@ -755,12 +724,7 @@ function appinit(o) {
           text: ''
         },
         xAxis: {
-          categories: [
-            'Unit Contribution',
-            'Variable Cost',
-            'Fixed Cost',
-            'Last year Profit'
-          ],
+          categories: ['Unit Contribution', 'Variable Cost', 'Fixed Cost', 'Last year Profit'],
           allowDecimals: false
         },
         yAxis: {
@@ -821,11 +785,7 @@ function appinit(o) {
           text: ''
         },
         xAxis: {
-          categories: [
-            'Break-even Units',
-            'LY Market Sales',
-            'LY Market Units'
-          ],
+          categories: ['Break-even Units', 'LY Market Sales', 'LY Market Units'],
           allowDecimals: false
         },
         yAxis: {
@@ -902,7 +862,7 @@ function appinit(o) {
       $('#sales-val').css('color', '#445360');
     });
 
-    $('#submit-btn').click(function() {
+    $('.save-step1').click(function() {
       saveBeResults({
         gameStep: 1,
         variableCost: game.cost.variable,
@@ -920,9 +880,7 @@ function appinit(o) {
           .css('color', 'green');
       } else {
         $('#cost-retail')
-          .append(
-            '<br><span style="color: red">' + formatter.format(20.1) + '<span>'
-          )
+          .append('<br><span style="color: red">' + formatter.format(20.1) + '<span>')
           .parent()
           .css('border', '1px solid red');
 
@@ -940,9 +898,7 @@ function appinit(o) {
           .css('color', 'green');
       } else {
         $('#cost-dist')
-          .append(
-            '<br><span style="color: red">' + formatter.format(11) + '<span>'
-          )
+          .append('<br><span style="color: red">' + formatter.format(11) + '<span>')
           .parent()
           .css('border', '1px solid red');
 
@@ -960,9 +916,7 @@ function appinit(o) {
           .css('color', 'green');
       } else {
         $('#cost-profit')
-          .append(
-            '<br><span style="color: red">' + formatter.format(5.55) + '<span>'
-          )
+          .append('<br><span style="color: red">' + formatter.format(5.55) + '<span>')
           .parent()
           .css('border', '1px solid red');
 
@@ -978,9 +932,7 @@ function appinit(o) {
         $('#icon-sale')
           .addClass('glyphicon glyphicon-remove')
           .css('color', 'red');
-        $('#sale-com').append(
-          '<br><span style="color: red">' + formatter.format(0.16) + '<span>'
-        );
+        $('#sale-com').append('<br><span style="color: red">' + formatter.format(0.16) + '<span>');
       }
 
       // Break Even Analysis Feedback
@@ -1020,6 +972,14 @@ function appinit(o) {
           .parent()
           .css('border', '1px solid red');
       }
+
+      $('#submit-btn')
+        .removeClass('save-step1')
+        .addClass('continue-step2');
+    });
+
+    $('.continue-step2').click(function() {
+      toFrame(appbox, 'screen6', 'R', 'L', 300, false);
     });
 
     /**********************************************/
